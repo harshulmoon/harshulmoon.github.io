@@ -1,47 +1,15 @@
 <html>
  <link rel="icon" href="resources/download.png">
     <body>
-			  <defs>
-			    <filter id="goo">
-			      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-			      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo" />
-			      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-			    </filter>
-			  </defs>
-				      
-	    <div id="cursor" class="Cursor"></div>
 
-        
                  <style>
                   background-image {
                     filter: grayscale();
                   }
                 body {
                   background-image: url('resources/background.png');
-                  cursor: none;
                 }
 
-                  .Cursor, img {
-    pointer-events none
-    position fixed
-    display block
-    border-radius 0
-    transform-origin center center
-    mix-blend-mode difference
-    top 0
-    left 0
-    z-index 1000
-    filter url("#goo")
-    span
-        position absolute
-        display block
-        width: 26px
-        height 26px
-        border-radius 20px
-        background-color: white
-        transform-origin center center
-        transform: translate(-50%, -50%)
-                  }
                    </style>
 
 
