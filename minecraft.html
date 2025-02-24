@@ -1,55 +1,28 @@
-<html style="width:100%;height:100%;background-color:black;"><head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-		<meta name="description" content="Play minecraft 1.8 in your browser">
-		<meta name="keywords" content="eaglercraft, eaglercraftx, minecraft, 1.8, 1.8.8">
-		<title>EaglyMC 1.20 WASM-GC</title>
-		<meta property="og:locale" content="en-US">
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="EaglyMC 1.20 WASM-GC">
-		<meta property="og:description" content="Play minecraft 1.20(kinda) in your browser!">
-		<meta property="og:image" content="favicon.png">
-		<meta http-equiv="origin-trial" content="ArufsN6bHDz97+4j9RJ90oG9iY5GTukouinwK2v8XtR5DV2Gh1zojkwFJSk8auqgbsXuDKlIs6pzO3hz/uT9lQ4AAABkeyJvcmlnaW4iOiJodHRwczovL2VhZ2x5bWMuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJBc3NlbWJseUpTUHJvbWlzZUludGVncmF0aW9uIiwiZXhwaXJ5IjoxNzUzMTQyNDAwfQ==">
-		<link type="image/png" rel="shortcut icon" href="favicon.png">
-		<script type="text/javascript" src="bootstrap.js"></script>
-		<script type="text/javascript">
-			"use strict";
-			window.addEventListener("load", function() {
-				if(window.location.href.indexOf("file:") === 0) {
-					alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
-				}else {
-					
-					// %%%%%%%%% launch options %%%%%%%%%%%%
-					
-					var relayId = Math.floor(Math.random() * 3);
-					window.eaglercraftXOpts = {
-						demoMode: false,
-						container: "game_frame",
-						assetsURI: "assets.epw",
-						worldsDB: "worlds",
-						servers: [
-							/* example: { addr: "ws://localhost:8081/", name: "Local test server" } */
-						],
-						relays: [
-							{ addr: "wss://relay.deev.is/", comment: "lax1dude relay #1", primary: relayId == 0 },
-							{ addr: "wss://relay.lax1dude.net/", comment: "lax1dude relay #2", primary: relayId == 1 },
-							{ addr: "wss://relay.shhnowisnottheti.me/", comment: "ayunami relay #1", primary: relayId == 2 }
-						]
-					};
-					
-					// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-					
-					var q = window.location.search;
-					if((typeof q === "string") && q[0] === "?" && (typeof window.URLSearchParams !== "undefined")) {
-						q = new window.URLSearchParams(q);
-						var s = q.get("server");
-						if(s) window.eaglercraftXOpts.joinServer = s;
-					}
-					
-					main();
-					
-				}
-			});
-		</script>
-	<script type="text/javascript" src="blob:https://eaglymc.com/ebce4f6f-1a04-47aa-8bb6-91db9ccc30f3"></script><script type="text/javascript" src="blob:https://eaglymc.com/dc77d4ed-bd4d-477c-a603-0f60eabb04a6"></script></head>
-	<body style="margin:0px;width:100%;height:100%;overflow:hidden;background-color:black;" id="game_frame" class="_eaglercraftX_root_element"><div class="_eaglercraftX_wrapper_element" style="position: relative; width: 100%; height: 100%; overflow: hidden; background-color: black;"><canvas class="_eaglercraftX_canvas_element" width="1077" height="1011" style="width: 100%; height: 100%; z-index: 1; touch-action: pan-x pan-y; -webkit-tap-highlight-color: rgba(255, 255, 255, 0); image-rendering: pixelated; cursor: default;"></canvas><div class="_eaglercraftX_keyboard_open_zone" style="display: none; position: absolute; background-color: transparent; top: 0px; left: 0px; width: 0px; height: 0px; z-index: 100; touch-action: pan-x pan-y; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);"></div></div></body></html>
+<html>
+  <link rel="icon" type="image/png" href="resources/download.png">
+      <title class="p1">Home | Compass</title>
+  <style type="text/css"> 
+        html { 
+            overflow: auto; 
+        } 
+          
+        html, 
+        body, 
+        div, 
+        iframe { 
+            margin: 0px; 
+            padding: 0px; 
+            height: 100%; 
+            border: none; 
+        } 
+          
+        iframe { 
+            display: block; 
+            width: 100%; 
+            border: none; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
+        } 
+    </style> 
+  <iframe src="https://eaglymc.com/web-wasm/" width="100%" height="100%" allowfullscreen frameborder="0"></iframe>
+</html>
