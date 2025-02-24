@@ -1,32 +1,530 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#382C2A">
+    <meta name="viewport" content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <title>Papa's Burgeria</title>
+    <script async="" src="https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js"></script><script type="text/javascript" src="./js/PapasBurgeria.js"></script><script src="./poki-sdk-core.js" type="text/javascript"></script><script src="./poki-sdk-core.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./js/loader.js"></script>
+	 <script type="text/javascript" src="/controls.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-<html>
-  <link rel="icon" type="image/png" href="resources/download.png">
-      <title class="p1">Home | Compass</title>
-  <style type="text/css"> 
-        html { 
-            overflow: auto; 
-        } 
-          
-        html, 
-        body, 
-        div, 
-        iframe { 
-            margin: 0px; 
-            padding: 0px; 
-            height: 100%; 
-            border: none; 
-        } 
-          
-        iframe { 
-            display: block; 
-            width: 100%; 
-            border: none; 
-            overflow-y: auto; 
-            overflow-x: hidden; 
-        } 
-    .iframeClose active {
-      display: none;
+        canvas {
+            outline: none
+        }
+
+        html,
+        body,
+        #container {
+            margin: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        #splash {
+            position: absolute;
+            visibility: hidden;
+            z-index: 10;
+        }
+
+        #splash__image {
+            position: absolute;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url("assets/todo.gif");
+   	    background-repeat:repeat;
+            visibility: visible;
+            transition: all 0.5s;
+            z-index: 10;
+        }
+
+        #progress__root {
+            position: absolute;
+        }
+
+        #progress__line {
+            width: 0;
+            height: 100%;
+            transition: all 0.5s;
+        }
+    </style>
+<script type="text/javascript" src="//m.igroutka.ru/files/scripts/scr.js"></script><style type="text/css">#bbbox{background:#fff;border-radius:5px;display:table;position:fixed;margin-left:auto;margin-right:auto;left:0;right:0;bottom:-120px;text-align:center;z-index: 9999999;}     #bbbox img{margin:5px;border-radius:20px;width:80px;height:80px;box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;cursor:pointer;}    #bbbox img:hover{width:78px;height:78px;transition: 0.2s;}    .activebox{bottom:10px!important;transition:bottom 1s;}   .nactivebox{bottom:-120px!important;transition:bottom 1s;}    #bbbox span{position:absolute;top:-10px;right:-10px;cursor:pointer;background:#ccc;border-radius:100%;color:#000;padding: 0px 5px 2px 5px;font-size: 20px;font-weight: bold;line-height: 20px;}#bbbox span:hover{color:#fff;background:red}</style><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src="./prebid4.12.0.js"></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src="a6ad999b-97b7-484f-b672-8cec0e3dd536"></script><style>
+	#report__root {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1000;
+		user-select: none;
+		pointer-events: none;
+	}
+	.report__btn {
+		padding: 4px;
+		height: 1.5em;
+		background: #222;
+		color: #eee;
+		text-align: center;
+		font-size: 1.5em;
+		line-height: 1.5em;
+		border-radius: 1.5em;
+		pointer-events: all;
+		box-shadow: 1px 3px 5px 2px black;
+		transition: background-color 0.5s;
+	}
+	.report__btn:hover {
+		cursor: pointer;
+		background: #444;
+	}
+
+	#report__snap:hover {
+		right: -15px;
+		color: #ffc;
+	}
+
+	#report__snap {
+		position: absolute;
+		top: 0.5em;
+		right: -30px;
+		width: 100px;
+		padding: 4px 16px 4px 4px;
+		transition: right 0.5s;
+		display: none;
+	}
+
+	#report__poppup {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: max(60%, 300px);
+		min-height: 40%;
+		max-height: 80%;
+		height: auto;
+		display: none;
+		flex-direction: column;
+		background: #fcc;
+		box-shadow: 1px 3px 5px 2px black;
+		border-radius: 4px;
+		justify-content: space-around;
+		align-items: center;
+		color: #222;
+		padding: 10px;
+	}
+
+	#report__poppup.show{
+		display: flex;
+	}
+
+	#report__text {
+		width: 100%;
+		min-height: 30%;
+		height: auto;
+		background: rgba(255,255,255, 0.5);
+		pointer-events: all;
+	}
+</style><script>(function a(){try{(function b(){debugger;b()})()}catch(e){setTimeout(a,5e3)}})()</script><style>
+    button.in-game-button {
+        position: absolute;
+        z-index: 9999;
+        top: 70px;
+        right: 0;
+        width: 142px;
+        height: 28px;
+        border-radius:  290486px 0 0 290486px;
+        color: #000;
+        padding: 0 10px;
+        line-height: 28px;
+        min-height: 28px;
+        border: none;
+        will-change: transform;
+        animation: bounceY 2s .5s;
+        transition: transform .5s cubic-bezier(.55,0,.1,1);
+        display: flex;
+        align-items: center;
+        justify-content: center
     }
-    </style> 
-  <iframe src="https://ubg365.github.io/papas-burgeria/" width="100%" height="100%" allowfullscreen frameborder="0"></iframe>
-</html>
+    
+    button.in-game-button svg {
+        pointer-events: none;
+        margin-right: .625rem;
+        display: inline-block
+    }
+    
+    button.in-game-button img {
+        pointer-events: none;
+        width: 150px;
+		heigt:60px;
+    }
+    
+    button.in-game-button:hover {
+        background: #b2ada8;
+    }
+    
+    button.in-game-button[attr-active=true] {
+        transform: translateX(0)
+    }
+	
+	
+	
+	button.in-game-button2 {
+        position: absolute;
+		top:0px;
+		text-align:center;
+        z-index: 10000;
+        width: 100%;
+        height: 100%;
+        background: #grey;
+		text-size:30px;
+        color: #000;
+        border-radius:10px;
+    }
+    
+    button.in-game-button2 svg {
+        pointer-events: none;
+        color: #b5b5b5;
+        margin-right: .625rem;
+        display: inline-block
+    }
+    
+    button.in-game-button2 img {
+        pointer-events: none;
+        width: 300px;
+		heigt:100px;
+    }
+    
+    button.in-game-button2:active {
+        background: #1ec2e5
+    }
+    
+    button.in-game-button2[attr-active=true] {
+        transform: translateX(0)
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    @media(max-height: 350px) and (orientation:landscape) {
+        button.in-game-button[attr-active=true] {
+            transform:translateX(-75px)
+        }
+    }
+    
+    button.in-game-button[attr-snapped=true] svg {
+        display: none
+    }
+    
+    button.in-game-button[attr-snapped=true] img {
+        transform: translate(-5px)
+    }
+    
+    i.in-game-trash {
+        z-index: 1;
+        bottom: 0;
+        left: 0;
+        height: 50px;
+        width: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #fff
+    }
+    
+    i.in-game-trash,i.in-game-trash svg {
+        transform: scale(0);
+        position: absolute
+    }
+    
+    i.in-game-trash svg {
+        z-index: 2;
+        left: 20px;
+        bottom: 20px;
+        fill: #fff;
+        will-change: transform;
+        transition: transform .1s cubic-bezier(.55,0,.1,1)
+    }
+    
+    i.in-game-trash:before {
+        content: " ";
+        position: absolute;
+        z-index: 1;
+        bottom: -100px;
+        left: -100px;
+        width: 200px;
+        height: 200px;
+        transform: scale(0);
+        border-radius: 100%;
+        background-color: transparent;
+        will-change: transform,background-color;
+        transition: transform .5s cubic-bezier(.55,0,.1,1),background-color .2s cubic-bezier(.55,0,.1,1)
+    }
+    
+    i.in-game-trash[attr-active=true] {
+        transform: scale(1)
+    }
+    
+    i.in-game-trash[attr-active=true] svg {
+        transition-duration: .8s;
+        transform: scale(1)
+    }
+    
+    i.in-game-trash[attr-active=true]:before {
+        transform: scale(1);
+        background-color: #ed1c24
+    }
+    
+    i.in-game-trash[attr-inrange=true] svg {
+        transition-duration: .2s;
+        transform: scale(0)
+    }
+    
+    i.in-game-trash[attr-inrange=true]:before {
+        transform: scale(1.2);
+        background-color: #ed1c24
+    }
+    .main-nav {
+        z-index: 999;
+        overflow-y: auto;
+        will-change: transform;
+        backface-visibility: hidden;
+        transform: translateX(105%);
+        height: 100%;
+        transition: .3s ease-in-out;
+        background: #f5f5f5;
+        width: 39.5rem;
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding:20px;
+        color:black;
+    }
+    .main-nav.open {
+        transform: translateX(0);
+    }
+    #post{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #3f3424;
+    }
+    #claimBtn{right:0;border-radius: 290486px 0 0 290486px;left:auto}
+    </style><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src="./prebid4.12.0.js"></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src="blob:https://classroom20x.com/67cdfb36-5d8c-446a-9a23-f91f9a4c20dc"></script><style>
+	#report__root {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1000;
+		user-select: none;
+		pointer-events: none;
+	}
+	.report__btn {
+		padding: 4px;
+		height: 1.5em;
+		background: #222;
+		color: #eee;
+		text-align: center;
+		font-size: 1.5em;
+		line-height: 1.5em;
+		border-radius: 1.5em;
+		pointer-events: all;
+		box-shadow: 1px 3px 5px 2px black;
+		transition: background-color 0.5s;
+	}
+	.report__btn:hover {
+		cursor: pointer;
+		background: #444;
+	}
+
+	#report__snap:hover {
+		right: -15px;
+		color: #ffc;
+	}
+
+	#report__snap {
+		position: absolute;
+		top: 0.5em;
+		right: -30px;
+		width: 100px;
+		padding: 4px 16px 4px 4px;
+		transition: right 0.5s;
+		display: none;
+	}
+
+	#report__poppup {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: max(60%, 300px);
+		min-height: 40%;
+		max-height: 80%;
+		height: auto;
+		display: none;
+		flex-direction: column;
+		background: #fcc;
+		box-shadow: 1px 3px 5px 2px black;
+		border-radius: 4px;
+		justify-content: space-around;
+		align-items: center;
+		color: #222;
+		padding: 10px;
+	}
+
+	#report__poppup.show{
+		display: flex;
+	}
+
+	#report__text {
+		width: 100%;
+		min-height: 30%;
+		height: auto;
+		background: rgba(255,255,255, 0.5);
+		pointer-events: all;
+	}
+</style><script>(function a(){try{(function b(){debugger;b()})()}catch(e){setTimeout(a,5e3)}})()</script></head>
+<body>
+<div id="splash__image" style="background-image: url(&quot;assets/todo.jpg&quot;); background-repeat: repeat; visibility: hidden; width: 902px; height: 674px; left: 185px; top: 0px; opacity: 0;">
+    <div id="progress__root" style="background: rgb(255, 255, 255); left: 10%; top: 70%; width: 80%; height: 2.5%;">
+        <div id="progress__line" style="background: rgb(138, 100, 71); height: 100%; width: 80%;"></div>
+    </div>
+</div>
+<script>
+    window.addEventListener("load", () => {
+
+        PokiSDK.init().then(
+            () => {
+                // successfully initialized
+                onPokiInitComplete(false);
+            }
+        ).catch(
+            () => {
+                // successfully initialized but the user has adblock
+                onPokiInitComplete(true);
+            }
+        );
+
+        let config;
+
+        config = {
+            "key": "papa_burgeria",
+            "title": "Papa Burgeria",
+            "filename": "papa_burgeria_sdk",
+            "pokiSDK": true,
+            "debugPoki": false,
+            "showFPS": false,
+            "debug": false,
+            "splash": "assets/todo.jpg",
+            "start": null,
+            "width": 500,
+            "height": 374,
+            "x": 0,
+            "y": 0,
+            "w": "100%",
+            "h": "100%",
+            "stageScaleMode": null,
+            "stageAlign": null,
+            "progressParserWeigth": 1,
+            "progress": {
+                "direction": "lr",
+                "back": "#fff",
+                "line": "#8a6447",
+                "rect": [
+                    0.1,
+                    0.7,
+                    0.8,
+                    0.025
+                ]
+            },
+            "skipFramesOfScene": null,
+            "buttonPokiSDKActions": null,
+            "retryButtonIDS": null,
+            "retryButtonAction": null,
+            "actionOnStop": null,
+            "actionWhenRetryButtonEncountered": null,
+            "binary": [
+                {
+                    "name": "fonts.swf",
+                    "path": "assets/fonts.swf",
+                    "size": 30506
+                },
+                {
+                    "name": "papa_burgeria_sdk",
+                    "path": "assets/papa_burgeria_sdk.swf",
+                    "size": 4365180,
+                    "resourceType": "GAME"
+                }
+            ],
+            "runtime": "js/PapaSeries.js"
+        };
+
+        PokiSDK.setDebug(config.debugPoki);
+
+        Loader.init(config);
+
+        let onPokiInitComplete = (adBlocked) => {
+
+            PokiSDK.adBlocked = adBlocked;
+            PokiSDK.gameLoadingStart();
+
+            Loader.runGame((fill) => {
+                PokiSDK.gameLoadingProgress({
+                    percentageDone: fill,
+                    kbLoaded: 0,
+                    kbTotal: 0,
+                    fileNameLoaded: "",
+                    filesLoaded: 0,
+                    filesTotal: 0
+                });
+            }, (instance) => {
+                PokiSDK.gameLoadingFinished();
+            })
+        }
+    })
+</script>
+<div id="report__root">
+<div id="report__snap" class="report__btn">
+	<span>SNAP</span>
+</div>
+<div id="report__poppup">
+	<h1>Report!</h1>
+	<textarea readonly="true" id="report__text" rows="10">error</textarea>
+	<div id="report__save" class="report__btn">
+		SAVE REPORT
+	</div>
+</div>
+
+</div><script async="" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js" crossorigin="anonymous"></script><canvas id="stage0" style="position: absolute; left: 0px; top: 128.75px; visibility: visible; width: 546px; height: 409.5px; cursor: auto;" width="546" height="409"></canvas>
+<button class="in-game-button" id="inGame">
+
+      <img src="https://classroom20x.com/public/static/logo_3.png" width="13px" height="36px" alt="CLASSROOM20x.com"></button><div id="report__root">
+<div id="report__snap" class="report__btn">
+	<span>SNAP</span>
+</div>
+<div id="report__poppup">
+	<h1>Report!</h1>
+	<textarea readonly="true" id="report__text" rows="10">error</textarea>
+	<div id="report__save" class="report__btn">
+		SAVE REPORT
+	</div>
+</div>
+
+</div><script async="" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js" crossorigin="anonymous"></script><canvas id="stage0" width="1077" height="807" style="position: absolute; left: 0px; top: 67.75px; visibility: visible; width: 718px; height: 538.5px; cursor: initial;"></canvas></body></html>
