@@ -1,22 +1,20 @@
 <html>
-    <head>
-        <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div style="width:100%;height:100%;max-width:100%">
-            <div id="game"></div>
-        </div>
-        <script>
-            EJS_player = "#game";
-            EJS_core = "CORE_NAME";
-            EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-            EJS_gameUrl = "https://www.dropbox.com/scl/fi/yadlhbbx52abk8tck11rz/Pokemon-Platinum-Version-US-XenoPhobia.zip?rlkey=cbkpyf8p6ggk0xec2d4272tac&st=4dyiozey&dl=0";
-        </script>
-        <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-    </body>
+  <div style='width:100%;height:100%;max-width:100%'>
+    <div id='game'></div>
+</div>
+
+<script type='text/javascript'>
+    EJS_player = '#game';
+    // Can also be fceumm or nestopia
+    EJS_core = 'nds';
+    // Lightgun
+    EJS_lightgun = false; // can be true or false
+    // URL to BIOS file
+    EJS_biosUrl = ''; // https://dl.dropboxusercontent.com/s/[random-code]/bios.bin
+    // URL to Game rom
+    EJS_gameUrl = 'https://www.dropbox.com/scl/fi/yadlhbbx52abk8tck11rz/Pokemon-Platinum-Version-US-XenoPhobia.zip?rlkey=cbkpyf8p6ggk0xec2d4272tac&st=4dyiozey&dl=0'; // https://dl.dropboxusercontent.com/s/[random-code]/mario.nes
+    // Path to the data directory
+    EJS_pathtodata = 'data/';
+</script>
+<script src='data/loader.js'></script>
 </html>
