@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pokémon Platinum Emulator</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
-        #game {
-            width: 100%;
-            height: 100%;
-        }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #game {
+        width: 100%;
+        height: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="game"></div>
 
     <script>
-        EJS_player = "#game";
-        EJS_core = "melonds"; // DS emulator
-        EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-        EJS_gameUrl = "https://raw.githubusercontent.com/harshulmoon/harshulmoon.github.io/main/3541 - Pokemon Platinum Version (US)(XenoPhobia).nds";
-        EJS_biosUrl = "resources/bios"
+      EJS_player = "#game";
+      EJS_core = "melonds"; // Nintendo DS
+      EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+
+      // ✅ Using CORS-friendly raw .nds file on GitHub
+      EJS_gameUrl = "https://raw.githubusercontent.com/philipkiely/emulatorjs-roms/main/roms/nds/Bejeweled_Twist_USA.nds";
+
+      // Optional: If you host your own BIOS files
+      EJS_biosUrl = "https://harshulmoon.github.io/resources/bios/";
     </script>
+
     <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-</body>
+  </body>
 </html>
