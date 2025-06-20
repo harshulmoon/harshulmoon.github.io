@@ -44,34 +44,38 @@
 
         
         <style>      
-         img {
-         width:  13%;
-         height: 26%;
-         background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
-         border-radius: 20px;
-         transition: all .3s;
-         margin-left: 7;
-         margin-right: 6;
-         margin-bottom: 10;
-        }
-        
-        img {
-         width: 12.5%;
-         height: 23%;
-             background-color: #1a1a1a;
-             border-radius: 20px;
-             transition: all .2s;
-            }
-            
-            img:hover {
-             transform: scale(0.75);
-             border-radius: 20px;
-            }
-    
-        img:hover {
-         box-shadow: 0px 0px 60px 1px rgba(18, 135, 250, 1);
-        }
-        </style>
+  body {
+    background-image: url('resources/background.webp');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  div[loading="lazy"] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align images to the left */
+    gap: 1vw;
+    padding: 1vw;
+  }
+
+  img {
+    height: 12vw;             /* Responsive height */
+    width: auto;              /* Maintain aspect ratio */
+    max-height: 150px;        /* Optional max height */
+    border-radius: 20px;
+    background-color: #1a1a1a;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  img:hover {
+    transform: scale(0.95);
+    box-shadow: 0 0 30px rgba(18, 135, 250, 1);
+  }
+</style>
+
 <div loading="lazy">
    <a href="subway.html"><img src="resources/subway.webp"></a>
    <a href="basket.html"><img src="https://play-lh.googleusercontent.com/gP8T5Z1O-ngxIloiwcBZzrzyLPYDp0R_1BDNKUDZboIRPVImeyWI8-7aExvB9gAGNKc"></a>
