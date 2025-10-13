@@ -1,0 +1,722 @@
+Let's make a game!
+	name:Goon Clicker
+	by:Harshulmoon.github.io
+	desc:This is a simple idle game to showcase some of the basic functionalities of Idle Game Maker.<//>Make gooncoins and shoot for the stars!
+	created:25/7/2012523
+	updated:24/10/2017
+	version:1
+
+Settings
+	background:https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png
+	building cost increase:115%
+	building cost refund:50%
+	spritesheet:icons, 48 by 48, stuff/bunnyIcons.png
+	stylesheet:stuff/bigBlue.css
+
+CSS
+#game.on
+{
+	background-size: 100% 100%;
+}
+
+.buildingIconSize
+{
+	height:64px;
+	width:64px:;
+}
+
+.achievementsIconSize
+{
+	height:36px;
+	width:36px:;
+}
+
+.resourcesIconSize
+{
+	height:36px;
+	width:36px;
+}
+
+.thing-icon.shiny-icon
+{
+	width:128px;
+	height:128px;
+}
+
+#box-upgrades
+{
+	top: 43px;
+}
+
+#box-upgrButtons
+{
+	width: 50%;
+	left: 50%;
+	height:43px;	
+}
+
+.box-header, .box-footer
+{
+	padding: 8px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.upgradeSwitch
+{
+	height: 43px;
+	width: 50%;
+	margin: 0px;
+	float: left;
+	overflow-y: scroll;
+}
+
+Layout
+	*main
+		contains:res, buttons
+	*res
+		contains:Resources
+		class:fullWidth
+	*buttons
+		contains:Buttons
+	*store
+		contains:buildings, upgrades, upgrButtons
+	*buildings
+		contains:BulkDisplay, Buildings
+		header:Buildings
+		tooltip origin:left
+
+	*upgrButtons
+		contains:tag:upgradeSwitcher
+	*upgrades
+		contains:Upgrades
+		header:Upgrades
+		costs:hide
+		names:hide
+
+		
+Buttons
+	*gooncoinButton
+		name:Goon
+		desc:Click this little "man" to goon.
+		on click:anim icon wobble
+		on click:yield 1 gooncoin
+		on click:if (have goldenTouch and chance(1%)) yield 1 jelqcoin
+		on click:if (have amateurjelqer and chance(1%)) yield 1 jelqcoin
+		on click:if (have edgemaster and chance(0.5%)) yield 1 blank
+		on click:if (have women and chance(0.5%)) yield 1 blank
+		icon:https://i.ibb.co/Rp15gDc0/ezgif-67822ace3b206e.jpg
+		no text
+		class:bigButton hasFlares
+		icon class:shadowed
+		tooltip origin:bottom
+		tooltip class:red
+
+	*showAvailUpgr
+		name:Show Available Upgrades
+		tag:upgradeSwitcher
+		class:upgradeSwitch
+		on click:
+			hide :Upgrades:owned
+			show :Upgrades:notOwned
+			anim glow
+		end
+		no tooltip
+	*showOwnedUpgr
+		name:Show Owned Upgrades
+		tag:upgradeSwitcher
+		class:upgradeSwitch
+		on click:
+			show :Upgrades:owned
+			hide :Upgrades:notOwned
+			anim glow
+		end
+		no tooltip
+		
+Resources
+	*gooncoin|gooncoins
+		name:gooncoin|gooncoins
+		desc:These are your loads. Accumulate as much goon/gooncoin as possible to ascend!
+		icon:https://i.ibb.co/Myhm3FQb/finalgoon.png
+		class:noBackground
+		show earned
+		
+	*jelqcoin|jelqcoins
+		name:jelqcoin|jelqcoins
+		desc:These shiny loads are terribly rare, terribly precious and terribly delicious!
+		icon:https://i.ibb.co/xqh1H0sT/finaljelq.png
+		class:noBackground
+		show earned
+
+	*blank|blanks
+		name:blank|blanks
+		desc:What was once a load, now but a gust of wind.
+		icon:https://i.ibb.co/NdJ5zb0R/ezgif-138559c01e4aac.png
+		class:noBackground
+		req:edgemaster
+		show earned
+	
+	*kanyeTotal
+		always hidden
+
+	*smegma
+		name:Smegma|Smegma
+		desc:You have transcended the goon spacetime continuum, this foreskin cheese serves as a reminder of that fact.
+		icon:https://i.ibb.co/qv6p7P3/ezgif-72ae5bf1d516be.webp
+		class:noBackground
+		show earned
+		hidden when 0
+
+Shinies
+	*luckyGooncoin
+		on click:log Woop
+		movement:onRight moveLeft fade bounce:0.05
+		frequency:60
+		frequency variation:30
+		icon:https://i.ibb.co/FkCgDKtc/ezgif-106e83c7e69f61.webp
+		class:bigButton
+		on click:
+			$boost=1
+			if (have clover) $boost=4
+			if (chance(50%))
+				//get at least 7, or between 1 and 3 minutes of our gooncoin production
+				$amount=max(7,random(gooncoins:ps*60*1,gooncoins:ps*60*3))*$boost
+				toast The Tyler, the Creator grants you<//><b>[$amount] gooncoins</b>.
+				yield $amount gooncoins
+			else
+				$amount=1*$boost
+				toast The lucky <b>Tyler, the Creator</b> grants you<//><b>[$amount] jelqcoin[s?$amount]</b>!
+				yield $amount jelqcoin
+			end
+		end
+
+*johnpork
+		on click:log Woop
+		movement:onRight moveLeft fade bounce:0.05
+		frequency:100
+		frequency variation:10
+		icon:https://i.ibb.co/bMt1ffkr/johnpork.webp
+		req:edgemaster
+		class:bigButton
+		on click:
+				toast John Pork graciously gives you<//><b>1 blank</b>!
+				yield 1 blank
+			end		
+
+Buildings
+	*TEMPLATE
+		on click:anim glow
+		
+	*jar|jars
+		name:jar|jars
+		desc:A mason jar. Filled with <b>organic matter<b>.<//><b>Effect:</b><.>Produces 1 gooncoin every 10 seconds.
+		icon:https://i.ibb.co/0ybv0jqG/ezgif-1276f783b5ceb9.jpg
+		icon class:thing		
+		cost:15 gooncoins
+		on tick:yield 0.1 gooncoin
+		unlocked
+	
+	*hutch|hutches
+		name:Kanye West|Kanye Wests
+		desc:Kanye West<//><b>Effect:</b><.>Produces 1 gooncoin every 2 seconds.<.>You have [this] Kanye Wests producing [kanyeTotal:ps] goocoin per second
+		icon:https://i.ibb.co/jkwh07nv/ezgif-182c9471d030a3.webp
+		cost:100 gooncoins
+		on tick:yield 0.5 gooncoins
+		on tick:yield 0.5 kanyeTotal
+		req:100 gooncoins:earned
+	
+	*coop|coops
+		name:JOI|JOIs
+		desc:A calming video allows you to release just a bit more out of your goon.<//><b>Effect:</b><.>Produces 5 gooncoins per second.
+		icon:https://i.ibb.co/Q7YGwkQF/ezgif-7d25414ec2a108.jpg
+		cost:1000 gooncoins
+		on tick:yield 5 gooncoins
+		req:1000 gooncoins:earned
+	
+	*pen|pens
+		name:Lube|Lubes
+		desc:Dry beating in the <b>big '25</b>?<//><b>Effect:</b><.>Produces 12 gooncoins per second.
+		icon:https://i.ibb.co/Gbx6Gnn/ezgif-7c4f09e38c62d2.jpg
+		cost:2000 gooncoins
+		on tick:yield 12 gooncoins
+		req:1500 gooncoins:earned
+	
+	*meadow|meadows
+		name:Homemade Fleshlight|Homemade Fleshlights
+		desc:A full sensory experience<//><b>Effect:</b><.>Produces 90 gooncoins per second.
+		icon:https://i.ibb.co/TyR9y53/ezgif-72d3a3be0c9575.jpg
+		cost:7500 gooncoins
+		on tick:yield 90 gooncoins
+		req:6000 gooncoins:earned
+
+	*darkmango|darkmangoes
+		name:Dark Mango Psychology|Dark Mango Psychology
+		desc:have you ever played blox fruits with your life on the line, while having a BUNCH of mangoes in your mouth? well, this is called dark mango psychology. now, in dark mango psychology, you'll realize the mangoes ain't just your normal mangoes, they are DARK, and when you eat a mango, you'll realize the serotonin inside of the mangoes, go all the way to your brain, and then when it enters your brain and reaches the membrane, it activates something inside of you. you start to look at people like seeds, seeds waiting to get sprouted, seeds waiting to enter your tummy, and when that happens, you realize that you're somewhere deep, somewhere very deep, somewhere you don't want to be, wanna guess where that is?<//><b>Effect:</b><.>Produces 0.1 jelqcoins per second.
+		icon:https://i.ibb.co/1YsX1FcW/ezgif-79181426e4747c.webp
+		cost:8 jelqcoins
+		on tick:yield 0.1 jelqcoins
+		req:4 jelqcoins:earned
+	
+	*village|villages
+		name:Lebussy|Lebussies
+		desc:Lebron oh lebron oh~ lebussy im about to im going to ueghhh~~<//><b>Effect:</b><.>Produces 300 gooncoins per second.
+		icon:https://i.ibb.co/TMNyF4Rf/ezgif-74b5869cfeb06c.jpg
+		cost:20000 gooncoins
+		on tick:yield 300 gooncoins
+		req:20000 gooncoins:earned and independenceDay
+		
+	*city|cities
+		name:Goon squad|Goonlings
+		desc:You don't even have to goon anymore. These handy helpers (no pun intended ;] ) will jerk you off for you.<//><b>Effect:</b><.>Produces 1000 gooncoins per second.
+		icon:https://i.ibb.co/mF68VY5Y/ezgif-7627e19df15175.jpg
+		cost:300000 gooncoins
+		on tick:yield 1000 gooncoins
+		req:200000 gooncoins:earned and independenceDay
+
+	*alvin|alvins
+		name:Who's getting the best head?|Who's getting the best head?
+		desc:I think Alvin.<//><b>Effect:</b><.>30% chance to lose 1000000 gooncoins<.>50% chance to lose 50000000 gooncoins<.>10% chance to lose 100 jelqcoins<.><b>But,</b> 10% chance to win 100000000 gooncoins
+		icon:https://i.ibb.co/tMtCvRCT/ezgif-7158824c24cdb5.jpg
+		cost:100 jelqcoins
+		on tick:if (chance(30%)) yield -1000000 gooncoins
+		on tick:if (chance(50%)) yield -50000000 gooncoins
+		on tick:if (chance(10%)) yield -100 jelqcoins
+		on tick:if (chance(10%)) yield 100000000 gooncoins
+		req:2000000 gooncoins:earned and independenceDay
+		
+	*gooncave|gooncaves
+		name:Gooncave|Gooncaves
+		desc:A fully stocked gooncave.<//><b>Effect:</b><.>Produces 1 jelqcoin per second.<.>50% chance to produce a half jelqcoin
+		icon:https://i.ibb.co/N6JR64yX/ezgif-70d785b1c298e0.jpg
+		cost:1000000000 gooncoins
+		on tick:yield 1 gooncoins
+		on tick:if (chance(50%)) yield 0.5 jelqcoin
+		req:700000000 gooncoins:earned and independenceDay
+		
+	*citadel|citadels
+		name:Kendrick|Kendricks
+		desc:Kendrick Lamar Duckworth (born June 17, 1987) is an American rapper, singer, songwriter and record producer. Regarded as one of the <b>greatest rappers of all time</b><//><b>Effect:</b><.>Produces 5000 gooncoins per second.
+		icon:https://i.ibb.co/5WpvM9Mb/ezgif-22574897f4fa92.jpg
+		cost:70000000 gooncoins, 16 jelqcoins
+		on tick:yield 5000 gooncoins
+		req:70000000 gooncoins:earned and independenceDay
+
+	*scotland|scotlands
+		name:Scotland|Scotlands
+		desc:Scotland is a country within the UK<//><b>Effect:</b><.>Produces 10000 gooncoins per second.
+		icon:https://i.ibb.co/G4ZqgXPv/ezgif-242827d55a4b23.png
+		cost:1000 jelqcoins
+		on tick:yield 10000 gooncoins
+		req:1000 gooncoins:earned and independenceDay
+		
+	*fortress
+		name:Prime Bonnie Blue
+		text:Bonnie Blue ([this]%)
+		desc:A bonnie blue latex lifesized doll, which will take time and effort to complete.<//><b>The doll is [this]% complete.</b>
+		icon:https://i.ibb.co/Rp15gDc0/ezgif-67822ace3b206e.jpg
+		cost:300000000 gooncoins, 10 jelqcoins
+		req:70000000 gooncoins:earned and independenceDay
+		limit:100
+		cost increase:105%
+Upgrades
+	*TEMPLATE
+		on click:anim glow
+	
+	//food upgrades
+	*parsley
+		name:Pineapple
+		desc:Makes it taste better.<//><b>Effect:</b><.>+3 gooncoin/click
+		icon:https://i.ibb.co/bj03wgS7/ezgif-124c337ebe2dc6.jpg
+		cost:100 gooncoins
+		passive:increase gooncoin yield of gooncoinButton by 3
+		req:10 gooncoins:earned
+
+	*pineapplelocal
+		name:Locally Sourced Pineapple
+		desc:Tastes Good and Feels Good.<//><b>Effect:</b><.>+3 gooncoin/click
+		icon:icons[2,0] https://i.ibb.co/bj03wgS7/ezgif-124c337ebe2dc6.jpg
+		cost:650 gooncoins
+		passive:increase gooncoin yield of gooncoinButton by 3
+		req:300 gooncoins:earned
+
+	*pineapplepremium
+		name:Premium Pineapple
+		desc:Sourced from the Himalayan Alps, purebred pineapple grown for the maximum gooning benifit.<//><b>Effect:</b><.>+100000 gooncoin/click<.>0.1 jelqcoin/click
+		icon:icons[2,4] https://i.ibb.co/bj03wgS7/ezgif-124c337ebe2dc6.jpg
+		cost:100000000 gooncoins
+		passive:increase gooncoin yield of gooncoinButton by 100000
+		passive:increase jelqcoin yield of gooncoinButton by 0.1
+		req:100000000 gooncoins
+
+	*trala
+		name:Tralalero Tralala
+		desc:Trallallero Trallalla, porco dio e porco Allah. Ero con il mio fottuto figlio merdardo a giocare a Fortnite, quando a un punto arriva mia nonna, Ornella Leccacappella, a avvisarci che quello stronzo di Burger ci aveva invitato a cena per mangiare un purè di cazzi.<//><b>Effect:</b><.> Gooncoin production +20%
+		icon:https://i.ibb.co/FbWn9C0d/ezgif-23bc240acc4406.jpg
+		cost:1000000 gooncoins
+		passive:multiply yield of gooncoins by 1.20
+		req:1000000 gooncoins:earned
+
+	*broccoli
+		name:Edging
+		desc:The ability to hold your goon.<//><b>Effect:</b><.> Gooncoin production +5%
+		icon:https://i.ibb.co/tpDNhfWf/ezgif-1adb77f5a67c70.jpg
+		cost:2000 gooncoins
+		passive:multiply yield of gooncoins by 1.05
+		req:1000 gooncoins:earned
+
+	*edgingplus
+		name:Edging+
+		desc:The ability to hold your goon+.<//><b>Effect:</b><.> Gooncoin production +10%
+		icon:icons[2,0] https://i.ibb.co/tpDNhfWf/ezgif-1adb77f5a67c70.jpg
+		cost:20000 gooncoins
+		passive:multiply yield of gooncoins by 1.10
+		req:10000 gooncoins:earned
+
+	*edgemaster
+		name:Edgemaster
+		desc:You edge so much that you have learned to fire blanks.<//><b>Effect:</b><.> Blanks unlocked
+		icon:icons[2,3] https://i.ibb.co/tpDNhfWf/ezgif-1adb77f5a67c70.jpg
+		cost:30000 gooncoins
+		passive:multiply yield of gooncoins by 1.10
+		req:10000 gooncoins:earned
+
+	*tentacle
+		name:Tentacle Hentai
+		desc:A whole new world of gooning material.<//><b>Effect:</b><.> Gooncoin production +20%<.> Jelqcoin production +20%
+		icon:https://i.ibb.co/V4nhRwZ/ezgif-37d4959c7d1372.png
+		cost:1000000000 gooncoins
+		passive:multiply yield of gooncoins by 1.20
+		passive:multiply yield of jelqcoins by 1.20
+		req:500000000 gooncoins:earned
+
+	*freakbob
+		name:Freakbob
+		desc:in the stripped club. straight up 'jorking it'. and by 'it', haha, well. let's justr say. My peanits<//><b>Effect:</b><.> Global Gooncoin Production Doubled
+		icon:https://i.ibb.co/F4PbpD0z/ezgif-2ae9a203f64559.jpg
+		cost:5 blanks, 50000000000 gooncoins
+		passive:multiply yield of gooncoins by 2
+		req:(citadels>=20 or scotland>=10 or hutches>=100)
+
+	
+	//building upgrades
+	
+	*buildingUpgrade1
+		name:High quality jars
+		desc:Prevents the shattering of jars while, you know. <//><b>Effect:</b><.>jar production x2
+		icon:https://i.ibb.co/Q37rVCgm/ezgif-1d6d7258e0c90d.jpg
+		cost:500 gooncoins
+		passive:multiply yield of jar by 2
+		req:(jars>=10)
+
+	*buildingUpgradejar
+		name:Cushioned jars
+		desc:Jars are now cushioned! Weep no more for jars will no longer shatter while in organic crevices. <//><b>Effect:</b><.>jar production x4
+		icon:icons[2,0] https://i.ibb.co/Q37rVCgm/ezgif-1d6d7258e0c90d.jpg
+		cost:5000 gooncoins
+		passive:multiply yield of jar by 4
+		req:(jars>=50)
+
+	*college
+		name:The College Dropout
+		desc:"Man, I promise, she's so self-conscious, She has no idea what she doin' in college"<//><b>Effect:</b><.>Kanye West production x2
+		icon:https://i.ibb.co/Zq308PM/ezgif-7f7821e5910f7e.jpg
+		cost:500 gooncoins
+		passive:multiply yield of hutch by 2
+		req:(hutches>=4)
+		
+	*buildingUpgrade2
+		name:Graduation
+		desc:"And I wonder"<//><b>Effect:</b><.>Kanye West production x2
+		icon:https://i.ibb.co/DPz86Cpq/ezgif-7ccf726b627de6.jpg
+		cost:1000 gooncoins
+		passive:multiply yield of hutch by 2
+		req:(hutches>=15)
+		
+	*808heartbreak
+		name:808s and Heartbreak
+		desc:"You wait a couple months, then you gon’ see, you’ll never find nobody better than me."<//><b>Effect:</b><.>Kanye West production x2
+		icon:https://i.ibb.co/R4CW5jMp/ezgif-73fb93da135dae.jpg
+		cost:50000 gooncoins
+		passive:multiply yield of hutch by 2
+		req:buildingUpgrade2
+
+	*yeezus
+		name:Yeezus
+		desc:"One good girl is worth a thousand bitches"<//><b>Effect:</b><.>Kanye West production x8
+		icon:https://i.ibb.co/6Rm0Ky5t/ezgif-7f8e926d5d2215.jpg
+		cost:10000000 gooncoins
+		passive:multiply yield of hutch by 8
+		req:808heartbreak
+
+	*yandhi
+		name:Yandhi
+		desc:"Yandhi" was the original title of Kanye West's ninth studio album, which was later reworked and released as "Jesus Is King". It was initially announced in September 2018 with a release date of September 29th, but it was delayed and ultimately scrapped under that name. The title "Yandhi" was a portmanteau of "Ye" (Kanye's nickname) and "Gandhi".<//><b>Effect:</b><.>Kanye West production x30
+		icon:icons[2,0] https://i.ibb.co/6Rm0Ky5t/ezgif-7f8e926d5d2215.jpg
+		cost:100000000 gooncoins
+		passive:multiply yield of hutch by 30
+		req:yeezus, 100000000 gooncoins
+
+	*nitrous
+		name:Nitrous
+		desc:Nitrous oxide dissociative drug, which means it causes people to feel separated or detached from their body or physical environment. Dissociatives are similar to psychedelics, they can cause hallucinations and other changes in thoughts, emotions and consciousness.<//><b>Effect:</b><.>Kanye West becomes addicted to Nitrous<.>Kanye West production x50
+		icon:icons[0,3] https://i.ibb.co/jkwh07nv/ezgif-182c9471d030a3.webp
+		cost:10 blanks
+		passive:multiply yield of hutch by 50
+		req:yandhi
+		
+	*buildingUpgrade3
+		name:Mommy JOI
+		desc:We <b>ALL</b> love Mommy JOIs.<//><b>Effect:</b><.>JOI production x2
+		icon:icons[2,0] https://i.ibb.co/Q7YGwkQF/ezgif-7d25414ec2a108.jpg
+		cost:5000 gooncoins
+		passive:multiply yield of coop by 2
+		req:(jars>=60 or hutches>=50 or coops>=8)
+
+	*buildingfemboyjoi
+		name:Femboy JOI
+		desc:The natural upgrade to Mommy JOI.<//><b>Effect:</b><.>JOI production x4
+		icon:icons[2,0] https://i.ibb.co/Q7YGwkQF/ezgif-7d25414ec2a108.jpg
+		cost:50000 gooncoins
+		passive:multiply yield of coop by 4
+		req:(coops>=16 or buildingUpgrade3)
+
+	*sorroundsound
+		name:Bowers & Wilkins 606 and 607 S3 speaker package
+		desc:It's a sorround sound audio system; you best believe it fucking 50 times your gooning potential<//><b>Effect:</b><.>JOI production x50
+		icon:https://i.ibb.co/hxyvYW7j/ezgif-75bf68c950aca3.jpg
+		cost:10000000 gooncoins, 5 jelqcoins
+		passive:multiply yield of coop by 50
+		req:(buildingfemboyjoi)
+		
+	*buildingUpgrade4
+		name:Oil based lube
+		desc:Much better than that cheap water-based stuff. <//><b>Effect:</b><.>Doubles your lube production
+		icon:icons[2,0] https://i.ibb.co/Gbx6Gnn/ezgif-7c4f09e38c62d2.jpg
+		cost:10000 gooncoins
+		passive:multiply yield of pen by 2
+		req:(pens>=8 or meadows>=10)
+		
+	*buildingUpgrade5
+		name:Improved Cushioning
+		desc:Upgraded sponges for your pringles can.<//><b>Effect:</b><.>Homemade Fleshlight production x2
+		icon:icons[2,0] https://i.ibb.co/TyR9y53/ezgif-72d3a3be0c9575.jpg
+		cost:100000 gooncoins
+		passive:multiply yield of meadow by 2
+		req:(pens>=16 or meadows>=10)
+
+	*pringlesourcream
+		name:Pringles: Sour Cream and Chives
+		desc:Instead of using a basic bitch pringles original can, you - a sophisticated individual - uses a sour cream and chives can.<//><b>Effect:</b><.>Homemade Fleshlight production x6
+		icon:icons[0,4] https://i.ibb.co/TyR9y53/ezgif-72d3a3be0c9575.jpg
+		cost:100000 gooncoins
+		passive:multiply yield of meadow by 6
+		req:(buildingUpgrade5)
+		
+	*crackcocaine
+		name:Crack Cocaine
+		desc:You earn more jelqcoins while on Crack Cocaine.<//><b>Effect:</b><.> Dark Mango Psychology x1.5
+		icon:icons[2,0] https://i.ibb.co/1YsX1FcW/ezgif-79181426e4747c.webp
+		cost:40 jelqcoins
+		passive:multiply yield of darkmango by 1.5
+		req:20 jelqcoins
+
+	*buildingUpgrade6
+		name:Lebussy grip
+		desc:grippy.<//><b>Effect:</b><.>Lebussy production doubled
+		icon:icons[2,0] https://i.ibb.co/TMNyF4Rf/ezgif-74b5869cfeb06c.jpg
+		cost:1000000 gooncoins
+		passive:multiply yield of village by 2
+		req:(villages>=10 or cities>=10)
+
+	*sunshine
+		name:You are my sunshine
+		desc:My only sunshine<//><b>Effect:</b><.>Lebussy production tripled
+		icon:icons[2,0] https://i.ibb.co/TMNyF4Rf/ezgif-74b5869cfeb06c.jpg
+		cost:1000000 gooncoins
+		passive:multiply yield of village by 3
+		req:buildingUpgrade6
+
+	*jamesvi
+		name:James VI King of Scots
+		desc:<//><b>Effect:</b><.>Scotland production x300<.>James was the son of Mary, Queen of Scots, and a great-great-grandson of Henry VII, King of England and Lord of Ireland, and thus a potential successor to all three thrones. He acceded to the Scottish throne at the age of thirteen months, after his mother was forced to abdicate in his favour. Although his mother was a Catholic, James was brought up as a Protestant. Four regents governed during his minority, which ended officially in 1578, though he did not gain full control of his government until 1583. In 1589, he married Anne of Denmark. Three of their children survived to adulthood: Henry Frederick, Elizabeth, and Charles. In 1603, James succeeded his cousin Elizabeth I, the last Tudor monarch of England and Ireland, who died childless. He continued to reign in all three kingdoms for 22 years, a period known as the Jacobean era, until his death in 1625. After the Union of the Crowns, he based himself in England (the largest of the three realms) from 1603, returning to Scotland only once, in 1617, and styled himself "King of Great Britain and Ireland". He advocated for a single parliament for England and Scotland. In his reign, the Plantation of Ulster and English colonisation of the Americas began.At 57 years and 246 days, James's reign in Scotland was the longest of any Scottish monarch. He achieved most of his aims in Scotland but faced great difficulties in England, including the Gunpowder Plot in 1605 and conflicts with the English Parliament. Under James, the "Golden Age" of Elizabethan literature and drama continued, with writers such as William Shakespeare, John Donne, Ben Jonson, and Francis Bacon contributing to a flourishing literary culture. James was a prolific writer, authoring works such as Daemonologie (1597), The True Law of Free Monarchies (1598), and Basilikon Doron (1599). He sponsored the translation of the Bible into English (later named after him, the Authorized King James Version), and the 1604 revision of the Book of Common Prayer. Contemporary courtier Anthony Weldon claimed that James had been termed "the wisest fool in Christendom" (wise in small things, foolish otherwise) an epithet associated with his character ever since. Since the latter half of the 20th century, historians have tended to revise James's reputation and treat him as a serious and thoughtful monarch. He was strongly committed to a peace policy, and tried to avoid involvement in religious wars, especially the Thirty Years' War that devastated much of Central Europe. He tried but failed to prevent the rise of hawkish elements in the English Parliament who wanted war with Spain. The first English king of the House of Stuart, he was succeeded by his second son, Charles I.
+		icon:icons[2,0] https://i.ibb.co/G4ZqgXPv/ezgif-242827d55a4b23.png
+		cost:10 blanks
+		passive:multiply yield of scotland by 300
+		req:5 scotlands
+
+
+	*Jewish
+		name:Jewish
+		desc:You are jewish<//><b>Effect:</b><.>Lebussy production tripled
+		icon:https://i.ibb.co/TMNyF4Rf/ezgif-74b5869cfeb06c.jpg
+		cost:100 smegma
+		passive:multiply yield of gooncoins by 2
+		req:100 smegma
+
+	*buildingUpgrade7
+		name:Wee little gooncoin cars
+		desc:Your gooncoins drive around in these. How nice!<//><b>Effect:</b><.>rabbit village production x2<.>rabbit city production x2
+		icon:icons[2,0] icons[3,6]
+		cost:500000000 gooncoins
+		passive:multiply yield of city by 2
+		req:(villages>=50 or cities>=50)
+		
+	*buildingUpgrade8
+		name:Soothing moon crystals
+		desc:Just really nice to be around.<//><b>Effect:</b><.>moon citadel production x2
+		icon:icons[2,0] icons[3,7]
+		cost:1000000000 gooncoins
+		passive:multiply yield of citadel by 2
+		req:10 citadels
+
+	//jelqcoin upgrades
+
+	*goldenTouch
+		name:Golden touch
+		desc:The delicate art of stretching your schmeat until you grow a bit.<//><b>Effect:</b><.>1% chance of gaining 1 jelqcoin per goon
+		icon:https://i.ibb.co/xqh1H0sT/finaljelq.png
+		cost:1 jelqcoin
+		req:1 jelqcoin:earned
+
+	*amateurjelqer
+		name:Amateur Jelqer
+		desc:After serveral months of pracice, you are now an amateur at jelqing.<//><b>Effect:</b><.> Doubles the frequency of getting a jelqcoin per goon
+		icon:icons[2,3] https://i.ibb.co/xqh1H0sT/finaljelq.png
+		cost:5 jelqcoin
+		req:5 jelqcoin:earned
+		
+	*rabbitHaste
+		name:IGOR
+		desc:Running out of time<//><b>Effect:</b><.>Tyler, the Creator appear 30% more often
+		icon:https://i.ibb.co/wFBMVxtB/ezgif-1d47d9fa042df2.jpg
+		passive:multiply frequency of luckyGooncoin by 0.7
+		cost:3 jelqcoins
+		req:1 jelqcoin:earned
+
+	*chromakopia
+		name:Chromakopia
+		desc:Do I look like him?<//><b>Effect:</b><.>Tyler, the Creator appear 60% more often
+		icon:https://i.ibb.co/nNR2nPx0/ezgif-7fc35579403906.jpg
+		passive:multiply frequency of luckyGooncoin by 0.4
+		cost:100000 gooncoins
+		req:rabbitHaste
+	
+	*independenceDay
+		name:The New Goon Age
+		desc:Goonlings rejoice! The new era of goon has arrived! Shatter your chains and goon free!<//><b>Effect:</b><.>unlocks new buildings
+		icon:icons[2,7]
+		cost:1000000 gooncoins
+		req:2 jelqcoins:earned
+		
+	*clover
+		name:Clover
+		desc:A delicious herb that tastes lucky.<//><b>Effect:</b><.>Tyler, the Creator effects are 4 times more powerful
+		icon:icons[2,8]
+		cost:100 jelqcoins
+		req:50 jelqcoins:earned
+
+	*gkmc
+		name:good kid, m.A.A.d city
+		desc:Good Kid, M.A.A.D City (stylized as good kid, m.A.A.d city) is the second studio album by the American rapper Kendrick Lamar.<//><b>Effect:</b><.>Kendrick Lamar now produces 5x the gooncoins
+		passive:multiply yield of citadel by 5
+		icon:https://i.ibb.co/NnQYJDNQ/ezgif-2004ed14289669.jpg
+		cost:100 jelqcoins
+		req:50 jelqcoins:earned, independenceDay
+
+		
+	*moonGardens
+		name:To Pimp a Buttefly
+		desc:To Pimp a Butterfly is the third studio album by the American rapper Kendrick Lamar.<//><b>Effect:</b><.>Kendrick Lamar now produces 25x the gooncoins
+		passive:multiply yield of citadel by 25
+		icon:https://i.ibb.co/QFgRGCjs/ezgif-269a05381044d5.jpg
+		cost:1000 jelqcoins
+		req:gkmc
+
+	*women
+		name:Women's Suffrage Movement
+		desc:The women's suffrage movement was a decades-long global campaign to secure voting rights for women. In Australia, the movement gained significant momentum in the late 19th century, culminating in women securing the right to vote and stand for parliament in South Australia in 1894, and then federally in 1902. This made Australia a leader in women's suffrage, though Indigenous women and men were not granted the right to vote until 1962. The movement involved grassroots organizing, lobbying, and public awareness campaigns, with women's groups like the Women's Suffrage League playing a crucial role.<//><b>Effect:</b><.>Give Women rights
+		icon:https://i.ibb.co/xqmpcM2r/ezgif-7c52a1acdb7efb.jpg
+		cost:1000 jelqcoins
+		req:500 jelqcoins:earned
+		
+Achievements
+	*TEMPLATE
+		on click:anim glow
+		
+	*gooncoinAchiev1
+		name:Run gooncoin run
+		desc:Have <b>1</b> gooncoin.
+		req:1 gooncoin
+		icon:icons[2,4] icons[0,2] icons[0,6]
+		
+	*gooncoinAchiev2
+		name:Gooniest home videos
+		desc:Have <b>1000</b> gooncoins.
+		req:1000 gooncoins
+		icon:icons[2,4] icons[0,3] icons[0,6]
+		
+	*gooncoinAchiev3
+		name:You got goons, hun
+		desc:Have <b>1000000</b> gooncoins.
+		req:10000000 gooncoins
+		icon:icons[2,4] icons[0,4] icons[0,6]
+		
+	*clickAchiev1
+		name:That tickles
+		desc:Click the gooncoin <b>10</b> times.
+		req:10 gooncoinButton clicks
+		icon:icons[2,2] icons[0,2] icons[0,6]
+		
+	*clickAchiev2
+		name:Don't squeeze me I'll fart
+		desc:Click the gooncoin <b>100</b> times.
+		req:100 gooncoinButton clicks
+		icon:icons[2,2] icons[0,3] icons[0,6]
+		
+	*clickAchiev3
+		name:You're cruising for a bruising, dude
+		desc:Click the gooncoin <b>2000</b> times.
+		req:2000 gooncoinButton clicks
+		icon:icons[2,2] icons[0,4] icons[0,6]
+		
+	*gooncoinPsAchiev1
+		name:Be vewy vewy quiet
+		desc:Produce <b>10</b> gooncoins per second.
+		req:10 gooncoins per second
+		icon:icons[2,3] icons[0,2] icons[0,6]
+		
+	*gooncoinPsAchiev2
+		name:Hop and a skip
+		desc:Produce <b>1000</b> gooncoins per second.
+		req:1000 gooncoins per second
+		icon:icons[2,3] icons[0,3] icons[0,6]
+		
+	*gooncoinPsAchiev3
+		name:Go forth and multiply
+		desc:Produce <b>100000</b> gooncoins per second.
+		req:100000 gooncoins per second
+		icon:icons[2,3] icons[0,4] icons[0,6]
+		
+	*carrotAchiev1
+		name:Isn't it neat
+		desc:Have <b>1</b> jelqcoin.
+		req:1 jelqcoin
+		icon:icons[0,1] icons[0,2]
+		
+	*carrotAchiev2
+		name:All that glitters
+		desc:Have <b>100</b> jelqcoins.
+		req:100 jelqcoin
+		icon:icons[0,1] icons[0,3]
+		
+	*carrotAchiev3
+		name:Zero nutritional value
+		desc:Have <b>1000</b> jelqcoins.
+		req:1000 jelqcoin
+		icon:icons[0,1] icons[0,4]
+		
+	*fortressAchiev
+		name:Freedom!
+		desc:Complete building the <b>freedom fortress</b>.<//>This is it. You beat the game!
+		req:100 fortress
+		icon:icons[3,8] icons[0,4]
