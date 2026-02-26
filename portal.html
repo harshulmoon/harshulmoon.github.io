@@ -1,28 +1,35 @@
 <html>
-  <link rel="icon" type="image/png" href="resources/download.png">
-      <title class="p1">Home | Compass</title>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+ <link rel="icon" href="resources/download.png">
+     <title class="p1">Home | Compass</title>
   <style type="text/css"> 
         html { 
             overflow: auto; 
+            background-color: #2D4D4F;
         } 
           
         html, 
         body, 
         div, 
-        iframe { 
+        embed { 
             margin: 0px; 
             padding: 0px; 
             height: 100%; 
-            border: none; 
+            border: #2D4D4F; 
+            background-color: #2D4D4F;
         } 
           
-        iframe { 
+        embed { 
             display: block; 
             width: 100%; 
-            border: none; 
+            border: #2D4D4F; 
             overflow-y: auto; 
             overflow-x: hidden; 
         } 
+
+      .wrapper {
+            background-color: #2D4D4F;
+      }
     </style> 
-  <iframe src="https://adfree3kh0.github.io/projects/portalflash/index.html" width="100%" height="100%" allowfullscreen frameborder="0"></iframe>
+<embed src="resources/portal.swf" width="100%" height="100%">
 </html>
