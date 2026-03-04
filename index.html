@@ -16,6 +16,24 @@
     }
   </script>
 
+  <script>
+function applyBrandMode() {
+    const mode = localStorage.getItem("brandMode") || "normal";
+    const favicon = document.getElementById("dynamic-favicon");
+
+    if (mode === "alt") {
+        document.title = "Dashboard";
+        favicon.href = "resources/canvas.png?v=1";
+    } else {
+        document.title = "Home|Compass";
+        favicon.href = "resources/download.png?v=1";
+    }
+}
+
+// Run on page load
+applyBrandMode();
+</script>
+
   
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EGS121JE4W"></script>
