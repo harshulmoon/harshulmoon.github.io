@@ -109,15 +109,15 @@ btn.addEventListener("click", () => {
     const favicon = document.getElementById("favicon");
 
     if (!toggled) {
-        document.title = "Google Classroom";
+        document.title = "Dashboard";
 
         // force reload (prevents caching)
-        favicon.href = "favicon2.png?v=" + Date.now();
+        favicon.href = "resources/canvas.png?v=" + Date.now();
 
         toggled = true;
     } else {
-        document.title = "Original Page";
-        favicon.href = "favicon1.png?v=" + Date.now();
+        document.title = "Home|Compass";
+        favicon.href = "resources/download.png?v=" + Date.now();
 
         toggled = false;
     }
