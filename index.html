@@ -51,7 +51,8 @@
   | | | || (_| || |   \__ \| | | || |_| || || | | | | || (_) || (_) || | | | _ | (_| || || |_ | | | || |_| || |_) | _ | || (_) |         Sound has been fixed      
   |_| |_| \__,_||_|   |___/|_| |_| \__,_||_||_| |_| |_| \___/  \___/ |_| |_|(_) \__, ||_| \__||_| |_| \__,_||_.__/ (_)|_| \___/             
                                                                                  __/ |                                          
-   <a href="https://discord.gg/f9psmrwc7H">Discord</a>    <a href="https://forms.gle/P64SEtvX46VTjWbt9">Suggestions</a>    <a href="about.html">Who is Harshul Moon?</a>    <a href="servers.html">Servers</a>    <a href="https://harshulmoon.atabook.org/?page=1">Guestbook</a>       |___/    <a href="contact.html">Contact</a>    <button onclick="toggleTab()">Change Page</button>
+   <a href="https://discord.gg/f9psmrwc7H">Discord</a>    <a href="https://forms.gle/P64SEtvX46VTjWbt9">Suggestions</a>    <a href="about.html">Who is Harshul Moon?</a>    <a href="servers.html">Servers</a>    <a href="https://harshulmoon.atabook.org/?page=1">Guestbook</a>       |___/    <a href="contact.html">Contact</a>    <button id="toggleBtn">Change Tab</button>
+
   
 
   </pre>
@@ -101,25 +102,26 @@
 <script>
 let toggled = false;
 
-function toggleTab() {
+const btn = document.getElementById("toggleBtn");
+
+btn.addEventListener("click", () => {
+
     const favicon = document.getElementById("favicon");
 
     if (!toggled) {
-        // Change title
-        document.title = "Dashboard";
+        document.title = "Google Classroom";
 
-        // Change favicon
-        favicon.href = "resources/canvas.png";
+        // force reload (prevents caching)
+        favicon.href = "favicon2.png?v=" + Date.now();
 
         toggled = true;
     } else {
-        // Change back
-        document.title = "Home|Compass";
-        favicon.href = "resources/download.png";
+        document.title = "Original Page";
+        favicon.href = "favicon1.png?v=" + Date.now();
 
         toggled = false;
     }
-}
+});
 </script>
      
 <div loading="lazy">
