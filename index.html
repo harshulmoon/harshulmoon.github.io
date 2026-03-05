@@ -150,7 +150,28 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(24px);
 }
+.game-wrapper{
+  position: relative;
+  display:inline-block;
+}
 
+.favorite-btn{
+  position:absolute;
+  top:6px;
+  right:6px;
+  background:rgba(0,0,0,0.6);
+  border:none;
+  color:white;
+  font-size:18px;
+  border-radius:8px;
+  cursor:pointer;
+  padding:2px 6px;
+  z-index:10;
+}
+
+.favorite-btn.active{
+  color:gold;
+}
 </style>
 
 <script>
@@ -243,5 +264,65 @@ toggle.onchange = () => {
    <a href="fnae.html"><img src="resources/fnae.webp"></a>
    <a href="worldbox.html"><img src="resources/worldbox.webp"></a>
  </div>
+<script>const container = document.querySelector('div[loading="lazy"]');
+let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+const games = Array.from(container.querySelectorAll("a"));
+
+games.forEach(link => {
+
+    const id = link.getAttribute("href");
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "game-wrapper";
+    wrapper.dataset.game = id;
+
+    link.parentNode.insertBefore(wrapper, link);
+    wrapper.appendChild(link);
+
+    const btn = document.createElement("button");
+    btn.className = "favorite-btn";
+    btn.innerText = "☆";
+
+    wrapper.appendChild(btn);
+
+    if(favorites.includes(id)){
+        btn.innerText = "★";
+        btn.classList.add("active");
+    }
+
+    btn.onclick = (e)=>{
+        e.preventDefault();
+
+        if(favorites.includes(id)){
+            favorites = favorites.filter(f => f !== id);
+            btn.innerText = "☆";
+            btn.classList.remove("active");
+        }else{
+            favorites.push(id);
+            btn.innerText = "★";
+            btn.classList.add("active");
+        }
+
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        reorderGames();
+    };
+});
+
+function reorderGames(){
+
+    const wrappers = Array.from(container.children);
+
+    wrappers.sort((a,b)=>{
+        const aFav = favorites.includes(a.dataset.game);
+        const bFav = favorites.includes(b.dataset.game);
+        return bFav - aFav;
+    });
+
+    wrappers.forEach(w => container.appendChild(w));
+}
+
+reorderGames();
+</script>
     </body>
 </html>
