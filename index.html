@@ -73,7 +73,6 @@ applyBrandMode();
         <input type="checkbox" id="brand-toggle">
         <span class="slider"></span>
     </label>
-
   </pre>
 </div>
 
@@ -151,26 +150,44 @@ input:checked + .slider:before {
     transform: translateX(24px);
 }
 .game-wrapper{
-  position: relative;
+  position:relative;
   display:inline-block;
 }
 
+/* favorite button */
 .favorite-btn{
   position:absolute;
   top:6px;
   right:6px;
   background:rgba(0,0,0,0.2);
   border:none;
-  color:white;
-  font-size:18px;
   border-radius:8px;
+  font-size:20px;
   cursor:pointer;
   padding:2px 6px;
+  opacity:0;
+  transition:opacity 0.2s, transform 0.15s;
   z-index:10;
 }
 
+/* show star when hovering game */
+.game-wrapper:hover .favorite-btn{
+  opacity:0.85;
+}
+
+/* slight pop effect */
+.favorite-btn:hover{
+  transform:scale(1.1);
+}
+
+/* active favorite */
 .favorite-btn.active{
-  color:gold;
+  opacity:1; !important;
+}
+
+/* hide favorites if toggle disabled */
+.hide-favs .favorite-btn{
+  display:none;
 }
 </style>
 
@@ -264,7 +281,11 @@ toggle.onchange = () => {
    <a href="fnae.html"><img src="resources/fnae.webp"></a>
    <a href="worldbox.html"><img src="resources/worldbox.webp"></a>
  </div>
-<script>const container = document.querySelector('div[loading="lazy"]');
+<script>
+ /* ---------- FAVORITE SYSTEM ---------- */
+
+const container = document.querySelector('div[loading="lazy"]');
+
 let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
 const games = Array.from(container.querySelectorAll("a"));
@@ -282,12 +303,11 @@ games.forEach(link => {
 
     const btn = document.createElement("button");
     btn.className = "favorite-btn";
-    btn.innerText = "☆";
+    btn.innerText = "⭐";
 
     wrapper.appendChild(btn);
 
     if(favorites.includes(id)){
-        btn.innerText = "★";
         btn.classList.add("active");
     }
 
@@ -296,17 +316,16 @@ games.forEach(link => {
 
         if(favorites.includes(id)){
             favorites = favorites.filter(f => f !== id);
-            btn.innerText = "☆";
             btn.classList.remove("active");
         }else{
             favorites.push(id);
-            btn.innerText = "★";
             btn.classList.add("active");
         }
 
         localStorage.setItem("favorites", JSON.stringify(favorites));
         reorderGames();
     };
+
 });
 
 function reorderGames(){
@@ -323,6 +342,34 @@ function reorderGames(){
 }
 
 reorderGames();
+
+
+
+/* ---------- FAVORITE VISIBILITY TOGGLE ---------- */
+
+const favToggle = document.getElementById("fav-toggle");
+
+const favVisible = localStorage.getItem("showFavorites") !== "false";
+
+favToggle.checked = favVisible;
+
+if(!favVisible){
+    document.body.classList.add("hide-favs");
+}
+
+favToggle.onchange = () => {
+
+    const visible = favToggle.checked;
+
+    localStorage.setItem("showFavorites", visible);
+
+    if(visible){
+        document.body.classList.remove("hide-favs");
+    }else{
+        document.body.classList.add("hide-favs");
+    }
+
+};
 </script>
     </body>
 </html>
