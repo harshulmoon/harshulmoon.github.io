@@ -189,6 +189,39 @@ input:checked + .slider:before {
 .hide-favs .favorite-btn{
   display:none;
 }
+
+         #search-container {
+    padding: 10px 1vw;
+}
+
+#game-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: #1a1a1a;
+    color: white;
+    outline: none;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.3);
+    transition: box-shadow 0.3s;
+}
+
+#game-search:focus {
+    box-shadow: 0 0 20px rgba(18, 135, 250, 0.7);
+}
+
+#game-search::placeholder {
+    color: #888;
+}
+
+#no-results {
+    color: white;
+    padding: 20px;
+    font-size: 18px;
+    display: none;
+}
 </style>
 
 <script>
@@ -204,6 +237,10 @@ toggle.onchange = () => {
     applyBrandMode(); // updates favicon/title instantly
 };
 </script>
+
+     <div id="search-container">
+    <input type="text" id="game-search" placeholder="🔍 Search games..." autocomplete="off">
+</div>
      
 <div loading="lazy">
    <a href="subway.html"><img src="resources/subway.webp"></a>
@@ -356,7 +393,130 @@ function reorderGames(){
 
 reorderGames();
 
+ /* ---------- SEARCH SYSTEM ---------- */
 
+// Map href to a searchable game name
+const gameNames = {
+    "subway.html": "subway surfers",
+    "basket.html": "basket random basketball",
+    "retrobowl.html": "retro bowl football",
+    "slope.html": "slope",
+    "stacktris.html": "stacktris tetris",
+    "run3.html": "run 3",
+    "brubber.html": "burning rubber",
+    "finalearth2.html": "final earth 2",
+    "minecraft.html": "minecraft",
+    "fishing.html": "tiny fishing",
+    "burgeria.html": "papas burgeria papa's",
+    "freezeria.html": "papas freezeria papa's",
+    "pizzeria.html": "papas pizzeria papa's",
+    "hotdoggeria.html": "papas hot doggeria papa's",
+    "sushiria.html": "papas sushiria papa's",
+    "drivemad.html": "drive mad",
+    "hoverracer.html": "hover racer drive",
+    "stickman.html": "stickman hook",
+    "dice.html": "idle dice",
+    "gladihoppers.html": "gladihoppers",
+    "flappybasketball.html": "flappy basketball",
+    "tunnel.html": "tunnel rush",
+    "getaway.html": "getaway shootout",
+    "gobdun.html": "gobdun",
+    "minimetro.html": "mini metro",
+    "btd4.html": "bloons tower defense 4 btd4",
+    "btd5.html": "bloons tower defense 5 btd5",
+    "pokemonfr.html": "pokemon fire red",
+    "pokemonem.html": "pokemon emerald",
+    "pokemonplat.html": "pokemon platinum",
+    "pokemonblk.html": "pokemon black",
+    "mariokartds.html": "mario kart ds",
+    "gtachina.html": "gta chinatown wars grand theft auto",
+    "fred.html": "skiing fred",
+    "crazycattle.html": "crazy cattle 3d",
+    "blumgiball.html": "blumgi ball",
+    "jacksmith.html": "jacksmith",
+    "gswitch.html": "g switch 3",
+    "pvz.html": "plants vs zombies pvz",
+    "basketstars.html": "basketball stars",
+    "totm.html": "tomb of the mask",
+    "breakout.html": "idle breakout",
+    "crossyroads.html": "crossy road",
+    "la2.html": "little alchemy 2",
+    "sideeffects.html": "side effects",
+    "tag.html": "tag",
+    "shogunshowdown.html": "shogun showdown",
+    "operius.html": "operius",
+    "harshulsilverspoon.github.io/cookieclickeriframe.html": "cookie clicker",
+    "motox3m.html": "moto x3m",
+    "portal.html": "portal",
+    "vampire.html": "vampire survivors",
+    "leveldevil.html": "level devil",
+    "fnaf4.html": "five nights at freddys 4 fnaf",
+    "fnafps.html": "five nights at freddys pizza simulator fnaf",
+    "https://harshulsilverspoon.github.io/codzombies": "call of duty zombies cod nacht",
+    "badguards.html": "bad guards",
+    "dire.html": "dire decks",
+    "bloxorz.html": "bloxorz",
+    "suika.html": "suika watermelon game",
+    "frontwars.html": "front wars",
+    "antimatter.html": "antimatter dimensions",
+    "snowrider.html": "snow rider 3d",
+    "gunmayhem.html": "gun mayhem",
+    "polytrack.html": "polytrack racing",
+    "bitlife.html": "bitlife life simulator",
+    "ageofwar.html": "age of war",
+    "ultrakillweb.html": "ultrakill",
+    "learntofly.html": "learn to fly",
+    "fireboy.html": "fireboy and watergirl 1",
+    "fireboy2.html": "fireboy and watergirl 2",
+    "fireboy3.html": "fireboy and watergirl 3",
+    "happywheels.html": "happy wheels",
+    "hollowknight.html": "hollow knight",
+    "doom.html": "doom",
+    "cluster.html": "cluster rush",
+    "fnae.html": "five nights at emeralds fnae",
+    "worldbox.html": "worldbox god simulator",
+    "burritobison.html": "burrito bison",
+    "badtime.html": "bad time simulator sans undertale",
+    "earntodie.html": "earn to die",
+    "rocketleague.html": "rocket league",
+    "bankrobbery2.html": "bank robbery 2",
+    "spacewaves.html": "space waves geometry dash",
+    "soccerrandom.html": "soccer random",
+    "volleyrandom.html": "volley random volleyball",
+    "boxingrandom.html": "boxing random",
+};
+
+const searchInput = document.getElementById("game-search");
+
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+    const wrappers = Array.from(container.querySelectorAll(".game-wrapper"));
+    let visibleCount = 0;
+
+    wrappers.forEach(wrapper => {
+        const href = wrapper.dataset.game;
+        const name = (gameNames[href] || href).toLowerCase();
+
+        if (name.includes(query) || href.toLowerCase().includes(query)) {
+            wrapper.style.display = "";
+            visibleCount++;
+        } else {
+            wrapper.style.display = "none";
+        }
+    });
+
+    // Show/hide "no results" message
+    let noResults = document.getElementById("no-results");
+    if (!noResults) {
+        noResults = document.createElement("div");
+        noResults.id = "no-results";
+        noResults.textContent = "No games found 😢";
+        container.parentNode.insertBefore(noResults, container.nextSibling);
+    }
+    noResults.style.display = visibleCount === 0 && query ? "block" : "none";
+});
+
+/* ----------- Search END -------- */
 
 /* ---------- FAVORITE VISIBILITY TOGGLE ---------- */
 
