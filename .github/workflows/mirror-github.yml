@@ -13,10 +13,13 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+          token: ${{ secrets.MIRROR_TOKEN }}
       - run: |
+          git config --global user.name "harshulmoon"
+          git config --global user.email "harshulmoon@users.noreply.github.com"
           git lfs install
           git lfs fetch --all
-          git remote add goon https://x-access-token:${{ secrets.MIRROR_TOKEN }}@github.com/harshulgoon/harshulgoon.github.io.git
+          git remote add goon https://harshulmoon:${{ secrets.MIRROR_TOKEN }}@github.com/harshulgoon/harshulgoon.github.io.git
           git push goon --all --force
           git push goon --tags --force
 
@@ -27,11 +30,12 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+          token: ${{ secrets.MIRROR_TOKEN }}
       - run: |
+          git config --global user.name "harshulmoon"
+          git config --global user.email "harshulmoon@users.noreply.github.com"
           git lfs install
           git lfs fetch --all
-          # For separate accounts, use different secrets:
-          git remote add goon https://x-access-token:${{ secrets.GOON_TOKEN }}@github.com/harshulgoon/harshulgoon.github.io.git
-          git remote add silverspoon https://x-access-token:${{ secrets.SILVERSPOON_TOKEN }}@github.com/harshulsilverspoon/harshulsilverspoon.github.io.git
+          git remote add silverspoon https://harshulmoon:${{ secrets.MIRROR_TOKEN }}@github.com/harshulsilverspoon/harshulsilverspoon.github.io.git
           git push silverspoon --all --force
           git push silverspoon --tags --force
