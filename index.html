@@ -295,6 +295,7 @@ toggle.onchange = () => {
   </button>
 </div>
 
+  <!---Script for running Custom Background--->
 <script>
   // Apply saved custom background on page load, or keep the default
   const savedBg = localStorage.getItem("customBg");
@@ -332,8 +333,9 @@ toggle.onchange = () => {
     document.getElementById("bgUpload").value = "";
   }
 </script>
-
-     <script>
+  
+<!---Script for Running Cloak Site ---> 
+<script>
 function cloak() {
     const currentUrl = window.location.href;
     const win = window.open('', '_blank');
@@ -341,8 +343,18 @@ function cloak() {
         alert('Popup blocked! Allow popups for this site.');
         return;
     }
-    win.document.write('<!DOCTYPE html><html><head><title>Home | Compass</title><link rel="icon" href="https://raw.githubusercontent.com/harshulmoon/harshulmoon.github.io/refs/heads/main/resources/download.png"><style>*{margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden}iframe{width:100vw;height:100vh;border:none}</style></head><body><iframe src="' + currentUrl + '" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe></body></html>');
-    win.document.close();
+
+    fetch('https://raw.githubusercontent.com/harshulmoon/harshulmoon.github.io/refs/heads/main/resources/download.png')
+        .then(r => r.blob())
+        .then(blob => {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const base64 = reader.result;
+                win.document.write('<!DOCTYPE html><html><head><title>Home | Compass</title><link rel="icon" href="' + base64 + '"><style>*{margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden}iframe{width:100vw;height:100vh;border:none}</style></head><body><iframe src="' + currentUrl + '" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe></body></html>');
+                win.document.close();
+            };
+            reader.readAsDataURL(blob);
+        });
 }
 </script>
      
