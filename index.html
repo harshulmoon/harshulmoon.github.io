@@ -222,6 +222,45 @@ input:checked + .slider:before {
     font-size: 18px;
     display: none;
 }
+
+/* background upload controls */
+#bg-controls {
+    padding: 0 1vw 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#bg-upload-label {
+    padding: 6px 14px;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.3);
+    transition: box-shadow 0.3s;
+}
+
+#bg-upload-label:hover {
+    box-shadow: 0 0 20px rgba(18, 135, 250, 0.7);
+}
+
+#bgReset {
+    padding: 6px 14px;
+    background-color: #1a1a1a;
+    color: #aaa;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: none;
+    transition: color 0.2s;
+}
+
+#bgReset:hover {
+    color: white;
+}
 </style>
 
 <script>
@@ -241,6 +280,51 @@ toggle.onchange = () => {
      <div id="search-container">
     <input type="text" id="game-search" placeholder="🔍 Search games..." autocomplete="off">
 </div>
+
+<!-- Background image upload controls -->
+<div id="bg-controls">
+  <label id="bg-upload-label" for="bgUpload">🖼️ Change Background</label>
+  <input type="file" accept="image/*" id="bgUpload" style="display:none;">
+  <button id="bgReset" onclick="resetBg()">✕ Reset Background</button>
+</div>
+
+<script>
+  // Apply saved custom background on page load, or keep the default
+  const savedBg = localStorage.getItem("customBg");
+  if (savedBg) {
+    document.body.style.backgroundImage = "url(" + savedBg + ")";
+    document.getElementById("bgReset").style.display = "inline-block";
+  }
+
+  document.getElementById("bgUpload").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 5000000) {
+      alert("Image is too large! Please use an image under 5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      document.body.style.backgroundImage = "url(" + event.target.result + ")";
+      try {
+        localStorage.setItem("customBg", event.target.result);
+      } catch(e) {
+        alert("Image saved for this session only — it's too large to store permanently.");
+      }
+      document.getElementById("bgReset").style.display = "inline-block";
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function resetBg() {
+    document.body.style.backgroundImage = "url('resources/background.webp')";
+    localStorage.removeItem("customBg");
+    document.getElementById("bgReset").style.display = "none";
+    document.getElementById("bgUpload").value = "";
+  }
+</script>
      
 <div loading="lazy">
    <a href="subway.html"><img src="resources/subway.webp"></a>
