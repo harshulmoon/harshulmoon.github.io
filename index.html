@@ -286,6 +286,10 @@ toggle.onchange = () => {
   <label id="bg-upload-label" for="bgUpload">🖼️ Change Background</label>
   <input type="file" accept="image/*" id="bgUpload" style="display:none;">
   <button id="bgReset" onclick="resetBg()">✕ Reset Background</button>
+
+ <button id="cloakBtn" onclick="cloak()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+    🔒 Cloak Site
+</button>
 </div>
 
 <script>
@@ -325,6 +329,8 @@ toggle.onchange = () => {
     document.getElementById("bgUpload").value = "";
   }
 </script>
+
+
      
 <div loading="lazy">
    <a href="subway.html"><img src="resources/subway.webp"></a>
