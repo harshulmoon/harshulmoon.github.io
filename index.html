@@ -283,12 +283,16 @@ toggle.onchange = () => {
 
 <!-- Background image upload controls -->
 <div id="bg-controls">
-  <label id="bg-upload-label" for="bgUpload">🖼️ Change Background</label>
   <input type="file" accept="image/*" id="bgUpload" style="display:none;">
-  <button id="bgReset" onclick="resetBg()">✕ Reset Background</button>
- <button id="cloakBtn" onclick="cloak()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+  <button id="bgUploadBtn" onclick="document.getElementById('bgUpload').click()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+    🖼️ Change Background
+  </button>
+  <button id="bgReset" onclick="resetBg()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
+    ✕ Reset Background
+  </button>
+  <button id="cloakBtn" onclick="cloak()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
     🔒 Cloak Site
-</button>
+  </button>
 </div>
 
 <script>
@@ -337,7 +341,7 @@ function cloak() {
         alert('Popup blocked! Allow popups for this site.');
         return;
     }
-    win.document.write('<!DOCTYPE html><html><head><title>Google Classroom</title><link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png"><style>*{margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden}iframe{width:100vw;height:100vh;border:none}</style></head><body><iframe src="' + currentUrl + '" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe></body></html>');
+    win.document.write('<!DOCTYPE html><html><head><title>Home|Compass</title><link rel="icon" href="resources/download.png"><style>*{margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden}iframe{width:100vw;height:100vh;border:none}</style></head><body><iframe src="' + currentUrl + '" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe></body></html>');
     win.document.close();
 }
 </script>
