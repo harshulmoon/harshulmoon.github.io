@@ -34,6 +34,43 @@ function applyBrandMode() {
 applyBrandMode();
 </script>
 
+
+  <!---Script to download website as a desktop app--->
+  <script>
+let deferredPrompt;
+
+// Capture the browser's install prompt before it fires automatically
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();                          // stop the auto-popup
+    deferredPrompt = e;                          // stash it
+    document.getElementById('installBtn').style.display = 'inline-block'; // show button
+});
+
+function installApp() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();                 // show the native install dialog
+        deferredPrompt.userChoice.then((choice) => {
+            if (choice.outcome === 'accepted') {
+                console.log('App installed');
+                document.getElementById('installBtn').style.display = 'none';
+            }
+            deferredPrompt = null;
+        });
+    } else {
+        // Fallback if browser doesn't support the prompt (Safari, Firefox, etc.)
+        alert('To install this app:\n\n• Chrome/Edge: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Firefox: Not supported yet');
+    }
+}
+
+// Hide the button if already installed
+window.addEventListener('appinstalled', () => {
+    document.getElementById('installBtn').style.display = 'none';
+    deferredPrompt = null;
+});
+</script>
+    <!---Desktop Script App end-->
+
+
   
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EGS121JE4W"></script>
@@ -284,15 +321,23 @@ toggle.onchange = () => {
 <!-- Background image upload controls -->
 <div id="bg-controls">
   <input type="file" accept="image/*" id="bgUpload" style="display:none;">
+ 
   <button id="bgUploadBtn" onclick="document.getElementById('bgUpload').click()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
     🖼️ Change Background
   </button>
+ 
   <button id="bgReset" onclick="resetBg()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
     ✕ Reset Background
   </button>
+ 
   <button id="cloakBtn" onclick="cloak()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
     🔒 Cloak Site
   </button>
+ 
+ <button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
+  📥 Download App
+</button>
+ 
 </div>
 
   <!---Script for running Custom Background--->
