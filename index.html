@@ -36,6 +36,13 @@ applyBrandMode();
 </script>
 
 
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+}
+</script>
+  
+
   <!---Script to download website as a desktop app--->
   <script>
 let deferredPrompt;
