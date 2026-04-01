@@ -1,11 +1,11 @@
 {
   "name": "Document1 - Word",
   "short_name": "Word",
-  "description": "Word Document",
+  "description": "Document1 - Word",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#1287fa",
+  "theme_color": "#2b579a",
   "icons": [
     {
       "src": "resources/word.webp",
