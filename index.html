@@ -48,33 +48,30 @@ if ('serviceWorker' in navigator) {
   
 
   <!---Script to download website as a desktop app--->
-  <script>
+<script>
 let deferredPrompt;
 
-// Capture the browser's install prompt before it fires automatically
 window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();                          // stop the auto-popup
-    deferredPrompt = e;                          // stash it
-    document.getElementById('installBtn').style.display = 'inline-block'; // show button
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'inline-block';
 });
 
 function installApp() {
     if (deferredPrompt) {
-        deferredPrompt.prompt();                 // show the native install dialog
+        deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choice) => {
             if (choice.outcome === 'accepted') {
-                console.log('App installed');
+                console.log('App installed as Document1 - Word');
                 document.getElementById('installBtn').style.display = 'none';
             }
             deferredPrompt = null;
         });
     } else {
-        // Fallback if browser doesn't support the prompt (Safari, Firefox, etc.)
-        alert('To install this app:\n\n• Chrome/Edge: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Firefox: Not supported yet');
+        alert('To install as "Document1 - Word":\n\n• Chrome/Edge: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Firefox: Not supported yet');
     }
 }
 
-// Hide the button if already installed
 window.addEventListener('appinstalled', () => {
     document.getElementById('installBtn').style.display = 'none';
     deferredPrompt = null;
@@ -346,7 +343,7 @@ toggle.onchange = () => {
     🔒 Cloak Site
   </button>
  
- <button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
+<button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
   📥 Download App
 </button>
  
