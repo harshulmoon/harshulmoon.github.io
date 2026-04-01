@@ -49,12 +49,11 @@ if ('serviceWorker' in navigator) {
 
   <!---Script to download website as a desktop app--->
 <script>
-let deferredPrompt;
+let deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    document.getElementById('installBtn').style.display = 'inline-block';
 });
 
 function installApp() {
@@ -63,17 +62,20 @@ function installApp() {
         deferredPrompt.userChoice.then((choice) => {
             if (choice.outcome === 'accepted') {
                 console.log('App installed as Document1 - Word');
-                document.getElementById('installBtn').style.display = 'none';
             }
             deferredPrompt = null;
         });
     } else {
-        alert('To install as "Document1 - Word":\n\n• Chrome/Edge: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Firefox: Not supported yet');
+        // Fallback: open the site in a minimal popup that feels like an app
+        const win = window.open(window.location.href, 'Document1 - Word',
+            'width=1200,height=800,menubar=no,toolbar=no,location=no,status=no');
+        if (!win) {
+            alert('To install as "Document1 - Word":\n\n• Chrome/Edge: Click ⋮ → Install App or the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen');
+        }
     }
 }
 
 window.addEventListener('appinstalled', () => {
-    document.getElementById('installBtn').style.display = 'none';
     deferredPrompt = null;
 });
 </script>
@@ -343,7 +345,7 @@ toggle.onchange = () => {
     🔒 Cloak Site
   </button>
  
-<button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
+<button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
   📥 Download App
 </button>
  
