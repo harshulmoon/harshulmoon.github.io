@@ -8,14 +8,16 @@
   "theme_color": "#2b579a",
   "icons": [
     {
-      "src": "resources/word.webp",
+      "src": "resources/word.png",
       "sizes": "192x192",
-      "type": "image/webp"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "resources/word.webp",
+      "src": "resources/word.png",
       "sizes": "512x512",
-      "type": "image/webp"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
