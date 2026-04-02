@@ -8,6 +8,8 @@
 <link rel="apple-touch-icon" href="resources/word.webp">
      <title class="p1">Home | Compass</title>
  <head>
+ <script src="searchdata.js"></script>
+<script src="genres.js"></script>
  <meta name="google-site-verification" content="ZbFWCmqCDVrCmIxDWoc7DWCDvZXKD5CO4OrdlpY5Mqg"/>
   <meta name="description" content="Unblocked Games for free no ads at Harshul Moon .github.io Enjoy many ad-free games at Harshulmoon.github.io">
   <meta name="viewport" content="width=device-width">
@@ -89,139 +91,8 @@ window.addEventListener('appinstalled', () => {
   gtag('config', 'G-EGS121JE4W');
 </script>
 
-  <script>
+<script>
 /* ---------- GENRE SYSTEM ---------- */
-
-// Map each game to its genres
-const gameGenres = {
-    "subway.html": ["arcade", "action"],
-    "basket.html": ["sports", "arcade"],
-    "retrobowl.html": ["sports", "simulation"],
-    "slope.html": ["arcade", "action"],
-    "stacktris.html": ["puzzle", "arcade"],
-    "run3.html": ["arcade", "platformer"],
-    "brubber.html": ["racing", "action"],
-    "finalearth2.html": ["strategy", "simulation"],
-    "minecraft.html": ["simulation", "sandbox"],
-    "eaglercraft.html": ["simulation", "sandbox"],
-    "fishing.html": ["idle", "simulation"],
-    "burgeria.html": ["simulation", "strategy"],
-    "freezeria.html": ["simulation", "strategy"],
-    "pizzeria.html": ["simulation", "strategy"],
-    "hotdoggeria.html": ["simulation", "strategy"],
-    "sushiria.html": ["simulation", "strategy"],
-    "drivemad.html": ["racing", "puzzle"],
-    "hoverracer.html": ["racing", "arcade"],
-    "stickman.html": ["arcade", "action"],
-    "dice.html": ["idle", "puzzle"],
-    "gladihoppers.html": ["action", "arcade"],
-    "flappybasketball.html": ["arcade", "sports"],
-    "tunnel.html": ["arcade", "action"],
-    "getaway.html": ["action", "shooter"],
-    "gobdun.html": ["rpg", "action"],
-    "minimetro.html": ["puzzle", "strategy"],
-    "btd4.html": ["strategy", "action"],
-    "btd5.html": ["strategy", "action"],
-    "pokemonfr.html": ["rpg", "strategy"],
-    "pokemonem.html": ["rpg", "strategy"],
-    "pokemonplat.html": ["rpg", "strategy"],
-    "pokemonsoulsilver.html": ["rpg", "strategy"],
-    "pokemonblk.html": ["rpg", "strategy"],
-    "mariokartds.html": ["racing", "arcade"],
-    "gtachina.html": ["action", "shooter"],
-    "fred.html": ["arcade", "action"],
-    "crazycattle.html": ["arcade", "action"],
-    "blumgiball.html": ["sports", "arcade"],
-    "jacksmith.html": ["strategy", "simulation"],
-    "gswitch.html": ["arcade", "platformer"],
-    "pvz.html": ["strategy", "action"],
-    "basketstars.html": ["sports", "arcade"],
-    "totm.html": ["arcade", "action"],
-    "breakout.html": ["idle", "arcade"],
-    "crossyroads.html": ["arcade", "action"],
-    "la2.html": ["puzzle", "simulation"],
-    "sideeffects.html": ["puzzle", "platformer"],
-    "tag.html": ["action", "arcade"],
-    "shogunshowdown.html": ["strategy", "rpg"],
-    "operius.html": ["arcade", "shooter"],
-    "https://harshulsilverspoon.github.io/cookieclickeriframe.html/": ["idle", "simulation"],
-    "motox3m.html": ["racing", "arcade"],
-    "portal.html": ["puzzle", "platformer"],
-    "vampire.html": ["action", "rpg"],
-    "leveldevil.html": ["puzzle", "platformer"],
-    "fnaf1.html": ["horror", "action"],
-    "fnaf2.html": ["horror", "action"],
-    "fnaf3.html": ["horror", "action"],
-    "fnaf4.html": ["horror", "action"],
-    "fnafps.html": ["horror", "simulation"],
-    "fnafucn.html": ["horror", "action"],
-    "https://harshulsilverspoon.github.io/codzombies": ["shooter", "horror", "action"],
-    "badguards.html": ["action", "shooter"],
-    "dire.html": ["strategy", "rpg"],
-    "bloxorz.html": ["puzzle"],
-    "suika.html": ["puzzle", "arcade"],
-    "frontwars.html": ["strategy"],
-    "antimatter.html": ["idle", "simulation"],
-    "snowrider.html": ["racing", "arcade"],
-    "gunmayhem.html": ["shooter", "action"],
-    "gunmayhem2.html": ["shooter", "action"],
-    "polytrack.html": ["racing", "arcade"],
-    "bitlife.html": ["simulation"],
-    "ageofwar.html": ["strategy", "action"],
-    "ultrakillweb.html": ["shooter", "action"],
-    "learntofly1.html": ["idle", "arcade"],
-    "learntofly2.html": ["idle", "arcade"],
-    "learntofly.html": ["idle", "arcade"],
-    "fireboy.html": ["puzzle", "platformer"],
-    "fireboy2.html": ["puzzle", "platformer"],
-    "fireboy3.html": ["puzzle", "platformer"],
-    "happywheels.html": ["action", "arcade"],
-    "hollowknight.html": ["platformer", "action", "rpg"],
-    "silksong.html": ["platformer", "action", "rpg"],
-    "doom.html": ["shooter", "action"],
-    "cluster.html": ["arcade", "action"],
-    "fnae.html": ["horror", "action"],
-    "worldbox.html": ["simulation", "strategy"],
-    "burritobison.html": ["arcade", "action"],
-    "badtime.html": ["action", "rpg"],
-    "deltarune.html": ["rpg", "puzzle"],
-    "earntodie.html": ["racing", "action"],
-    "rocketleague.html": ["sports", "racing"],
-    "bankrobbery2.html": ["action", "shooter"],
-    "spacewaves.html": ["arcade", "music"],
-    "soccerrandom.html": ["sports", "arcade"],
-    "volleyrandom.html": ["sports", "arcade"],
-    "boxingrandom.html": ["sports", "arcade"],
-    "fnf.html": ["music", "arcade"],
-    "classof09.html": ["simulation", "rpg"],
-    "nubbysnumberfactory.html": ["puzzle", "idle"],
-    "isaac.html": ["action", "rpg", "horror"],
-    "supersmashflash2.html": ["action", "arcade"],
-    "papersplease.html": ["puzzle", "simulation"],
-    "diceamillion.html": ["idle", "puzzle"],
-    "pizzatower.html": ["platformer", "action"],
-    "cloverpit.html": ["strategy", "rpg"],
-    "celeste.html": ["platformer", "action"],
-    "balatro.html": ["strategy", "puzzle"],
-    "dungeonsgambler.html": ["strategy", "rpg"],
-    "5b.html": ["platformer", "puzzle"],
-    "osu.html": ["music", "arcade"],
-    "halflife.html": ["shooter", "action"],
-    "shapez.html": ["puzzle", "simulation"],
-    "feedthevoid.html": ["idle", "simulation"],
-    "peopleplayground.html": ["simulation", "sandbox"],
-    "repo.html": ["horror", "action"],
-    "geometrydash.html": ["arcade", "music", "platformer"],
-    "statetris-europe.html": ["puzzle", "arcade"],
-    "fearandhunger.html": ["rpg", "horror"],
-    "yomihustle": ["action", "strategy"],
-    "ducklife1.html": ["simulation", "sports"],
-    "ducklife2.html": ["simulation", "sports"],
-    "ducklife3.html": ["simulation", "sports"],
-    "ducklife4.html": ["simulation", "sports"],
-    "sonicexe.html": ["horror", "platformer"],
-    "ultrapool.html": ["sports", "arcade"],
-};
 
 let currentGenre = 'all';
 
@@ -238,7 +109,6 @@ function toggleGenreMenu() {
     }
 }
 
-// Close menu when clicking outside
 document.addEventListener('click', (e) => {
     const dropdown = document.getElementById('genre-dropdown');
     const menu = document.getElementById('genreMenu');
@@ -255,7 +125,6 @@ function filterByGenre(genre) {
     const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
     let visibleCount = 0;
     
-    // Update active button state
     document.querySelectorAll('.genre-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.onclick.toString().includes(`'${genre}'`)) {
@@ -263,7 +132,6 @@ function filterByGenre(genre) {
         }
     });
     
-    // Filter games
     wrappers.forEach(wrapper => {
         const href = wrapper.dataset.game;
         const genres = gameGenres[href] || [];
@@ -276,7 +144,6 @@ function filterByGenre(genre) {
         }
     });
     
-    // Update button text to show current filter
     const genreNames = {
         'all': '🎯 All',
         'action': '💥 Action',
@@ -295,31 +162,23 @@ function filterByGenre(genre) {
     };
     
     document.getElementById('genreBtn').innerHTML = `${genreNames[genre] || '🎮 Genres'} ▼`;
-    
-    // Close menu after selection
     document.getElementById('genreMenu').style.display = 'none';
     
-    // Show/hide no results
     let noResults = document.getElementById('no-results');
     if (noResults) {
         noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
     
-    // Clear search when filtering by genre
     document.getElementById('game-search').value = '';
 }
 
-// Make genre filter work with search
-const originalSearchHandler = searchInput.oninput;
 searchInput.addEventListener('input', () => {
-    // Reset genre filter when searching
     if (searchInput.value.trim()) {
         currentGenre = 'all';
         document.querySelectorAll('.genre-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector('.genre-btn').classList.add('active'); // "All Games" button
+        document.querySelector('.genre-btn').classList.add('active');
         document.getElementById('genreBtn').innerHTML = '🎮 Genres ▼';
         
-        // Show all games first, then let search filter
         const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
         wrappers.forEach(wrapper => wrapper.style.display = '');
     }
@@ -894,137 +753,7 @@ function reorderGames(){
 
 reorderGames();
 
- /* ---------- SEARCH SYSTEM ---------- */
-
-// Map href to a searchable game name
-const gameNames = {
-    "subway.html": "subway surfers",
-    "basket.html": "basket random basketball",
-    "retrobowl.html": "retro bowl football",
-    "slope.html": "slope",
-    "stacktris.html": "stacktris tetris",
-    "run3.html": "run 3",
-    "brubber.html": "burning rubber",
-    "finalearth2.html": "final earth 2",
-    "minecraft.html": "minecraft",
-    "fishing.html": "tiny fishing",
-    "burgeria.html": "papas burgeria papa's",
-    "freezeria.html": "papas freezeria papa's",
-    "pizzeria.html": "papas pizzeria papa's",
-    "hotdoggeria.html": "papas hot doggeria papa's",
-    "sushiria.html": "papas sushiria papa's",
-    "drivemad.html": "drive mad",
-    "hoverracer.html": "hover racer drive",
-    "stickman.html": "stickman hook",
-    "dice.html": "idle dice",
-    "gladihoppers.html": "gladihoppers",
-    "flappybasketball.html": "flappy basketball",
-    "tunnel.html": "tunnel rush",
-    "getaway.html": "getaway shootout",
-    "gobdun.html": "gobdun",
-    "minimetro.html": "mini metro",
-    "btd4.html": "bloons tower defense 4 btd4",
-    "btd5.html": "bloons tower defense 5 btd5",
-    "pokemonfr.html": "pokemon fire red",
-    "pokemonem.html": "pokemon emerald",
-    "pokemonplat.html": "pokemon platinum",
-    "pokemonsoulsilver.html": "pokemon soulsilver soul silver",
-    "pokemonblk.html": "pokemon black",
-    "mariokartds.html": "mario kart ds",
-    "gtachina.html": "gta chinatown wars grand theft auto",
-    "fred.html": "skiing fred",
-    "crazycattle.html": "crazy cattle 3d",
-    "blumgiball.html": "blumgi ball",
-    "jacksmith.html": "jacksmith",
-    "gswitch.html": "g switch 3",
-    "pvz.html": "plants vs zombies pvz",
-    "basketstars.html": "basketball stars",
-    "totm.html": "tomb of the mask",
-    "breakout.html": "idle breakout",
-    "crossyroads.html": "crossy road",
-    "la2.html": "little alchemy 2",
-    "sideeffects.html": "side effects",
-    "tag.html": "tag",
-    "shogunshowdown.html": "shogun showdown",
-    "operius.html": "operius",
-    "https://harshulsilverspoon.github.io/cookieclickeriframe.html/": "cookie clicker",
-    "motox3m.html": "moto x3m",
-    "portal.html": "portal",
-    "vampire.html": "vampire survivors",
-    "leveldevil.html": "level devil",
-    "fnaf1.html": "five nights at freddys 1 fnaf",
-    "fnaf2.html": "five nights at freddys 2 fnaf",
-    "fnaf3.html": "five nights at freddys 3 fnaf",
-    "fnaf4.html": "five nights at freddys 4 fnaf",
-    "fnafucn.html": "five nights at freddys fnaf ucn ultimate custom night",
-    "fnafps.html": "five nights at freddys pizza simulator fnaf",
-    "https://harshulsilverspoon.github.io/codzombies": "call of duty zombies cod nacht",
-    "badguards.html": "bad guards",
-    "dire.html": "dire decks",
-    "bloxorz.html": "bloxorz",
-    "suika.html": "suika watermelon game",
-    "frontwars.html": "front wars",
-    "antimatter.html": "antimatter dimensions",
-    "snowrider.html": "snow rider 3d",
-    "gunmayhem.html": "gun mayhem",
-    "polytrack.html": "polytrack racing",
-    "bitlife.html": "bitlife life simulator",
-    "ageofwar.html": "age of war",
-    "ultrakillweb.html": "ultrakill",
-    "learntofly1.html": "learn to fly 1",
-    "learntofly2.html": "learn to fly 2",
-    "learntofly.html": "learn to fly 3",
-    "fireboy.html": "fireboy and watergirl 1",
-    "fireboy2.html": "fireboy and watergirl 2",
-    "fireboy3.html": "fireboy and watergirl 3",
-    "happywheels.html": "happy wheels",
-    "hollowknight.html": "hollow knight",
-    "doom.html": "doom",
-    "cluster.html": "cluster rush",
-    "fnae.html": "five nights at epsteins epstein's fnae",
-    "worldbox.html": "worldbox god simulator",
-    "burritobison.html": "burrito bison",
-    "badtime.html": "bad time simulator sans undertale",
-    "deltarune.html": "deltarune undertale",
-    "earntodie.html": "earn to die",
-    "rocketleague.html": "rocket league",
-    "bankrobbery2.html": "bank robbery 2",
-    "spacewaves.html": "space waves geometry dash",
-    "soccerrandom.html": "soccer random",
-    "volleyrandom.html": "volley random volleyball",
-    "boxingrandom.html": "boxing random",
-    "fnf.html": "friday night funkin fnf",
-    "classof09.html": "class of 09 '09",
-    "nubbysnumberfactory.html": "nubbys number factory nubby's",
-    "isaac.html": "the binding of isaac wrath of the lamb",
-    "supersmashflash2.html": "super smash flash 2 super smash bros ssf2",
-    "papersplease.html": "papers please",
-    "diceamillion.html": "dice a million",
-    "pizzatower.html": "pizza tower",
-    "gunmayhem2.html": "gun mayhem 2",
-    "cloverpit.html": "cloverpit clover pit",
-    "celeste.html": "celeste",
-    "balatro.html": "balatro",
-    "dungeonsgambler.html": "dungeons and degenerate gamblers",
-    "5b.html": "battle for dream island again 5b bfdia 5b",
-    "osu.html": "osu!",
-    "halflife.html": "half life halflife",
-    "shapez.html": "shapez.io",
-    "feedthevoid.html": "feed the void",
-    "peopleplayground.html": "people playground",
-    "geometrydash.html": "geometry dash",
-    "repo.html": "repo r.e.p.o",
-    "statetris-europe.html": "statetris europe tetris",
-    "fearandhunger.html": "fear and hunger",
-    "silksong.html": "hollow knight silksong",
-    "yomihustle.html": "your only move is hustle yomi hustle",
-    "ducklife1.html": "ducklife 1",
-    "ducklife2.html": "ducklife 2",
-    "ducklife3.html": "ducklife 3",
-    "ducklife4.html": "ducklife 4",
-    "sonicexe.html": "sonic exe sonic.exe",
-    "ultrapool.html": "ultrapool ultra pool",
-};
+/* ---------- SEARCH SYSTEM ---------- */
 
 const searchInput = document.getElementById("game-search");
 
