@@ -113,7 +113,7 @@ const gameGenres = {
     "osu.html": ["music", "arcade"],
     "halflife.html": ["shooter", "action"],
     "shapez.html": ["puzzle", "simulation"],
-    "feedthevoid.html": ["idle", "simulation"],
+    "feedthevoid.html": ["strategy"],
     "peopleplayground.html": ["simulation", "sandbox"],
     "repo.html": ["horror", "action", "roguelike"],
     "geometrydash.html": ["arcade", "music", "platformer"],
