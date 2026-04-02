@@ -89,6 +89,242 @@ window.addEventListener('appinstalled', () => {
   gtag('config', 'G-EGS121JE4W');
 </script>
 
+  <script>
+/* ---------- GENRE SYSTEM ---------- */
+
+// Map each game to its genres
+const gameGenres = {
+    "subway.html": ["arcade", "action"],
+    "basket.html": ["sports", "arcade"],
+    "retrobowl.html": ["sports", "simulation"],
+    "slope.html": ["arcade", "action"],
+    "stacktris.html": ["puzzle", "arcade"],
+    "run3.html": ["arcade", "platformer"],
+    "brubber.html": ["racing", "action"],
+    "finalearth2.html": ["strategy", "simulation"],
+    "minecraft.html": ["simulation", "sandbox"],
+    "eaglercraft.html": ["simulation", "sandbox"],
+    "fishing.html": ["idle", "simulation"],
+    "burgeria.html": ["simulation", "strategy"],
+    "freezeria.html": ["simulation", "strategy"],
+    "pizzeria.html": ["simulation", "strategy"],
+    "hotdoggeria.html": ["simulation", "strategy"],
+    "sushiria.html": ["simulation", "strategy"],
+    "drivemad.html": ["racing", "puzzle"],
+    "hoverracer.html": ["racing", "arcade"],
+    "stickman.html": ["arcade", "action"],
+    "dice.html": ["idle", "puzzle"],
+    "gladihoppers.html": ["action", "arcade"],
+    "flappybasketball.html": ["arcade", "sports"],
+    "tunnel.html": ["arcade", "action"],
+    "getaway.html": ["action", "shooter"],
+    "gobdun.html": ["rpg", "action"],
+    "minimetro.html": ["puzzle", "strategy"],
+    "btd4.html": ["strategy", "action"],
+    "btd5.html": ["strategy", "action"],
+    "pokemonfr.html": ["rpg", "strategy"],
+    "pokemonem.html": ["rpg", "strategy"],
+    "pokemonplat.html": ["rpg", "strategy"],
+    "pokemonsoulsilver.html": ["rpg", "strategy"],
+    "pokemonblk.html": ["rpg", "strategy"],
+    "mariokartds.html": ["racing", "arcade"],
+    "gtachina.html": ["action", "shooter"],
+    "fred.html": ["arcade", "action"],
+    "crazycattle.html": ["arcade", "action"],
+    "blumgiball.html": ["sports", "arcade"],
+    "jacksmith.html": ["strategy", "simulation"],
+    "gswitch.html": ["arcade", "platformer"],
+    "pvz.html": ["strategy", "action"],
+    "basketstars.html": ["sports", "arcade"],
+    "totm.html": ["arcade", "action"],
+    "breakout.html": ["idle", "arcade"],
+    "crossyroads.html": ["arcade", "action"],
+    "la2.html": ["puzzle", "simulation"],
+    "sideeffects.html": ["puzzle", "platformer"],
+    "tag.html": ["action", "arcade"],
+    "shogunshowdown.html": ["strategy", "rpg"],
+    "operius.html": ["arcade", "shooter"],
+    "https://harshulsilverspoon.github.io/cookieclickeriframe.html/": ["idle", "simulation"],
+    "motox3m.html": ["racing", "arcade"],
+    "portal.html": ["puzzle", "platformer"],
+    "vampire.html": ["action", "rpg"],
+    "leveldevil.html": ["puzzle", "platformer"],
+    "fnaf1.html": ["horror", "action"],
+    "fnaf2.html": ["horror", "action"],
+    "fnaf3.html": ["horror", "action"],
+    "fnaf4.html": ["horror", "action"],
+    "fnafps.html": ["horror", "simulation"],
+    "fnafucn.html": ["horror", "action"],
+    "https://harshulsilverspoon.github.io/codzombies": ["shooter", "horror", "action"],
+    "badguards.html": ["action", "shooter"],
+    "dire.html": ["strategy", "rpg"],
+    "bloxorz.html": ["puzzle"],
+    "suika.html": ["puzzle", "arcade"],
+    "frontwars.html": ["strategy"],
+    "antimatter.html": ["idle", "simulation"],
+    "snowrider.html": ["racing", "arcade"],
+    "gunmayhem.html": ["shooter", "action"],
+    "gunmayhem2.html": ["shooter", "action"],
+    "polytrack.html": ["racing", "arcade"],
+    "bitlife.html": ["simulation"],
+    "ageofwar.html": ["strategy", "action"],
+    "ultrakillweb.html": ["shooter", "action"],
+    "learntofly1.html": ["idle", "arcade"],
+    "learntofly2.html": ["idle", "arcade"],
+    "learntofly.html": ["idle", "arcade"],
+    "fireboy.html": ["puzzle", "platformer"],
+    "fireboy2.html": ["puzzle", "platformer"],
+    "fireboy3.html": ["puzzle", "platformer"],
+    "happywheels.html": ["action", "arcade"],
+    "hollowknight.html": ["platformer", "action", "rpg"],
+    "silksong.html": ["platformer", "action", "rpg"],
+    "doom.html": ["shooter", "action"],
+    "cluster.html": ["arcade", "action"],
+    "fnae.html": ["horror", "action"],
+    "worldbox.html": ["simulation", "strategy"],
+    "burritobison.html": ["arcade", "action"],
+    "badtime.html": ["action", "rpg"],
+    "deltarune.html": ["rpg", "puzzle"],
+    "earntodie.html": ["racing", "action"],
+    "rocketleague.html": ["sports", "racing"],
+    "bankrobbery2.html": ["action", "shooter"],
+    "spacewaves.html": ["arcade", "music"],
+    "soccerrandom.html": ["sports", "arcade"],
+    "volleyrandom.html": ["sports", "arcade"],
+    "boxingrandom.html": ["sports", "arcade"],
+    "fnf.html": ["music", "arcade"],
+    "classof09.html": ["simulation", "rpg"],
+    "nubbysnumberfactory.html": ["puzzle", "idle"],
+    "isaac.html": ["action", "rpg", "horror"],
+    "supersmashflash2.html": ["action", "arcade"],
+    "papersplease.html": ["puzzle", "simulation"],
+    "diceamillion.html": ["idle", "puzzle"],
+    "pizzatower.html": ["platformer", "action"],
+    "cloverpit.html": ["strategy", "rpg"],
+    "celeste.html": ["platformer", "action"],
+    "balatro.html": ["strategy", "puzzle"],
+    "dungeonsgambler.html": ["strategy", "rpg"],
+    "5b.html": ["platformer", "puzzle"],
+    "osu.html": ["music", "arcade"],
+    "halflife.html": ["shooter", "action"],
+    "shapez.html": ["puzzle", "simulation"],
+    "feedthevoid.html": ["idle", "simulation"],
+    "peopleplayground.html": ["simulation", "sandbox"],
+    "repo.html": ["horror", "action"],
+    "geometrydash.html": ["arcade", "music", "platformer"],
+    "statetris-europe.html": ["puzzle", "arcade"],
+    "fearandhunger.html": ["rpg", "horror"],
+    "yomihustle": ["action", "strategy"],
+    "ducklife1.html": ["simulation", "sports"],
+    "ducklife2.html": ["simulation", "sports"],
+    "ducklife3.html": ["simulation", "sports"],
+    "ducklife4.html": ["simulation", "sports"],
+    "sonicexe.html": ["horror", "platformer"],
+    "ultrapool.html": ["sports", "arcade"],
+};
+
+let currentGenre = 'all';
+
+function toggleGenreMenu() {
+    const menu = document.getElementById('genreMenu');
+    const btn = document.getElementById('genreBtn');
+    
+    if (menu.style.display === 'none') {
+        menu.style.display = 'block';
+        btn.innerHTML = '🎮 Genres ▲';
+    } else {
+        menu.style.display = 'none';
+        btn.innerHTML = '🎮 Genres ▼';
+    }
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('genre-dropdown');
+    const menu = document.getElementById('genreMenu');
+    const btn = document.getElementById('genreBtn');
+    
+    if (dropdown && !dropdown.contains(e.target)) {
+        menu.style.display = 'none';
+        btn.innerHTML = '🎮 Genres ▼';
+    }
+});
+
+function filterByGenre(genre) {
+    currentGenre = genre;
+    const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
+    let visibleCount = 0;
+    
+    // Update active button state
+    document.querySelectorAll('.genre-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.onclick.toString().includes(`'${genre}'`)) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Filter games
+    wrappers.forEach(wrapper => {
+        const href = wrapper.dataset.game;
+        const genres = gameGenres[href] || [];
+        
+        if (genre === 'all' || genres.includes(genre)) {
+            wrapper.style.display = '';
+            visibleCount++;
+        } else {
+            wrapper.style.display = 'none';
+        }
+    });
+    
+    // Update button text to show current filter
+    const genreNames = {
+        'all': '🎯 All',
+        'action': '💥 Action',
+        'arcade': '👾 Arcade',
+        'puzzle': '🧩 Puzzle',
+        'racing': '🏎️ Racing',
+        'sports': '⚽ Sports',
+        'horror': '👻 Horror',
+        'strategy': '🧠 Strategy',
+        'rpg': '⚔️ RPG',
+        'simulation': '🎮 Simulation',
+        'platformer': '🏃 Platformer',
+        'idle': '⏰ Idle',
+        'music': '🎵 Music',
+        'shooter': '🔫 Shooter'
+    };
+    
+    document.getElementById('genreBtn').innerHTML = `${genreNames[genre] || '🎮 Genres'} ▼`;
+    
+    // Close menu after selection
+    document.getElementById('genreMenu').style.display = 'none';
+    
+    // Show/hide no results
+    let noResults = document.getElementById('no-results');
+    if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+    
+    // Clear search when filtering by genre
+    document.getElementById('game-search').value = '';
+}
+
+// Make genre filter work with search
+const originalSearchHandler = searchInput.oninput;
+searchInput.addEventListener('input', () => {
+    // Reset genre filter when searching
+    if (searchInput.value.trim()) {
+        currentGenre = 'all';
+        document.querySelectorAll('.genre-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.genre-btn').classList.add('active'); // "All Games" button
+        document.getElementById('genreBtn').innerHTML = '🎮 Genres ▼';
+        
+        // Show all games first, then let search filter
+        const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
+        wrappers.forEach(wrapper => wrapper.style.display = '');
+    }
+});
+</script>
   
  </head>
     <body>
@@ -305,6 +541,50 @@ input:checked + .slider:before {
 #bgReset:hover {
     color: white;
 }
+         
+.genre-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.genre-btn:hover {
+    background-color: #3a3a3a;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.5);
+}
+
+.genre-btn.active {
+    background-color: #1287fa;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.7);
+}
+
+#genreMenu {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#genreMenu::-webkit-scrollbar {
+    width: 6px;
+}
+
+#genreMenu::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 3px;
+}
+
+#genreMenu::-webkit-scrollbar-thumb {
+    background: #1287fa;
+    border-radius: 3px;
+}
 </style>
 
 <script>
@@ -344,6 +624,28 @@ toggle.onchange = () => {
 <button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
   📥 Download App
 </button>
+
+<div id="genre-dropdown" style="position: relative; display: inline-block;">
+  <button id="genreBtn" onclick="toggleGenreMenu()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+    🎮 Genres ▼
+  </button>
+  <div id="genreMenu" style="display: none; position: absolute; top: 100%; left: 0; margin-top: 5px; background-color: #1a1a1a; border-radius: 10px; padding: 8px; box-shadow: 0 0 15px rgba(18, 135, 250, 0.5); z-index: 1000; min-width: 150px;">
+    <button class="genre-btn" onclick="filterByGenre('all')">🎯 All Games</button>
+    <button class="genre-btn" onclick="filterByGenre('action')">💥 Action</button>
+    <button class="genre-btn" onclick="filterByGenre('arcade')">👾 Arcade</button>
+    <button class="genre-btn" onclick="filterByGenre('puzzle')">🧩 Puzzle</button>
+    <button class="genre-btn" onclick="filterByGenre('racing')">🏎️ Racing</button>
+    <button class="genre-btn" onclick="filterByGenre('sports')">⚽ Sports</button>
+    <button class="genre-btn" onclick="filterByGenre('horror')">👻 Horror</button>
+    <button class="genre-btn" onclick="filterByGenre('strategy')">🧠 Strategy</button>
+    <button class="genre-btn" onclick="filterByGenre('rpg')">⚔️ RPG</button>
+    <button class="genre-btn" onclick="filterByGenre('simulation')">🎮 Simulation</button>
+    <button class="genre-btn" onclick="filterByGenre('platformer')">🏃 Platformer</button>
+    <button class="genre-btn" onclick="filterByGenre('idle')">⏰ Idle</button>
+    <button class="genre-btn" onclick="filterByGenre('music')">🎵 Music</button>
+    <button class="genre-btn" onclick="filterByGenre('shooter')">🔫 Shooter</button>
+  </div>
+</div>
  
 </div>
 
