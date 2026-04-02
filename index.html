@@ -8,6 +8,8 @@
 <link rel="apple-touch-icon" href="resources/word.webp">
      <title class="p1">Home | Compass</title>
  <head>
+ <script src="searchdata.js"></script>
+<script src="genres.js"></script>
  <meta name="google-site-verification" content="ZbFWCmqCDVrCmIxDWoc7DWCDvZXKD5CO4OrdlpY5Mqg"/>
   <meta name="description" content="Unblocked Games for free no ads at Harshul Moon .github.io Enjoy many ad-free games at Harshulmoon.github.io">
   <meta name="viewport" content="width=device-width">
@@ -89,6 +91,101 @@ window.addEventListener('appinstalled', () => {
   gtag('config', 'G-EGS121JE4W');
 </script>
 
+<script>
+/* ---------- GENRE SYSTEM ---------- */
+
+let currentGenre = 'all';
+
+function toggleGenreMenu() {
+    const menu = document.getElementById('genreMenu');
+    const btn = document.getElementById('genreBtn');
+    
+    if (menu.style.display === 'none') {
+        menu.style.display = 'block';
+        btn.innerHTML = '🎮 Genres ▲';
+    } else {
+        menu.style.display = 'none';
+        btn.innerHTML = '🎮 Genres ▼';
+    }
+}
+
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('genre-dropdown');
+    const menu = document.getElementById('genreMenu');
+    const btn = document.getElementById('genreBtn');
+    
+    if (dropdown && !dropdown.contains(e.target)) {
+        menu.style.display = 'none';
+        btn.innerHTML = '🎮 Genres ▼';
+    }
+});
+
+function filterByGenre(genre) {
+    currentGenre = genre;
+    const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
+    let visibleCount = 0;
+    
+    document.querySelectorAll('.genre-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.onclick.toString().includes(`'${genre}'`)) {
+            btn.classList.add('active');
+        }
+    });
+    
+    wrappers.forEach(wrapper => {
+        const href = wrapper.dataset.game;
+        const genres = gameGenres[href] || [];
+        
+        if (genre === 'all' || genres.includes(genre)) {
+            wrapper.style.display = '';
+            visibleCount++;
+        } else {
+            wrapper.style.display = 'none';
+        }
+    });
+    
+    const genreNames = {
+        'all': '🎯 All',
+        'action': '💥 Action',
+        'arcade': '👾 Arcade',
+        'idle': '⏰ Idle',
+        'puzzle': '🧩 Puzzle',
+        'racing': '🏎️ Racing',
+        'multiplayer': '👥 Multiplayer',
+        'roguelike': '🎲 Roguelike',
+        'sports': '⚽ Sports',
+        'horror': '👻 Horror',
+        'strategy': '🧠 Strategy',
+        'rpg': '⚔️ RPG',
+        'simulation': '🎮 Simulation',
+        'platformer': '🏃 Platformer',
+        'music': '🎵 Music',
+        'shooter': '🔫 Shooter'
+    };
+    
+    document.getElementById('genreBtn').innerHTML = `${genreNames[genre] || '🎮 Genres'} ▼`;
+    document.getElementById('genreMenu').style.display = 'none';
+    
+    let noResults = document.getElementById('no-results');
+    if (noResults) {
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+    
+    document.getElementById('game-search').value = '';
+}
+
+searchInput.addEventListener('input', () => {
+    if (searchInput.value.trim()) {
+        currentGenre = 'all';
+        document.querySelectorAll('.genre-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.genre-btn').classList.add('active');
+        document.getElementById('genreBtn').innerHTML = '🎮 Genres ▼';
+        
+        const wrappers = Array.from(container.querySelectorAll('.game-wrapper'));
+        wrappers.forEach(wrapper => wrapper.style.display = '');
+    }
+});
+</script>
   
  </head>
     <body>
@@ -305,6 +402,50 @@ input:checked + .slider:before {
 #bgReset:hover {
     color: white;
 }
+         
+.genre-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.genre-btn:hover {
+    background-color: #3a3a3a;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.5);
+}
+
+.genre-btn.active {
+    background-color: #1287fa;
+    box-shadow: 0 0 10px rgba(18, 135, 250, 0.7);
+}
+
+#genreMenu {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#genreMenu::-webkit-scrollbar {
+    width: 6px;
+}
+
+#genreMenu::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 3px;
+}
+
+#genreMenu::-webkit-scrollbar-thumb {
+    background: #1287fa;
+    border-radius: 3px;
+}
 </style>
 
 <script>
@@ -344,6 +485,30 @@ toggle.onchange = () => {
 <button id="installBtn" onclick="installApp()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s; display: none;">
   📥 Download App
 </button>
+
+<div id="genre-dropdown" style="position: relative; display: inline-block;">
+  <button id="genreBtn" onclick="toggleGenreMenu()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+    🎮 Genres ▼
+  </button>
+  <div id="genreMenu" style="display: none; position: absolute; top: 100%; left: 0; margin-top: 5px; background-color: #1a1a1a; border-radius: 10px; padding: 8px; box-shadow: 0 0 15px rgba(18, 135, 250, 0.5); z-index: 1000; min-width: 150px;">
+    <button class="genre-btn" onclick="filterByGenre('all')">🎯 All Games</button>
+    <button class="genre-btn" onclick="filterByGenre('action')">💥 Action</button>
+    <button class="genre-btn" onclick="filterByGenre('arcade')">👾 Arcade</button>
+    <button class="genre-btn" onclick="filterByGenre('puzzle')">🧩 Puzzle</button>
+    <button class="genre-btn" onclick="filterByGenre('racing')">🏎️ Racing</button>
+    <button class="genre-btn" onclick="filterByGenre('multiplayer')">👥 Multiplayer</button>
+    <button class="genre-btn" onclick="filterByGenre('roguelike')">🎲 Roguelike</button>
+    <button class="genre-btn" onclick="filterByGenre('sports')">⚽ Sports</button>
+    <button class="genre-btn" onclick="filterByGenre('horror')">👻 Horror</button>
+    <button class="genre-btn" onclick="filterByGenre('strategy')">🧠 Strategy</button>
+    <button class="genre-btn" onclick="filterByGenre('rpg')">⚔️ RPG</button>
+    <button class="genre-btn" onclick="filterByGenre('simulation')">🎮 Simulation</button>
+    <button class="genre-btn" onclick="filterByGenre('platformer')">🏃 Platformer</button>
+    <button class="genre-btn" onclick="filterByGenre('idle')">⏰ Idle</button>
+    <button class="genre-btn" onclick="filterByGenre('music')">🎵 Music</button>
+    <button class="genre-btn" onclick="filterByGenre('shooter')">🔫 Shooter</button>
+  </div>
+</div>
  
 </div>
 
@@ -592,137 +757,7 @@ function reorderGames(){
 
 reorderGames();
 
- /* ---------- SEARCH SYSTEM ---------- */
-
-// Map href to a searchable game name
-const gameNames = {
-    "subway.html": "subway surfers",
-    "basket.html": "basket random basketball",
-    "retrobowl.html": "retro bowl football",
-    "slope.html": "slope",
-    "stacktris.html": "stacktris tetris",
-    "run3.html": "run 3",
-    "brubber.html": "burning rubber",
-    "finalearth2.html": "final earth 2",
-    "minecraft.html": "minecraft",
-    "fishing.html": "tiny fishing",
-    "burgeria.html": "papas burgeria papa's",
-    "freezeria.html": "papas freezeria papa's",
-    "pizzeria.html": "papas pizzeria papa's",
-    "hotdoggeria.html": "papas hot doggeria papa's",
-    "sushiria.html": "papas sushiria papa's",
-    "drivemad.html": "drive mad",
-    "hoverracer.html": "hover racer drive",
-    "stickman.html": "stickman hook",
-    "dice.html": "idle dice",
-    "gladihoppers.html": "gladihoppers",
-    "flappybasketball.html": "flappy basketball",
-    "tunnel.html": "tunnel rush",
-    "getaway.html": "getaway shootout",
-    "gobdun.html": "gobdun",
-    "minimetro.html": "mini metro",
-    "btd4.html": "bloons tower defense 4 btd4",
-    "btd5.html": "bloons tower defense 5 btd5",
-    "pokemonfr.html": "pokemon fire red",
-    "pokemonem.html": "pokemon emerald",
-    "pokemonplat.html": "pokemon platinum",
-    "pokemonsoulsilver.html": "pokemon soulsilver soul silver",
-    "pokemonblk.html": "pokemon black",
-    "mariokartds.html": "mario kart ds",
-    "gtachina.html": "gta chinatown wars grand theft auto",
-    "fred.html": "skiing fred",
-    "crazycattle.html": "crazy cattle 3d",
-    "blumgiball.html": "blumgi ball",
-    "jacksmith.html": "jacksmith",
-    "gswitch.html": "g switch 3",
-    "pvz.html": "plants vs zombies pvz",
-    "basketstars.html": "basketball stars",
-    "totm.html": "tomb of the mask",
-    "breakout.html": "idle breakout",
-    "crossyroads.html": "crossy road",
-    "la2.html": "little alchemy 2",
-    "sideeffects.html": "side effects",
-    "tag.html": "tag",
-    "shogunshowdown.html": "shogun showdown",
-    "operius.html": "operius",
-    "https://harshulsilverspoon.github.io/cookieclickeriframe.html/": "cookie clicker",
-    "motox3m.html": "moto x3m",
-    "portal.html": "portal",
-    "vampire.html": "vampire survivors",
-    "leveldevil.html": "level devil",
-    "fnaf1.html": "five nights at freddys 1 fnaf",
-    "fnaf2.html": "five nights at freddys 2 fnaf",
-    "fnaf3.html": "five nights at freddys 3 fnaf",
-    "fnaf4.html": "five nights at freddys 4 fnaf",
-    "fnafucn.html": "five nights at freddys fnaf ucn ultimate custom night",
-    "fnafps.html": "five nights at freddys pizza simulator fnaf",
-    "https://harshulsilverspoon.github.io/codzombies": "call of duty zombies cod nacht",
-    "badguards.html": "bad guards",
-    "dire.html": "dire decks",
-    "bloxorz.html": "bloxorz",
-    "suika.html": "suika watermelon game",
-    "frontwars.html": "front wars",
-    "antimatter.html": "antimatter dimensions",
-    "snowrider.html": "snow rider 3d",
-    "gunmayhem.html": "gun mayhem",
-    "polytrack.html": "polytrack racing",
-    "bitlife.html": "bitlife life simulator",
-    "ageofwar.html": "age of war",
-    "ultrakillweb.html": "ultrakill",
-    "learntofly1.html": "learn to fly 1",
-    "learntofly2.html": "learn to fly 2",
-    "learntofly.html": "learn to fly 3",
-    "fireboy.html": "fireboy and watergirl 1",
-    "fireboy2.html": "fireboy and watergirl 2",
-    "fireboy3.html": "fireboy and watergirl 3",
-    "happywheels.html": "happy wheels",
-    "hollowknight.html": "hollow knight",
-    "doom.html": "doom",
-    "cluster.html": "cluster rush",
-    "fnae.html": "five nights at epsteins epstein's fnae",
-    "worldbox.html": "worldbox god simulator",
-    "burritobison.html": "burrito bison",
-    "badtime.html": "bad time simulator sans undertale",
-    "deltarune.html": "deltarune undertale",
-    "earntodie.html": "earn to die",
-    "rocketleague.html": "rocket league",
-    "bankrobbery2.html": "bank robbery 2",
-    "spacewaves.html": "space waves geometry dash",
-    "soccerrandom.html": "soccer random",
-    "volleyrandom.html": "volley random volleyball",
-    "boxingrandom.html": "boxing random",
-    "fnf.html": "friday night funkin fnf",
-    "classof09.html": "class of 09 '09",
-    "nubbysnumberfactory.html": "nubbys number factory nubby's",
-    "isaac.html": "the binding of isaac wrath of the lamb",
-    "supersmashflash2.html": "super smash flash 2 super smash bros ssf2",
-    "papersplease.html": "papers please",
-    "diceamillion.html": "dice a million",
-    "pizzatower.html": "pizza tower",
-    "gunmayhem2.html": "gun mayhem 2",
-    "cloverpit.html": "cloverpit clover pit",
-    "celeste.html": "celeste",
-    "balatro.html": "balatro",
-    "dungeonsgambler.html": "dungeons and degenerate gamblers",
-    "5b.html": "battle for dream island again 5b bfdia 5b",
-    "osu.html": "osu!",
-    "halflife.html": "half life halflife",
-    "shapez.html": "shapez.io",
-    "feedthevoid.html": "feed the void",
-    "peopleplayground.html": "people playground",
-    "geometrydash.html": "geometry dash",
-    "repo.html": "repo r.e.p.o",
-    "statetris-europe.html": "statetris europe tetris",
-    "fearandhunger.html": "fear and hunger",
-    "silksong.html": "hollow knight silksong",
-    "yomihustle.html": "your only move is hustle yomi hustle",
-    "ducklife1.html": "ducklife 1",
-    "ducklife2.html": "ducklife 2",
-    "ducklife3.html": "ducklife 3",
-    "ducklife4.html": "ducklife 4",
-    "sonicexe.html": "sonic exe sonic.exe",
-    "ultrapool.html": "ultrapool ultra pool",
-};
+/* ---------- SEARCH SYSTEM ---------- */
 
 const searchInput = document.getElementById("game-search");
 
