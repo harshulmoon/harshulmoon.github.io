@@ -127,4 +127,5 @@ const gameNames = {
     "ducklife4.html": "ducklife 4 duck life",
     "sonicexe.html": "sonic exe sonic.exe",
     "ultrapool.html": "ultrapool ultra pool"
+    "baseballbros.html": "baseball bros!"
 };
