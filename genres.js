@@ -127,7 +127,7 @@ const gameGenres = {
     "iframes/ducklife4.html": ["simulation", "sports"],
     "iframes/sonicexe.html": ["horror", "platformer"],
     "iframes/ultrapool.html": ["sports", "arcade"],
-    "iframes/baseballbros.html": ["sports"]
-    "iframes/timeshooter2.html": ["fps"]
+    "iframes/baseballbros.html": ["sports"],
+    "iframes/timeshooter2.html": ["fps"],
     "iframes/timeshooter3.html": ["fps"]
 };
