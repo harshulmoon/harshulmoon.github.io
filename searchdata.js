@@ -77,6 +77,7 @@ const gameNames = {
     "learntofly1.html": "learn to fly 1",
     "learntofly2.html": "learn to fly 2",
     "learntofly.html": "learn to fly 3",
+    "learntoflyidle.html": "learn to fly idle",
     "fireboy.html": "fireboy and watergirl 1",
     "fireboy2.html": "fireboy and watergirl 2",
     "fireboy3.html": "fireboy and watergirl 3",
