@@ -127,4 +127,5 @@ const gameGenres = {
     "ducklife4.html": ["simulation", "sports"],
     "sonicexe.html": ["horror", "platformer"],
     "ultrapool.html": ["sports", "arcade"]
+    "baseballbros.html": ["sports"]
 };
