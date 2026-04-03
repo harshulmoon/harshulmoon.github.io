@@ -127,7 +127,7 @@ const gameNames = {
     "iframes/ducklife4.html": "ducklife 4 duck life",
     "iframes/sonicexe.html": "sonic exe sonic.exe",
     "iframes/ultrapool.html": "ultrapool ultra pool",
-    "iframes/baseballbros.html": "baseball bros!"
-    "iframes/timeshooter2.html": "time shooter 2"
+    "iframes/baseballbros.html": "baseball bros!",
+    "iframes/timeshooter2.html": "time shooter 2",
     "iframes/timeshooter3.html": "time shooter 3 swat"
 };
