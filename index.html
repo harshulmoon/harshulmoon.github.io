@@ -160,7 +160,7 @@ function filterByGenre(genre) {
         'simulation': '🎮 Simulation',
         'platformer': '🏃 Platformer',
         'music': '🎵 Music',
-        'shooter': '🔫 Shooter'
+        'fps': '🔫 FPS'
     };
     
     document.getElementById('genreBtn').innerHTML = `${genreNames[genre] || '🎮 Genres'} ▼`;
@@ -495,6 +495,7 @@ toggle.onchange = () => {
     <button class="genre-btn" onclick="filterByGenre('action')">💥 Action</button>
     <button class="genre-btn" onclick="filterByGenre('arcade')">👾 Arcade</button>
     <button class="genre-btn" onclick="filterByGenre('puzzle')">🧩 Puzzle</button>
+    <button class="genre-btn" onclick="filterByGenre('fps')">🔫 FPS</button>
     <button class="genre-btn" onclick="filterByGenre('racing')">🏎️ Racing</button>
     <button class="genre-btn" onclick="filterByGenre('multiplayer')">👥 Multiplayer</button>
     <button class="genre-btn" onclick="filterByGenre('roguelike')">🎲 Roguelike</button>
@@ -506,7 +507,6 @@ toggle.onchange = () => {
     <button class="genre-btn" onclick="filterByGenre('platformer')">🏃 Platformer</button>
     <button class="genre-btn" onclick="filterByGenre('idle')">⏰ Idle</button>
     <button class="genre-btn" onclick="filterByGenre('music')">🎵 Music</button>
-    <button class="genre-btn" onclick="filterByGenre('shooter')">🔫 Shooter</button>
   </div>
 </div>
  
