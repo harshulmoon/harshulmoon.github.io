@@ -130,5 +130,6 @@ const gameGenres = {
     "iframes/baseballbros.html": ["sports"],
     "iframes/timeshooter2.html": ["fps"],
     "iframes/timeshooter3.html": ["fps"],
-    "iframes/particleclicker.html": ["idle"]
+    "iframes/particleclicker.html": ["idle"],
+    "iframes/grindcraft.html": ["idle"]
 };
