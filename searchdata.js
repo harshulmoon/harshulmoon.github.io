@@ -130,5 +130,6 @@ const gameNames = {
     "iframes/baseballbros.html": "baseball bros!",
     "iframes/timeshooter2.html": "time shooter 2",
     "iframes/timeshooter3.html": "time shooter 3 swat",
-    "iframes/particleclicker.html": "particle clicker"
+    "iframes/particleclicker.html": "particle clicker",
+    "iframes/grindcraft.html": "grindcraft minecraft"
 };
