@@ -186,6 +186,22 @@ searchInput.addEventListener('input', () => {
     }
 });
 </script>
+
+  <!--script for random game func-->
+  <script>
+function openRandomGame() {
+    const allGames = Object.keys(gameNames);
+    const iframeGames = allGames.filter(url => url.startsWith('iframes/'));
+    
+    if (iframeGames.length === 0) {
+        alert('No games found!');
+        return;
+    }
+    
+    const randomGame = iframeGames[Math.floor(Math.random() * iframeGames.length)];
+    window.location.href = randomGame;
+}
+</script>
   
  </head>
     <body>
@@ -554,6 +570,11 @@ toggle.onchange = () => {
     <button class="genre-btn" onclick="filterByGenre('music')">🎵 Music</button>
   </div>
 </div>
+
+<!-- Random Game Button -->
+<button id="randomGameBtn" onclick="openRandomGame()" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+  🎲 Random Game
+</button>
  
 </div>
 
