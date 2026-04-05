@@ -80,17 +80,39 @@ window.addEventListener('appinstalled', () => {
     <!---Desktop Script App end-->
 
   <!--script for random game func-->
-  <script>
+<script>
 function openRandomGame() {
-    const allGames = Object.keys(gameNames);
-    const iframeGames = allGames.filter(url => url.startsWith('iframes/'));
+    // Check if gameNames exists
+    if (typeof gameNames === 'undefined') {
+        console.error('searchdata.js not loaded yet!');
+        alert('Loading games... try again in a moment');
+        return;
+    }
     
-    if (iframeGames.length === 0) {
+    const allGames = Object.keys(gameNames);
+    
+    // Filter OUT non-game pages (about.html, contact.html, etc.)
+    const excludePages = [
+        'about.html',
+        'contact.html',
+        'servers.html',
+        'sandstone.html',
+        'index.html'
+    ];
+    
+    // Only include games (anything in searchdata.js that's NOT in excludePages)
+    const gamePages = allGames.filter(url => {
+        // Get just the filename (in case it has iframes/ prefix)
+        const filename = url.split('/').pop();
+        return !excludePages.includes(filename);
+    });
+    
+    if (gamePages.length === 0) {
         alert('No games found!');
         return;
     }
     
-    const randomGame = iframeGames[Math.floor(Math.random() * iframeGames.length)];
+    const randomGame = gamePages[Math.floor(Math.random() * gamePages.length)];
     window.location.href = randomGame;
 }
 </script>
