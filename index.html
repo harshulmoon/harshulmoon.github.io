@@ -200,6 +200,58 @@ searchInput.addEventListener('input', () => {
                    </style>
 
 
+
+<!-- Changelog Popup -->
+<div id="changelog-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; backdrop-filter: blur(5px);">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border-radius: 20px; padding: 30px; max-width: 600px; width: 90%; box-shadow: 0 0 60px rgba(18, 135, 250, 0.8); border: 2px solid rgba(18, 135, 250, 0.5);">
+        
+        <!-- Title -->
+        <h1 style="color: white; font-family: monospace; margin: 0 0 20px 0; text-align: center; font-size: 28px; text-shadow: 0 0 10px rgba(18, 135, 250, 1);">
+            📰 What's New
+        </h1>
+        
+        <!-- Changelog Content -->
+        <div style="color: #ccc; font-family: monospace; font-size: 14px; line-height: 1.8; max-height: 400px; overflow-y: auto; padding-right: 10px;">
+            <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word;">
+<span style="color: #1287fa;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+<span style="color: #4CAF50;">✨ Latest Update</span>
+
+• Added <b>Dungeons and Degenerate Gamblers</b>
+• Added <b>Pokemon Soul Silver</b>
+• Fixed <b>App Download Function</b>
+• Fixed <b>Pizza Tower</b>
+• Fixed <b>Dice A Million</b>
+• Added <b>Learn to Fly 1</b> & <b>2</b>
+
+<span style="color: #1287fa;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+<span style="color: #FF9800;">🔧 Recent Improvements</span>
+
+• Genre filter system added
+• Search functionality enhanced
+• Favorites system improved
+• Custom backgrounds now supported
+• PWA install feature working
+
+<span style="color: #1287fa;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+<span style="color: #9C27B0;">📊 Site Stats</span>
+
+Games: 150+  |  Genres: 14  |  100% Ad-Free
+
+<span style="color: #1287fa;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+            </pre>
+        </div>
+        
+        <!-- Close Button -->
+        <button id="close-changelog" style="margin-top: 20px; width: 100%; padding: 12px; background: linear-gradient(135deg, #1287fa, #0a5bbf); color: white; border: none; border-radius: 10px; font-family: monospace; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 20px rgba(18, 135, 250, 0.5);">
+            ✅ Got it!
+        </button>
+    </div>
+</div>
+     
+<!---End Changelog-->
         
 <div data-nosnippet>
      <pre data-nosnippet>
@@ -218,6 +270,36 @@ searchInput.addEventListener('input', () => {
 </div>
 
 
+<style>
+/* Scrollbar styling for changelog */
+#changelog-popup div::-webkit-scrollbar {
+    width: 8px;
+}
+
+#changelog-popup div::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border-radius: 10px;
+}
+
+#changelog-popup div::-webkit-scrollbar-thumb {
+    background: #1287fa;
+    border-radius: 10px;
+}
+
+#changelog-popup div::-webkit-scrollbar-thumb:hover {
+    background: #0a5bbf;
+}
+
+#close-changelog:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(18, 135, 250, 0.8);
+}
+
+#close-changelog:active {
+    transform: scale(0.95);
+}
+</style>
+     
      
         <style>      
        
@@ -512,6 +594,36 @@ toggle.onchange = () => {
  
 </div>
 
+
+     <!---Popup Script-->
+<script>
+// Show popup on first visit or when changelog updates
+const CHANGELOG_VERSION = "2025-01-15"; // Update this when you change the changelog
+
+window.addEventListener('load', function() {
+    const lastSeen = localStorage.getItem('lastChangelogVersion');
+    
+    if (lastSeen !== CHANGELOG_VERSION) {
+        document.getElementById('changelog-popup').style.display = 'block';
+    }
+    
+    document.getElementById('close-changelog').onclick = function() {
+        document.getElementById('changelog-popup').style.display = 'none';
+        localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
+    };
+    
+    // Close on background click
+    document.getElementById('changelog-popup').onclick = function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
+        }
+    };
+});
+</script>
+
+
+     
   <!---Script for running Custom Background--->
 <script>
   // Apply saved custom background on page load, or keep the default
