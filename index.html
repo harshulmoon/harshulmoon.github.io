@@ -79,7 +79,21 @@ window.addEventListener('appinstalled', () => {
 </script>
     <!---Desktop Script App end-->
 
-
+  <!--script for random game func-->
+  <script>
+function openRandomGame() {
+    const allGames = Object.keys(gameNames);
+    const iframeGames = allGames.filter(url => url.startsWith('iframes/'));
+    
+    if (iframeGames.length === 0) {
+        alert('No games found!');
+        return;
+    }
+    
+    const randomGame = iframeGames[Math.floor(Math.random() * iframeGames.length)];
+    window.location.href = randomGame;
+}
+</script>
   
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EGS121JE4W"></script>
@@ -185,22 +199,6 @@ searchInput.addEventListener('input', () => {
         wrappers.forEach(wrapper => wrapper.style.display = '');
     }
 });
-</script>
-
-  <!--script for random game func-->
-  <script>
-function openRandomGame() {
-    const allGames = Object.keys(gameNames);
-    const iframeGames = allGames.filter(url => url.startsWith('iframes/'));
-    
-    if (iframeGames.length === 0) {
-        alert('No games found!');
-        return;
-    }
-    
-    const randomGame = iframeGames[Math.floor(Math.random() * iframeGames.length)];
-    window.location.href = randomGame;
-}
 </script>
   
  </head>
