@@ -131,5 +131,6 @@ const gameGenres = {
     "iframes/timeshooter2.html": ["fps"],
     "iframes/timeshooter3.html": ["fps"],
     "iframes/particleclicker.html": ["idle"],
-    "iframes/grindcraft.html": ["idle"]
+    "iframes/grindcraft.html": ["idle"],
+    "iframes/oneshot.html": ["rpg", "puzzle"]
 };
