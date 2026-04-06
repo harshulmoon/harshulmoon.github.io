@@ -134,4 +134,5 @@ const gameNames = {
     "iframes/grindcraft.html": "grindcraft minecraft",
     "iframes/oneshot.html": "oneshot",
     "iframes/batim.html": "bendy and the ink machine batim"
+    "iframes/adarkroom.html": "a dark room adr",
 };
