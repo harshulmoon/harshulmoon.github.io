@@ -137,4 +137,5 @@ const gameGenres = {
     "iframes/batim.html": ["rpg", "adventure", "horror", "action"],
     "iframes/adarkroom.html": ["idle"],
     "iframes/undertale.html": ["rpg"],
+    "iframes/adventurecapitalist.html": ["idle"],
 };
