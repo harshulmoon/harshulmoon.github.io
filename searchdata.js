@@ -40,6 +40,7 @@ const gameNames = {
     "iframes/jacksmith.html": "jacksmith",
     "iframes/gswitch.html": "g switch 3",
     "iframes/pvz.html": "plants vs zombies pvz",
+    "iframes/pvz2.html": "plants vs zombies 2 gardenless pvz2",
     "iframes/basketstars.html": "basketball stars",
     "iframes/totm.html": "tomb of the mask",
     "iframes/breakout.html": "idle breakout",
