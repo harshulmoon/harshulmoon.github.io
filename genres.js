@@ -133,5 +133,6 @@ const gameGenres = {
     "iframes/particleclicker.html": ["idle"],
     "iframes/grindcraft.html": ["idle"],
     "iframes/oneshot.html": ["rpg", "puzzle"],
-    "iframes/batim.html": ["rpg", "adventure", "horror", "action"]
+    "iframes/batim.html": ["rpg", "adventure", "horror", "action"],
+    "iframes/adarkroom.html": ["idle"],
 };
