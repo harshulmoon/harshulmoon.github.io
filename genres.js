@@ -40,6 +40,7 @@ const gameGenres = {
     "iframes/jacksmith.html": ["strategy", "simulation"],
     "iframes/gswitch.html": ["arcade", "platformer", "multiplayer"],
     "iframes/pvz.html": ["strategy", "action"],
+    "iframes/pvz2.html": ["strategy", "action"],
     "iframes/basketstars.html": ["sports", "arcade"],
     "iframes/totm.html": ["arcade", "action"],
     "iframes/breakout.html": ["idle", "arcade"],
