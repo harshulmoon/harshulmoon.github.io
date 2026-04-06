@@ -138,4 +138,5 @@ const gameGenres = {
     "iframes/adarkroom.html": ["idle"],
     "iframes/undertale.html": ["rpg"],
     "iframes/adventurecapitalist.html": ["idle"],
+    "iframes/baldi.html": ["horror"],
 };
