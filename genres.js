@@ -135,4 +135,5 @@ const gameGenres = {
     "iframes/oneshot.html": ["rpg", "puzzle"],
     "iframes/batim.html": ["rpg", "adventure", "horror", "action"],
     "iframes/adarkroom.html": ["idle"],
+    "iframes/undertale.html": ["rpg"],
 };
