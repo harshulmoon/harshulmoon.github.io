@@ -133,6 +133,7 @@ const gameNames = {
     "iframes/particleclicker.html": "particle clicker",
     "iframes/grindcraft.html": "grindcraft minecraft",
     "iframes/oneshot.html": "oneshot",
-    "iframes/batim.html": "bendy and the ink machine batim"
+    "iframes/batim.html": "bendy and the ink machine batim",
     "iframes/adarkroom.html": "a dark room adr",
+    "iframes/undertale.html": "undertale",
 };
