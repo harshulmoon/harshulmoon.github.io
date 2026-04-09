@@ -139,4 +139,5 @@ const gameGenres = {
     "iframes/undertale.html": ["rpg"],
     "iframes/adventurecapitalist.html": ["idle"],
     "iframes/baldi.html": ["horror"],
+    "iframes/undertaleyellow.html": ["rpg"],
 };
