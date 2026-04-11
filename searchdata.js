@@ -140,4 +140,6 @@ const gameNames = {
     "iframes/adventurecapitalist.html": "adventure capitalist",
     "iframes/baldi.html": "baldi's basics plus baldis basic plus",
     "iframes/undertaleyellow.html": "undertale yellow",
+    "iframes/ihavenomouth.html": "i have no mouth and i must scream ihnmaims",
+    "iframes/eggycar.html": "eggy car",
 };
