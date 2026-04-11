@@ -140,4 +140,6 @@ const gameGenres = {
     "iframes/adventurecapitalist.html": ["idle"],
     "iframes/baldi.html": ["horror"],
     "iframes/undertaleyellow.html": ["rpg"],
+    "iframes/ihavenomouth.html": ["horror", "rpg", "puzzle"],
+    "iframes/eggycar.html": ["arcade"],
 };
