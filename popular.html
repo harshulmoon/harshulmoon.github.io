@@ -30,12 +30,12 @@ applyBrandMode();
         }
 
         :root {
-            --primary-orange: #c27c15;
-            --primary-orange-rgb: 194, 124, 21;
+            --primary-orange: #1e90ff;
+            --primary-orange-rgb: 30, 144, 255;
             --dark-bg: #0a0a0a;
             --light-text: #f6f4ef;
             --gray-text: #b5b0a6;
-            --accent-orange: #f2ab34;
+            --accent-orange: #4169e1;
         }
 
         body {
@@ -51,7 +51,14 @@ applyBrandMode();
             inset: 0;
             z-index: -1;
             overflow: hidden;
-            background: radial-gradient(circle at center, #0b1218 0%, #05070b 65%, #040507 100%);
+            background: url('resources/background.webp') center/cover no-repeat;
+        }
+
+        #background-root::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.7);
         }
 
         #background-glow {
@@ -86,7 +93,7 @@ applyBrandMode();
             width: 28px;
             height: 28px;
             background: rgba(var(--primary-orange-rgb), 0.25);
-            border-color: rgba(230, 149, 0, 0.8);
+            border-color: rgba(65, 105, 225, 0.8);
         }
 
         .container {
@@ -108,6 +115,7 @@ applyBrandMode();
             filter: drop-shadow(0 0 6px rgba(var(--primary-orange-rgb), 0.4));
             transition: transform 0.22s ease, filter 0.22s ease;
             margin-bottom: 15px;
+            font-size: 60px;
         }
 
         .logo:hover {
@@ -299,6 +307,7 @@ applyBrandMode();
 
             .logo {
                 height: 60px;
+                font-size: 40px;
             }
         }
     </style>
@@ -313,8 +322,8 @@ applyBrandMode();
 
     <div class="container">
         <header>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23c27c15' rx='12'/%3E%3Ctext x='50%25' y='50%25' font-size='40' fill='%230a0a0a' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3ECP%3C/text%3E%3C/svg%3E" alt="Logo" class="logo">
-            <h1>Cyber Portal</h1>
+            <div class="logo">🔥</div>
+            <h1>Popular</h1>
             <p class="subtitle">Your Gateway to the Digital Realm</p>
         </header>
 
@@ -322,21 +331,21 @@ applyBrandMode();
             <h2>Featured Content</h2>
             <div class="grid">
                 <div class="card">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Alpha%3C/text%3E%3C/svg%3E" alt="Project 1" class="card-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%231e90ff' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Alpha%3C/text%3E%3C/svg%3E" alt="Project 1" class="card-image">
                     <h3 class="card-title">Project Alpha</h3>
                     <p class="card-desc">Explore the cutting-edge technologies that are shaping the future of digital innovation.</p>
                     <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="card">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Beta%3C/text%3E%3C/svg%3E" alt="Project 2" class="card-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%231e90ff' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Beta%3C/text%3E%3C/svg%3E" alt="Project 2" class="card-image">
                     <h3 class="card-title">Project Beta</h3>
                     <p class="card-desc">Dive into interactive experiences that push the boundaries of what's possible online.</p>
                     <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <div class="card">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Gamma%3C/text%3E%3C/svg%3E" alt="Project 3" class="card-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%231e90ff' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Gamma%3C/text%3E%3C/svg%3E" alt="Project 3" class="card-image">
                     <h3 class="card-title">Project Gamma</h3>
                     <p class="card-desc">Discover revolutionary concepts that redefine user interaction in the digital space.</p>
                     <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
@@ -344,23 +353,8 @@ applyBrandMode();
             </div>
         </section>
 
-        <section>
-            <h2>About Us</h2>
-            <p style="color: var(--light-text); line-height: 1.8; font-size: 1rem;">
-                Welcome to <span style="color: var(--primary-orange); font-weight: bold;">Cyber Portal</span>, where innovation meets design. 
-                We specialize in creating immersive digital experiences that captivate and inspire. Our mission is to push the boundaries 
-                of what's possible in web development while maintaining a focus on user experience and aesthetic excellence.
-            </p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </section>
-
         <footer>
-            <p>&copy; 2024 Cyber Portal. All rights reserved.</p>
+            <p>&copy; 2024 Popular. All rights reserved.</p>
             <p style="margin-top: 10px; font-size: 0.8rem;">Designed with <i class="fas fa-heart" style="color: var(--primary-orange);"></i> using cutting-edge web technologies</p>
         </footer>
     </div>
