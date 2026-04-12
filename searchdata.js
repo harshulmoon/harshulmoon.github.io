@@ -25,6 +25,7 @@ const gameNames = {
     "iframes/getaway.html": "getaway shootout",
     "iframes/gobdun.html": "gobdun",
     "iframes/minimetro.html": "mini metro",
+    "iframes/breaklock.html": "break lock breaklock",
     "iframes/btd4.html": "bloons tower defense 4 btd4",
     "iframes/btd5.html": "bloons tower defense 5 btd5",
     "iframes/pokemonfr.html": "pokemon fire red",
