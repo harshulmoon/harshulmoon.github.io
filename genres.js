@@ -25,6 +25,7 @@ const gameGenres = {
     "iframes/getaway.html": ["action", "multiplayer"],
     "iframes/gobdun.html": ["rpg", "action"],
     "iframes/minimetro.html": ["puzzle", "strategy"],
+    "iframes/breaklock.html": ["puzzle"],
     "iframes/btd4.html": ["strategy", "action"],
     "iframes/btd5.html": ["strategy", "action"],
     "iframes/pokemonfr.html": ["rpg", "strategy"],
