@@ -101,6 +101,7 @@ const gameGenres = {
     "iframes/boxingrandom.html": ["sports", "arcade", "multiplayer"],
     "iframes/fnf.html": ["music", "arcade"],
     "iframes/classof09.html": ["simulation", "rpg"],
+    "iframes/classof09tfs.html": ["simulation", "rpg"],
     "iframes/nubbysnumberfactory.html": ["roguelike", "arcade"],
     "iframes/isaac.html": ["action", "rpg", "horror", "roguelike"],
     "iframes/supersmashflash2.html": ["action", "arcade"],
