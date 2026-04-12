@@ -21,69 +21,384 @@ function applyBrandMode() {
 // Run on page load
 applyBrandMode();
 </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
 
-    
-<style>
-     body {
-                  background-image: url('resources/background.webp');
-                  background-repeat: no-repeat;
-                  background-attachment: fixed;
-                  background-size: 100% 100%;
-    }
-  
-     .lessons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 18px;
-      margin-top: 12px
-    }
+        :root {
+            --primary-orange: #c27c15;
+            --primary-orange-rgb: 194, 124, 21;
+            --dark-bg: #0a0a0a;
+            --light-text: #f6f4ef;
+            --gray-text: #b5b0a6;
+            --accent-orange: #f2ab34;
+        }
 
-    .lesson-card {
-      background: linear-gradient(160deg, rgba(20, 20, 20, 0.82), rgba(10, 10, 10, 0.78));
-      border: 1px solid rgba(var(--primary-orange-rgb), 0.48);
-      border-radius: 14px;
-      padding: 16px;
-      transition: all .3s;
-      position: relative;
-      overflow: hidden;
-      cursor: none !important
-    }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.55;
+            cursor: none !important;
+        }
 
-    .lesson-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 18px rgba(var(--primary-orange-rgb), .3);
-      border-color: var(--accent-orange)
-    }
+        #background-root {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0b1218 0%, #05070b 65%, #040507 100%);
+        }
 
-    .lesson-image {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(var(--primary-orange-rgb), .24)
-    }
+        #background-glow {
+            position: absolute;
+            inset: 0;
+            opacity: 0.55;
+            background: radial-gradient(circle at 50% 45%, rgba(var(--primary-orange-rgb), 0.18) 0%, rgba(var(--primary-orange-rgb), 0.08) 35%, transparent 70%);
+        }
 
-    .lesson-title {
-      font-size: 1.15rem;
-      color: var(--light-text);
-      margin-bottom: 6px
-    }
+        #background-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 45%, rgba(5, 7, 10, 0.86) 100%);
+        }
 
-    .lesson-desc {
-      color: var(--gray-text);
-      margin-bottom: 10px;
-      font-size: .92rem;
-      min-height: 52px
-    }
+        #custom-cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 999999;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease, transform 0.12s, width 0.15s, height 0.15s;
+            background: rgba(var(--primary-orange-rgb), 0.15);
+            border: 1px solid rgba(var(--primary-orange-rgb), 0.5);
+            box-shadow: 0 0 12px rgba(var(--primary-orange-rgb), 0.3);
+            opacity: 1;
+        }
 
-                   </style>
-  </head>
+        #custom-cursor.hover {
+            width: 28px;
+            height: 28px;
+            background: rgba(var(--primary-orange-rgb), 0.25);
+            border-color: rgba(230, 149, 0, 0.8);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(var(--primary-orange-rgb), 0.55);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            height: 90px;
+            border-radius: 12px;
+            filter: drop-shadow(0 0 6px rgba(var(--primary-orange-rgb), 0.4));
+            transition: transform 0.22s ease, filter 0.22s ease;
+            margin-bottom: 15px;
+        }
+
+        .logo:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 20px rgba(var(--primary-orange-rgb), 0.9));
+        }
+
+        h1 {
+            color: var(--primary-orange);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(var(--primary-orange-rgb), 0.6);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray-text);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        section {
+            margin: 28px 0;
+            padding: 24px;
+            background: linear-gradient(145deg, rgba(24, 24, 24, 0.62), rgba(11, 11, 11, 0.5));
+            border-radius: 18px;
+            border: 1px solid rgba(var(--primary-orange-rgb), 0.33);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 15px 15px, rgba(var(--primary-orange-rgb), 0.2) 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 1;
+            z-index: 0;
+            border-radius: inherit;
+        }
+
+        section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: var(--primary-orange);
+            margin: 8px auto 24px;
+            font-size: 1.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 4px rgba(var(--primary-orange-rgb), 0.42);
+            padding: 12px 20px;
+            text-align: center;
+            background: linear-gradient(145deg, rgba(var(--primary-orange-rgb), 0.09), rgba(10, 10, 10, 0.28));
+            border: 1px solid var(--primary-orange);
+            border-radius: 12px;
+            box-shadow: 0 0 14px rgba(var(--primary-orange-rgb), 0.28);
+            max-width: 360px;
+            transition: all 0.3s;
+        }
+
+        h2:hover {
+            box-shadow: 0 0 18px rgba(var(--primary-orange-rgb), 0.42);
+            transform: translateY(-2px);
+        }
+
+        h2::before,
+        h2::after {
+            content: '[';
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px rgba(var(--primary-orange-rgb), 0.7);
+            margin-right: 10px;
+        }
+
+        h2::after {
+            content: ']';
+            margin-left: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: linear-gradient(160deg, rgba(20, 20, 20, 0.82), rgba(10, 10, 10, 0.78));
+            border: 1px solid rgba(var(--primary-orange-rgb), 0.48);
+            border-radius: 14px;
+            padding: 16px;
+            transition: all 0.3s;
+            cursor: none !important;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(var(--primary-orange-rgb), 0.3);
+            border-color: var(--accent-orange);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(var(--primary-orange-rgb), 0.24);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            color: var(--light-text);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: var(--gray-text);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: rgba(var(--primary-orange-rgb), 0.2);
+            color: var(--primary-orange);
+            border: 1px solid var(--primary-orange);
+            border-radius: 8px;
+            cursor: none !important;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: rgba(var(--primary-orange-rgb), 0.3);
+            box-shadow: 0 0 15px var(--primary-orange);
+            transform: translateY(-2px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            cursor: none !important;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-orange);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(var(--primary-orange-rgb), 0.7);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--primary-orange);
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
 <body>
-<div class="lesson-card">
-		                                                      <img src="https://raw.githubusercontent.com/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/refs/heads/master/images/414.jpg" alt="CheeseRoll" class="lesson-image ">
-		                                                      <h3 class="lesson-title">CheeseRoll</h3>
-		                                                      <p class="lesson-desc">A physics-based racing game where you chase a giant wheel of cheese down a steep, treacherous hill.</p>
-		                                                  </div>
-  
+    <div id="custom-cursor"></div>
+    
+    <div id="background-root">
+        <div id="background-glow"></div>
+        <div id="background-vignette"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23c27c15' rx='12'/%3E%3Ctext x='50%25' y='50%25' font-size='40' fill='%230a0a0a' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3ECP%3C/text%3E%3C/svg%3E" alt="Logo" class="logo">
+            <h1>Cyber Portal</h1>
+            <p class="subtitle">Your Gateway to the Digital Realm</p>
+        </header>
+
+        <section>
+            <h2>Featured Content</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Alpha%3C/text%3E%3C/svg%3E" alt="Project 1" class="card-image">
+                    <h3 class="card-title">Project Alpha</h3>
+                    <p class="card-desc">Explore the cutting-edge technologies that are shaping the future of digital innovation.</p>
+                    <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Beta%3C/text%3E%3C/svg%3E" alt="Project 2" class="card-image">
+                    <h3 class="card-title">Project Beta</h3>
+                    <p class="card-desc">Dive into interactive experiences that push the boundaries of what's possible online.</p>
+                    <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-size='24' fill='%23c27c15' text-anchor='middle' dominant-baseline='middle' font-family='Courier New'%3EProject Gamma%3C/text%3E%3C/svg%3E" alt="Project 3" class="card-image">
+                    <h3 class="card-title">Project Gamma</h3>
+                    <p class="card-desc">Discover revolutionary concepts that redefine user interaction in the digital space.</p>
+                    <a href="#" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>About Us</h2>
+            <p style="color: var(--light-text); line-height: 1.8; font-size: 1rem;">
+                Welcome to <span style="color: var(--primary-orange); font-weight: bold;">Cyber Portal</span>, where innovation meets design. 
+                We specialize in creating immersive digital experiences that captivate and inspire. Our mission is to push the boundaries 
+                of what's possible in web development while maintaining a focus on user experience and aesthetic excellence.
+            </p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Cyber Portal. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Designed with <i class="fas fa-heart" style="color: var(--primary-orange);"></i> using cutting-edge web technologies</p>
+        </footer>
+    </div>
+
+    <script>
+        // Custom cursor functionality
+        const cursor = document.getElementById('custom-cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover effect to interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .card, .logo');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
+</html>
