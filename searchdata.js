@@ -101,6 +101,7 @@ const gameNames = {
     "iframes/boxingrandom.html": "boxing random",
     "iframes/fnf.html": "friday night funkin fnf",
     "iframes/classof09.html": "class of 09 '09",
+    "iframes/classof09tfs.html": "class of 09 '09 the flip side tfs",
     "iframes/nubbysnumberfactory.html": "nubbys number factory nubby's",
     "iframes/isaac.html": "the binding of isaac wrath of the lamb",
     "iframes/supersmashflash2.html": "super smash flash 2 super smash bros ssf2",
