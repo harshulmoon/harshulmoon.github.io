@@ -43,7 +43,6 @@ applyBrandMode();
             color: var(--light-text);
             overflow-x: hidden;
             line-height: 1.55;
-            cursor: none !important;
         }
 
         #background-root {
@@ -72,28 +71,6 @@ applyBrandMode();
             position: absolute;
             inset: 0;
             background: radial-gradient(ellipse at center, transparent 0%, transparent 45%, rgba(5, 7, 10, 0.86) 100%);
-        }
-
-        #custom-cursor {
-            position: fixed;
-            width: 24px;
-            height: 24px;
-            pointer-events: none;
-            z-index: 999999;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease, transform 0.12s, width 0.15s, height 0.15s;
-            background: rgba(var(--primary-orange-rgb), 0.15);
-            border: 1px solid rgba(var(--primary-orange-rgb), 0.5);
-            box-shadow: 0 0 12px rgba(var(--primary-orange-rgb), 0.3);
-            opacity: 1;
-        }
-
-        #custom-cursor.hover {
-            width: 28px;
-            height: 28px;
-            background: rgba(var(--primary-orange-rgb), 0.25);
-            border-color: rgba(65, 105, 225, 0.8);
         }
 
         .container {
@@ -149,24 +126,6 @@ applyBrandMode();
             overflow: hidden;
         }
 
-        /* REMOVED - Dotted pattern overlay */
-        /*
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle at 15px 15px, rgba(var(--primary-orange-rgb), 0.2) 2px, transparent 2px);
-            background-size: 30px 30px;
-            opacity: 1;
-            z-index: 0;
-            border-radius: inherit;
-        }
-        */
-
         section > * {
             position: relative;
             z-index: 1;
@@ -220,7 +179,7 @@ applyBrandMode();
             border-radius: 14px;
             padding: 16px;
             transition: all 0.3s;
-            cursor: none !important;
+            cursor: pointer;
         }
 
         .card:hover {
@@ -256,7 +215,7 @@ applyBrandMode();
             color: var(--primary-orange);
             border: 1px solid var(--primary-orange);
             border-radius: 8px;
-            cursor: none !important;
+            cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
             text-decoration: none;
@@ -281,7 +240,7 @@ applyBrandMode();
             color: var(--primary-orange);
             font-size: 1.5rem;
             transition: all 0.3s;
-            cursor: none !important;
+            cursor: pointer;
         }
 
         .social-icons a:hover {
@@ -316,8 +275,6 @@ applyBrandMode();
     </style>
 </head>
 <body>
-    <div id="custom-cursor"></div>
-    
     <div id="background-root">
         <div id="background-glow"></div>
         <div id="background-vignette"></div>
@@ -360,27 +317,6 @@ applyBrandMode();
     </div>
 
     <script>
-        // Custom cursor functionality
-        const cursor = document.getElementById('custom-cursor');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Add hover effect to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .card, .logo');
-        
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-            });
-        });
-
         // Smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
