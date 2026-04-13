@@ -60,6 +60,7 @@ const gameGenres = {
     "iframes/fnaf2.html": ["horror", "action"],
     "iframes/fnaf3.html": ["horror", "action"],
     "iframes/fnaf4.html": ["horror", "action"],
+    "iframes/fnafsl.html": ["horror", "action"],
     "iframes/fnafps.html": ["horror", "simulation"],
     "iframes/fnafucn.html": ["horror", "action"],
     "https://harshulsilverspoon.github.io/codzombies": ["fps", "horror", "action"],
@@ -144,4 +145,6 @@ const gameGenres = {
     "iframes/undertaleyellow.html": ["rpg"],
     "iframes/ihavenomouth.html": ["horror", "rpg", "puzzle"],
     "iframes/eggycar.html": ["arcade"],
+    "iframes/ragdollhit.html": ["action"],
+    "iframes/ragdollarcade.html": ["arcade", "action"],
 };
