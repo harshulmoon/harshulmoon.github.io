@@ -149,4 +149,7 @@ const gameNames = {
     "iframes/eggycar.html": "eggy car",
     "iframes/ragdollhit.html": "ragdoll hit",
     "iframes/ragdollarcher.html": "ragdoll archer",
+    "iframes/stardew.html": "stardew valley",
+    "iframes/helltaker.html": "helltaker",
+    "iframes/miside.html": "miside",
 };
