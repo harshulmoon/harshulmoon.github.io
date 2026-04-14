@@ -149,4 +149,7 @@ const gameGenres = {
     "iframes/eggycar.html": ["arcade"],
     "iframes/ragdollhit.html": ["action"],
     "iframes/ragdollarcade.html": ["arcade", "action"],
+    "iframes/stardew.html": ["rpg"],
+    "iframes/miside.html": ["horror", "action"],
+    "iframes/helltaker.html": ["puzzle"],
 };
