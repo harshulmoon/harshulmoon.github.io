@@ -261,6 +261,7 @@ searchInput.addEventListener('input', () => {
 • Added <b style="color: white;">Super Mario 64</b>
 • Added <b style="color: white;">Basket Bros</b>
 • Added <b style="color: white;">Super Mario 63</b>
+• Added a <b style="color: white;">Live Chatroom</b>
 
             </div>
         </div>
@@ -602,6 +603,10 @@ toggle.onchange = () => {
 <button id="popularBtn" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
   🔥 Popular
 </button>
+
+ <button id="chatroomBtn" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+  🗣️ Chatroom
+</button>
 </div>
 
 
@@ -676,6 +681,12 @@ window.addEventListener('load', function() {
      <script>
 document.getElementById('popularBtn').addEventListener('click', function() {
   window.location.href = '/popular.html';
+});
+</script>
+
+          <script>
+document.getElementById('chatroomBtn').addEventListener('click', function() {
+  window.location.href = '/chatroom.html';
 });
 </script>
   
