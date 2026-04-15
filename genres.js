@@ -152,4 +152,7 @@ const gameGenres = {
     "iframes/stardew.html": ["rpg"],
     "iframes/miside.html": ["horror", "action"],
     "iframes/helltaker.html": ["puzzle"],
+    "iframes/supermario63.html": ["platformer"],
+    "iframes/supermario64.html": ["platformer"],
+    "iframes/basketbros.html": ["sports"],
 };
