@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chat Room</title>
+<html><head>
+    <title>Home|Compass</title>
+     <link rel="icon" href="/resources/download.png">
     <style>
         * {
             margin: 0;
@@ -11,7 +10,7 @@
         }
 
         body {
-            background: #0a0a0a;
+            background-image: url('resources/background.webp');
             color: #f6f4ef;
             display: flex;
             justify-content: center;
@@ -22,7 +21,7 @@
 
         .chat-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 1000px;
             background: linear-gradient(145deg, rgba(24, 24, 24, 0.9), rgba(11, 11, 11, 0.8));
             border: 1px solid #1e90ff;
             border-radius: 18px;
@@ -155,9 +154,17 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h2>🔥 Live Chat</h2>
+            <h2>Chatroom</h2>
         </div>
-        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-messages" id="chatMessages"><div class="message">
+                <span class="username">Anonymous</span>
+                <span class="timestamp">01:05 pm</span>
+                <div class="text">e</div>
+            </div><div class="message">
+                <span class="username">eee</span>
+                <span class="timestamp">01:06 pm</span>
+                <div class="text">ee</div>
+            </div></div>
         <div class="chat-input-container">
             <input type="text" id="usernameInput" class="username-input" placeholder="Username" maxlength="20">
             <input type="text" id="messageInput" class="message-input" placeholder="Type a message..." maxlength="500">
@@ -263,5 +270,6 @@
         // Update online count
         document.getElementById('onlineCount').textContent = 'Chat is live';
     </script>
-</body>
-</html>
+
+
+</body></html>
