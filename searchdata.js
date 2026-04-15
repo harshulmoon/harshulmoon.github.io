@@ -152,4 +152,7 @@ const gameNames = {
     "iframes/stardew.html": "stardew valley",
     "iframes/helltaker.html": "helltaker",
     "iframes/miside.html": "miside",
+    "iframes/supermario63.html": "super mario 63",
+    "iframes/supermario64.html": "super mario 64",
+    "iframes/basketbros.html": "basketball basket bros",
 };
