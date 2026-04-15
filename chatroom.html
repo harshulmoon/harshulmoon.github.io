@@ -166,38 +166,63 @@
     </div>
 
     <!-- Firebase SDK -->
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, push, onChildAdded, serverTimestamp, limitToLast, query } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDWLUjSbCBuj5SR7MoqLo46EArhz_m4INc",
-    authDomain: "chatroom-128ee.firebaseapp.com",
-    databaseURL: "https://chatroom-128ee-default-rtdb.firebaseio.com",
-    projectId: "chatroom-128ee",
-    storageBucket: "chatroom-128ee.firebasestorage.app",
-    messagingSenderId: "182268717548",
-    appId: "1:182268717548:web:3a6bc1391aa25ea6b9f8c9",
-    measurementId: "G-N8C16YX5VN"
-  };
+        // YOUR FIREBASE CONFIG HERE - REPLACE THIS!
+        const firebaseConfig = {
+          apiKey: "AIzaSyDWLUjSbCBuj5SR7MoqLo46EArhz_m4INc",
+          authDomain: "chatroom-128ee.firebaseapp.com",
+          databaseURL: "https://chatroom-128ee-default-rtdb.firebaseio.com",
+          projectId: "chatroom-128ee",
+          storageBucket: "chatroom-128ee.firebasestorage.app",
+          messagingSenderId: "182268717548",
+          appId: "1:182268717548:web:3a6bc1391aa25ea6b9f8c9",
+          measurementId: "G-N8C16YX5VN"
+        };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const messagesRef = ref(database, 'messages');
+
+        // Load last 50 messages
+        const recentMessagesQuery = query(messagesRef, limitToLast(50));
 
         // Listen for new messages
-        onChildAdded(messagesRef, (snapshot) => {
+        onChildAdded(recentMessagesQuery, (snapshot) => {
             const message = snapshot.val();
             displayMessage(message);
         });
 
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Display message function
+        function displayMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const time = message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
+
+            messageDiv.innerHTML = `
+                <span class="username">${escapeHtml(message.username)}</span>
+                <span class="timestamp">${time}</span>
+                <div class="text">${escapeHtml(message.text)}</div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
         // Send message function
-        window.sendMessage = function() {
+        function sendMessage() {
             const usernameInput = document.getElementById('usernameInput');
             const messageInput = document.getElementById('messageInput');
             
@@ -213,32 +238,10 @@
             });
 
             messageInput.value = '';
-        };
-
-        // Display message function
-        function displayMessage(message) {
-            const messagesDiv = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-
-            const time = message.timestamp ? new Date(message.timestamp).toLocaleTimeString() : '';
-
-            messageDiv.innerHTML = `
-                <span class="username">${escapeHtml(message.username)}:</span>
-                <span class="timestamp">${time}</span>
-                <div class="text">${escapeHtml(message.text)}</div>
-            `;
-
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        // Escape HTML to prevent XSS
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        // Make sendMessage available globally
+        window.sendMessage = sendMessage;
 
         // Send message on Enter key
         document.getElementById('messageInput').addEventListener('keypress', function(e) {
@@ -246,6 +249,19 @@
                 sendMessage();
             }
         });
+
+        // Save username to localStorage
+        const savedUsername = localStorage.getItem('chatUsername');
+        if (savedUsername) {
+            document.getElementById('usernameInput').value = savedUsername;
+        }
+
+        document.getElementById('usernameInput').addEventListener('change', function(e) {
+            localStorage.setItem('chatUsername', e.target.value);
+        });
+
+        // Update online count
+        document.getElementById('onlineCount').textContent = 'Chat is live';
     </script>
 </body>
 </html>
