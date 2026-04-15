@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #f6f4ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(145deg, rgba(24, 24, 24, 0.9), rgba(11, 11, 11, 0.8));
+            border: 1px solid #1e90ff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+        }
+
+        .chat-header {
+            background: linear-gradient(145deg, rgba(30, 144, 255, 0.2), rgba(10, 10, 10, 0.5));
+            padding: 20px;
+            border-bottom: 1px solid #1e90ff;
+            text-align: center;
+        }
+
+        .chat-header h2 {
+            color: #1e90ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(30, 144, 255, 0.6);
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            background: rgba(30, 144, 255, 0.1);
+            border: 1px solid rgba(30, 144, 255, 0.3);
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .message .username {
+            color: #1e90ff;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .message .timestamp {
+            color: #b5b0a6;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .message .text {
+            color: #f6f4ef;
+            margin-top: 5px;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #1e90ff;
+            display: flex;
+            gap: 10px;
+        }
+
+        .username-input {
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #1e90ff;
+            border-radius: 8px;
+            color: #f6f4ef;
+            width: 150px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .username-input:focus {
+            border-color: #4169e1;
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #1e90ff;
+            border-radius: 8px;
+            color: #f6f4ef;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .message-input:focus {
+            border-color: #4169e1;
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+        }
+
+        .send-btn {
+            padding: 12px 24px;
+            background: rgba(30, 144, 255, 0.2);
+            color: #1e90ff;
+            border: 1px solid #1e90ff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            background: rgba(30, 144, 255, 0.3);
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(20, 20, 20, 0.5);
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #1e90ff;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #4169e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🔥 Live Chat</h2>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-container">
+            <input type="text" id="usernameInput" class="username-input" placeholder="Username" maxlength="20">
+            <input type="text" id="messageInput" class="message-input" placeholder="Type a message..." maxlength="500">
+            <button onclick="sendMessage()" class="send-btn">Send</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWLUjSbCBuj5SR7MoqLo46EArhz_m4INc",
+    authDomain: "chatroom-128ee.firebaseapp.com",
+    databaseURL: "https://chatroom-128ee-default-rtdb.firebaseio.com",
+    projectId: "chatroom-128ee",
+    storageBucket: "chatroom-128ee.firebasestorage.app",
+    messagingSenderId: "182268717548",
+    appId: "1:182268717548:web:3a6bc1391aa25ea6b9f8c9",
+    measurementId: "G-N8C16YX5VN"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+        // Listen for new messages
+        onChildAdded(messagesRef, (snapshot) => {
+            const message = snapshot.val();
+            displayMessage(message);
+        });
+
+        // Send message function
+        window.sendMessage = function() {
+            const usernameInput = document.getElementById('usernameInput');
+            const messageInput = document.getElementById('messageInput');
+            
+            const username = usernameInput.value.trim() || 'Anonymous';
+            const text = messageInput.value.trim();
+
+            if (text === '') return;
+
+            push(messagesRef, {
+                username: username,
+                text: text,
+                timestamp: serverTimestamp()
+            });
+
+            messageInput.value = '';
+        };
+
+        // Display message function
+        function displayMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const time = message.timestamp ? new Date(message.timestamp).toLocaleTimeString() : '';
+
+            messageDiv.innerHTML = `
+                <span class="username">${escapeHtml(message.username)}:</span>
+                <span class="timestamp">${time}</span>
+                <div class="text">${escapeHtml(message.text)}</div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Send message on Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
