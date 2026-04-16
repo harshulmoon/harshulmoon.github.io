@@ -155,4 +155,6 @@ const gameGenres = {
     "iframes/supermario63.html": ["platformer"],
     "iframes/supermario64.html": ["platformer"],
     "iframes/basketbros.html": ["sports"],
+    "iframes/inscryption.html": ["roguelike", "strategy", "horror"],
+    "iframes/plagueinc.html": ["simulation", "strategy"],
 };
