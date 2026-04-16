@@ -155,4 +155,6 @@ const gameNames = {
     "iframes/supermario63.html": "super mario 63",
     "iframes/supermario64.html": "super mario 64",
     "iframes/basketbros.html": "basketball basket bros",
+    "iframes/inscryption.html": "inscryption",
+    "iframes/plagueinc.html": "plague inc",
 };
