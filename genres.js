@@ -157,4 +157,6 @@ const gameGenres = {
     "iframes/basketbros.html": ["sports"],
     "iframes/inscryption.html": ["roguelike", "strategy", "horror"],
     "iframes/plagueinc.html": ["simulation", "strategy"],
+    "iframes/angrybirds.html": ["arcade", "strategy"],
+    "iframes/metalslug.html": ["action"],
 };
