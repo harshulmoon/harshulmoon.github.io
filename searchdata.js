@@ -157,4 +157,6 @@ const gameNames = {
     "iframes/basketbros.html": "basketball basket bros",
     "iframes/inscryption.html": "inscryption",
     "iframes/plagueinc.html": "plague inc",
+    "iframes/angrybirds.html": "angry birds",
+    "iframes/metalslug.html": "metal slug 3",
 };
