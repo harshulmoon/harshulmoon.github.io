@@ -367,6 +367,7 @@
         }
 
         function displayMessage(message) {
+            console.log('Message received:', JSON.stringify(message));
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
