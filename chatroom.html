@@ -1,6 +1,6 @@
 <html><head>
     <title>Home | Compass</title>
-     <link rel="icon" href="/resources/download.png">
+    <link rel="icon" href="/resources/download.png">
     <style>
         * {
             margin: 0;
@@ -77,11 +77,21 @@
             margin-top: 5px;
         }
 
+        .message .gif-img {
+            margin-top: 8px;
+            max-width: 250px;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 1px solid rgba(30, 144, 255, 0.4);
+            display: block;
+        }
+
         .chat-input-container {
             padding: 20px;
             border-top: 1px solid #1e90ff;
             display: flex;
             gap: 10px;
+            position: relative;
         }
 
         .username-input {
@@ -133,22 +143,170 @@
             transform: translateY(-2px);
         }
 
-        .chat-messages::-webkit-scrollbar {
-            width: 8px;
+        /* GIF Button */
+        .gif-btn {
+            padding: 12px 16px;
+            background: rgba(255, 80, 180, 0.15);
+            color: #ff50b4;
+            border: 1px solid #ff50b4;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            white-space: nowrap;
         }
 
-        .chat-messages::-webkit-scrollbar-track {
+        .gif-btn:hover {
+            background: rgba(255, 80, 180, 0.3);
+            box-shadow: 0 0 15px rgba(255, 80, 180, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* GIF Picker Panel */
+        .gif-picker {
+            display: none;
+            position: absolute;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            background: linear-gradient(145deg, rgba(18, 18, 18, 0.98), rgba(10, 10, 10, 0.98));
+            border: 1px solid #ff50b4;
+            border-radius: 14px;
+            box-shadow: 0 0 25px rgba(255, 80, 180, 0.35);
+            z-index: 100;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .gif-picker.open {
+            display: flex;
+        }
+
+        .gif-picker-header {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 80, 180, 0.3);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .gif-search-input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255, 80, 180, 0.5);
+            border-radius: 6px;
+            color: #f6f4ef;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .gif-search-input:focus {
+            border-color: #ff50b4;
+            box-shadow: 0 0 8px rgba(255, 80, 180, 0.3);
+        }
+
+        .gif-search-input::placeholder {
+            color: #666;
+        }
+
+        .gif-close-btn {
+            padding: 6px 10px;
+            background: transparent;
+            border: 1px solid rgba(255, 80, 180, 0.4);
+            border-radius: 6px;
+            color: #ff50b4;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .gif-close-btn:hover {
+            background: rgba(255, 80, 180, 0.2);
+        }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 10px;
+            height: 280px;
+            overflow-y: auto;
+        }
+
+        .gif-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .gif-grid::-webkit-scrollbar-track {
             background: rgba(20, 20, 20, 0.5);
         }
 
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #1e90ff;
-            border-radius: 4px;
+        .gif-grid::-webkit-scrollbar-thumb {
+            background: #ff50b4;
+            border-radius: 3px;
         }
 
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: #4169e1;
+        .gif-item {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
         }
+
+        .gif-item:hover {
+            border-color: #ff50b4;
+            box-shadow: 0 0 10px rgba(255, 80, 180, 0.5);
+            transform: scale(1.04);
+        }
+
+        .gif-picker-footer {
+            padding: 8px 12px;
+            border-top: 1px solid rgba(255, 80, 180, 0.2);
+            text-align: right;
+        }
+
+        .gif-picker-footer img {
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        .gif-picker-footer span {
+            color: #666;
+            font-size: 0.7rem;
+            vertical-align: middle;
+        }
+
+        .gif-loading, .gif-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            padding: 40px 0;
+        }
+
+        .gif-loading {
+            color: #ff50b4;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Scrollbars */
+        .chat-messages::-webkit-scrollbar { width: 8px; }
+        .chat-messages::-webkit-scrollbar-track { background: rgba(20, 20, 20, 0.5); }
+        .chat-messages::-webkit-scrollbar-thumb { background: #1e90ff; border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: #4169e1; }
     </style>
 </head>
 <body>
@@ -156,18 +314,26 @@
         <div class="chat-header">
             <h2>Chatroom</h2>
         </div>
-        <div class="chat-messages" id="chatMessages"><div class="message">
-                <span class="username">Anonymous</span>
-                <span class="timestamp">01:05 pm</span>
-                <div class="text">e</div>
-            </div><div class="message">
-                <span class="username">eee</span>
-                <span class="timestamp">01:06 pm</span>
-                <div class="text">ee</div>
-            </div></div>
+        <div class="chat-messages" id="chatMessages"></div>
+
+        <!-- GIF Picker Panel -->
+        <div class="gif-picker" id="gifPicker">
+            <div class="gif-picker-header">
+                <input type="text" id="gifSearchInput" class="gif-search-input" placeholder="Search GIFs..." />
+                <button class="gif-close-btn" onclick="closeGifPicker()">✕</button>
+            </div>
+            <div class="gif-grid" id="gifGrid">
+                <div class="gif-loading">Loading trending GIFs...</div>
+            </div>
+            <div class="gif-picker-footer">
+                <span>Powered by GIPHY</span>
+            </div>
+        </div>
+
         <div class="chat-input-container">
             <input type="text" id="usernameInput" class="username-input" placeholder="Username" maxlength="20">
             <input type="text" id="messageInput" class="message-input" placeholder="Type a message..." maxlength="500">
+            <button onclick="toggleGifPicker()" class="gif-btn">GIF</button>
             <button onclick="sendMessage()" class="send-btn">Send</button>
         </div>
     </div>
@@ -177,7 +343,6 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase, ref, push, onChildAdded, serverTimestamp, limitToLast, query } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-        // YOUR FIREBASE CONFIG HERE - REPLACE THIS!
         const firebaseConfig = {
           apiKey: "AIzaSyDWLUjSbCBuj5SR7MoqLo46EArhz_m4INc",
           authDomain: "chatroom-128ee.firebaseapp.com",
@@ -189,75 +354,76 @@
           measurementId: "G-N8C16YX5VN"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const messagesRef = ref(database, 'messages');
 
-        // Load last 50 messages
         const recentMessagesQuery = query(messagesRef, limitToLast(50));
 
-        // Listen for new messages
         onChildAdded(recentMessagesQuery, (snapshot) => {
             const message = snapshot.val();
             displayMessage(message);
         });
 
-        // Escape HTML to prevent XSS
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
-        // Display message function
         function displayMessage(message) {
             const messagesDiv = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
 
-            const time = message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
+            const time = message.timestamp
+                ? new Date(message.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                : '';
+
+            let content = '';
+            if (message.text) {
+                content += `<div class="text">${escapeHtml(message.text)}</div>`;
+            }
+            if (message.gifUrl) {
+                content += `<img class="gif-img" src="${escapeHtml(message.gifUrl)}" alt="GIF" loading="lazy" />`;
+            }
 
             messageDiv.innerHTML = `
                 <span class="username">${escapeHtml(message.username)}</span>
                 <span class="timestamp">${time}</span>
-                <div class="text">${escapeHtml(message.text)}</div>
+                ${content}
             `;
 
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        // Send message function
-        function sendMessage() {
+        function sendMessage(gifUrl = null) {
             const usernameInput = document.getElementById('usernameInput');
             const messageInput = document.getElementById('messageInput');
-            
+
             const username = usernameInput.value.trim() || 'Anonymous';
             const text = messageInput.value.trim();
 
-            if (text === '') return;
+            if (!text && !gifUrl) return;
 
-            push(messagesRef, {
-                username: username,
-                text: text,
+            const payload = {
+                username,
                 timestamp: serverTimestamp()
-            });
+            };
+            if (text) payload.text = text;
+            if (gifUrl) payload.gifUrl = gifUrl;
 
+            push(messagesRef, payload);
             messageInput.value = '';
         }
 
-        // Make sendMessage available globally
         window.sendMessage = sendMessage;
 
-        // Send message on Enter key
         document.getElementById('messageInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') sendMessage();
         });
 
-        // Save username to localStorage
         const savedUsername = localStorage.getItem('chatUsername');
         if (savedUsername) {
             document.getElementById('usernameInput').value = savedUsername;
@@ -267,9 +433,98 @@
             localStorage.setItem('chatUsername', e.target.value);
         });
 
-        // Update online count
-        document.getElementById('onlineCount').textContent = 'Chat is live';
+        // ── GIPHY Integration ──────────────────────────────────────────────
+        // ⚠️  Replace with your own key from https://developers.giphy.com
+        const GIPHY_API_KEY = 'U0f10I8Pc4dCa5Rc1nyBtfIV3tJ1wSOH';
+
+        let searchTimeout = null;
+
+        window.toggleGifPicker = function() {
+            const picker = document.getElementById('gifPicker');
+            if (picker.classList.contains('open')) {
+                closeGifPicker();
+            } else {
+                picker.classList.add('open');
+                loadTrendingGifs();
+                setTimeout(() => document.getElementById('gifSearchInput').focus(), 50);
+            }
+        };
+
+        window.closeGifPicker = function() {
+            document.getElementById('gifPicker').classList.remove('open');
+        };
+
+        async function loadTrendingGifs() {
+            const grid = document.getElementById('gifGrid');
+            grid.innerHTML = '<div class="gif-loading">Loading trending GIFs...</div>';
+            try {
+                const res = await fetch(
+                    `https://api.giphy.com/v1/gifs/trending?api_key=${GIPHY_API_KEY}&limit=24&rating=pg-13`
+                );
+                const data = await res.json();
+                renderGifs(data.data);
+            } catch (e) {
+                grid.innerHTML = '<div class="gif-empty">Failed to load GIFs.<br>Check your API key.</div>';
+            }
+        }
+
+        async function searchGifs(query) {
+            const grid = document.getElementById('gifGrid');
+            grid.innerHTML = '<div class="gif-loading">Searching...</div>';
+            try {
+                const res = await fetch(
+                    `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=24&rating=pg-13`
+                );
+                const data = await res.json();
+                if (data.data.length === 0) {
+                    grid.innerHTML = '<div class="gif-empty">No GIFs found.</div>';
+                } else {
+                    renderGifs(data.data);
+                }
+            } catch (e) {
+                grid.innerHTML = '<div class="gif-empty">Search failed.</div>';
+            }
+        }
+
+        function renderGifs(gifs) {
+            const grid = document.getElementById('gifGrid');
+            grid.innerHTML = '';
+            gifs.forEach(gif => {
+                const img = document.createElement('img');
+                // Use fixed_height_small for fast loading in the picker
+                img.src = gif.images.fixed_height_small.url;
+                img.className = 'gif-item';
+                img.alt = gif.title || 'GIF';
+                img.loading = 'lazy';
+                // Send the original (full quality) URL into the chat
+                const fullUrl = gif.images.original.url;
+                img.addEventListener('click', () => {
+                    sendMessage(fullUrl);
+                    closeGifPicker();
+                });
+                grid.appendChild(img);
+            });
+        }
+
+        document.getElementById('gifSearchInput').addEventListener('input', function(e) {
+            clearTimeout(searchTimeout);
+            const q = e.target.value.trim();
+            if (q.length === 0) {
+                loadTrendingGifs();
+            } else {
+                searchTimeout = setTimeout(() => searchGifs(q), 400);
+            }
+        });
+
+        // Close picker when clicking outside
+        document.addEventListener('click', function(e) {
+            const picker = document.getElementById('gifPicker');
+            const gifBtn = document.querySelector('.gif-btn');
+            if (picker.classList.contains('open') &&
+                !picker.contains(e.target) &&
+                e.target !== gifBtn) {
+                closeGifPicker();
+            }
+        });
     </script>
-
-
 </body></html>
