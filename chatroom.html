@@ -415,10 +415,15 @@
         // GIF messages only — completely separate path
         function sendGif(gifUrl) {
             const username = document.getElementById('usernameInput').value.trim() || 'Anonymous';
+            console.log('Sending GIF:', gifUrl);
             push(messagesRef, {
-                username,
-                gifUrl,
+                username: username,
+                gifUrl: gifUrl,
                 timestamp: serverTimestamp()
+            }).then(() => {
+                console.log('GIF saved to Firebase successfully');
+            }).catch((error) => {
+                console.error('Firebase push failed:', error);
             });
         }
 
