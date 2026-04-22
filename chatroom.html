@@ -273,11 +273,6 @@
             text-align: right;
         }
 
-        .gif-picker-footer img {
-            height: 16px;
-            opacity: 0.6;
-        }
-
         .gif-picker-footer span {
             color: #666;
             font-size: 0.7rem;
@@ -398,24 +393,33 @@
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
-        function sendMessage(gifUrl = null) {
+        // Text messages only — never touches gifUrl
+        function sendMessage() {
             const usernameInput = document.getElementById('usernameInput');
             const messageInput = document.getElementById('messageInput');
 
             const username = usernameInput.value.trim() || 'Anonymous';
             const text = messageInput.value.trim();
 
-            if (!text && !gifUrl) return;
+            if (!text) return;
 
-            const payload = {
+            push(messagesRef, {
                 username,
+                text,
                 timestamp: serverTimestamp()
-            };
-            if (text) payload.text = text;
-            if (gifUrl) payload.gifUrl = gifUrl;
+            });
 
-            push(messagesRef, payload);
             messageInput.value = '';
+        }
+
+        // GIF messages only — completely separate path
+        function sendGif(gifUrl) {
+            const username = document.getElementById('usernameInput').value.trim() || 'Anonymous';
+            push(messagesRef, {
+                username,
+                gifUrl,
+                timestamp: serverTimestamp()
+            });
         }
 
         window.sendMessage = sendMessage;
@@ -434,7 +438,6 @@
         });
 
         // ── GIPHY Integration ──────────────────────────────────────────────
-        // ⚠️  Replace with your own key from https://developers.giphy.com
         const GIPHY_API_KEY = 'U0f10I8Pc4dCa5Rc1nyBtfIV3tJ1wSOH';
 
         let searchTimeout = null;
@@ -468,12 +471,12 @@
             }
         }
 
-        async function searchGifs(query) {
+        async function searchGifs(searchQuery) {
             const grid = document.getElementById('gifGrid');
             grid.innerHTML = '<div class="gif-loading">Searching...</div>';
             try {
                 const res = await fetch(
-                    `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=24&rating=pg-13`
+                    `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(searchQuery)}&limit=24&rating=pg-13`
                 );
                 const data = await res.json();
                 if (data.data.length === 0) {
@@ -491,15 +494,14 @@
             grid.innerHTML = '';
             gifs.forEach(gif => {
                 const img = document.createElement('img');
-                // Use fixed_height_small for fast loading in the picker
                 img.src = gif.images.fixed_height_small.url;
                 img.className = 'gif-item';
                 img.alt = gif.title || 'GIF';
                 img.loading = 'lazy';
-                // Send the original (full quality) URL into the chat
-                const fullUrl = gif.images.original.url;
-                img.addEventListener('click', () => {
-                    sendMessage(fullUrl);
+                const fullUrl = `https://media.giphy.com/media/${gif.id}/giphy.gif`;
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation(); // prevent bubbling to document click listener
+                    sendGif(fullUrl);
                     closeGifPicker();
                 });
                 grid.appendChild(img);
