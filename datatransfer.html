@@ -1,95 +1,361 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Transfer System</title>
+    <title>Game Data Backup & Restore</title>
     <style>
-        .transfer-panel {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            font-family: Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .panel:hover {
+            transform: translateY(-5px);
+        }
+        
+        .panel h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .panel p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
         button {
-            padding: 10px 20px;
-            margin: 10px 5px;
+            padding: 14px 20px;
             font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 8px;
             border: none;
-            background: #007bff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-export {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        button:hover {
-            background: #0056b3;
+        
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
-        .import-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #ddd;
+        
+        .btn-import {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
         }
-        input[type="file"] {
-            margin: 10px 0;
+        
+        .btn-import:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            font-size: 14px;
             padding: 10px;
-            border: 2px dashed #007bff;
-            border-radius: 5px;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        input[type="file"] {
+            display: block;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
             width: 100%;
             cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
+        
+        input[type="file"]:hover {
+            border-color: #764ba2;
+            background: #f8f9ff;
+        }
+        
         .status {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
             display: none;
+            font-weight: 600;
+            animation: slideIn 0.3s ease;
         }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .success {
             background: #d4edda;
             color: #155724;
+            border: 2px solid #c3e6cb;
         }
+        
         .error {
             background: #f8d7da;
             color: #721c24;
+            border: 2px solid #f5c6cb;
         }
+        
         .info {
             background: #d1ecf1;
             color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+        }
+        
+        .data-summary {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .data-summary h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            color: #555;
+        }
+        
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        
+        .data-label {
+            font-weight: 600;
+        }
+        
+        .data-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .backup-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .backup-item {
             padding: 10px;
-            margin: 10px 0;
+            margin: 5px 0;
+            background: white;
             border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 14px;
+        }
+        
+        .restore-btn {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .restore-btn:hover {
+            background: #218838;
+        }
+        
+        @media (max-width: 768px) {
+            .panels {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .panel {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="transfer-panel">
-        <h2>🎮 Player Data Transfer</h2>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Game Data Backup & Restore</h1>
+            <p>Backup all your game progress and settings from Noah's Tutoring Hub</p>
+        </div>
         
-        <!-- EXPORT SECTION -->
-        <div class="export-section">
-            <h3>Export Your Data</h3>
-            <p>Download all your game progress and settings as a file</p>
-            <button onclick="exportAllData()">📥 Download Data File</button>
-            <div class="info">
-                💾 Your data will be saved as a .json file
+        <div class="panels">
+            <!-- EXPORT PANEL -->
+            <div class="panel">
+                <h2>📥 Export Data</h2>
+                <p>Download all your game progress, settings, and achievements as a backup file.</p>
+                
+                <div class="data-summary" id="exportSummary" style="display: none;">
+                    <h4>📊 Data Ready to Export:</h4>
+                    <div class="data-item">
+                        <span class="data-label">Games/Apps:</span>
+                        <span class="data-value" id="gamesCount">0</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Total Items:</span>
+                        <span class="data-value" id="itemsCount">0</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">File Size:</span>
+                        <span class="data-value" id="fileSize">0</span> KB
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Wallet Balance:</span>
+                        <span class="data-value" id="walletBalance">0</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-export" onclick="analyzeExport()">👁️ Preview Export</button>
+                    <button class="btn-export" onclick="exportData()">📥 Download Backup</button>
+                    <button class="btn-secondary" onclick="toggleAutoBackup()">
+                        <span id="autoBackupText">🔄 Enable Auto-Backup</span>
+                    </button>
+                </div>
+                
+                <div id="exportStatus" class="status"></div>
+            </div>
+            
+            <!-- IMPORT PANEL -->
+            <div class="panel">
+                <h2>📤 Restore Data</h2>
+                <p>Upload a backup file to restore all your game progress and settings.</p>
+                
+                <input type="file" id="importFile" accept=".json" placeholder="Select backup file...">
+                
+                <div class="data-summary" id="importSummary" style="display: none;">
+                    <h4>📦 Backup File Info:</h4>
+                    <div class="data-item">
+                        <span class="data-label">Exported:</span>
+                        <span class="data-value" id="importDate">Unknown</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Site:</span>
+                        <span class="data-value" id="importSite">Unknown</span>
+                    </div>
+                    <div class="data-item">
+                        <span class="data-label">Items:</span>
+                        <span class="data-value" id="importItemCount">0</span>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-import" onclick="previewImport()">👁️ Preview Backup</button>
+                    <button class="btn-import" onclick="importData()">📤 Restore All Data</button>
+                </div>
+                
+                <div id="importStatus" class="status"></div>
             </div>
         </div>
         
-        <!-- IMPORT SECTION -->
-        <div class="import-section">
-            <h3>Import Your Data</h3>
-            <p>Upload your previously saved data file</p>
-            <input type="file" id="importFile" accept=".json">
-            <button onclick="importFromFile()">📤 Upload & Import Data</button>
-            <div class="info">
-                ⚠️ This will replace your current data
+        <!-- AUTO-BACKUPS SECTION -->
+        <div class="panel">
+            <h2>💾 Auto-Backups</h2>
+            <p>Automatically saved backups are listed below. You can restore from any previous backup.</p>
+            
+            <div class="backup-list" id="backupList">
+                <p style="color: #999; text-align: center; padding: 20px;">No auto-backups found. Enable auto-backup to create one.</p>
             </div>
+            
+            <button class="btn-secondary" onclick="clearAllBackups()" style="width: 100%; margin-top: 10px;">
+                🗑️ Clear All Auto-Backups
+            </button>
         </div>
-        
-        <!-- Status Messages -->
-        <div id="statusMessage" class="status"></div>
     </div>
 
-    <script src="dataTransfer.js"></script>
+    <script src="data-backup.js"></script>
 </body>
 </html>
