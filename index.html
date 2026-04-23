@@ -254,11 +254,17 @@ searchInput.addEventListener('input', () => {
         <!-- Changelog Content -->
         <div style="color: #ccc; font-family: monospace; font-size: 14px; line-height: 1.8; overflow: hidden;">
             <div style="margin: 0; white-space: pre-wrap; word-wrap: break-word;">
-<span style="color: #4CAF50;">✨ Latest Update - Version 3.2a</span>
+<span style="color: #4CAF50;">Notice</span>
 
-• Added <b style="color: red;">Harshul.tv</b>
-    - Omegle.tv Clone exclusive to the site 
-• Added <b style="color: yellow;">Gifs</b> to Chatroom
+As of the 1st of May we will be switching over to
+the new domain <i>jackwleech.github.io</i>
+on the 1st of May.
+after this date all visits to harshulgoon.github.io
+will be redirected there.
+If you have any save files that you wish to download you should do that now 
+because this will be wiped during the changeover.
+This site will no longer be maintained.
+             Thank you
              
             </div>
         </div>
@@ -608,30 +614,32 @@ toggle.onchange = () => {
 </div>
 
 
-     <!---Popup Script-->
 <script>
-// Show popup on first visit or when changelog updates
-const CHANGELOG_VERSION = "3.2a"; // Update this when you change the changelog
+// Show popup every time with your button
 
 window.addEventListener('load', function() {
-    const lastSeen = localStorage.getItem('lastChangelogVersion');
+    const popup = document.getElementById('changelog-popup');
+    const closeBtn = document.getElementById('close-changelog');
     
-    if (lastSeen !== CHANGELOG_VERSION) {
-        document.getElementById('changelog-popup').style.display = 'block';
+    if (popup) {
+        popup.style.display = 'flex'; // or 'block'
     }
     
-    document.getElementById('close-changelog').onclick = function() {
-        document.getElementById('changelog-popup').style.display = 'none';
-        localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
-    };
-    
     // Close on background click
-    document.getElementById('changelog-popup').onclick = function(e) {
-        if (e.target === this) {
-            this.style.display = 'none';
-            localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
-        }
-    };
+    if (popup) {
+        popup.onclick = function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        };
+    }
+    
+    // Close on your button click
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            popup.style.display = 'none';
+        };
+    }
 });
 </script>
 
