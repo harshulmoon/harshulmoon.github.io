@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Transfer System</title>
+    <style>
+        .transfer-panel {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: #007bff;
+            color: white;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .import-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px dashed #007bff;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="transfer-panel">
+        <h2>🎮 Player Data Transfer</h2>
+        
+        <!-- EXPORT SECTION -->
+        <div class="export-section">
+            <h3>Export Your Data</h3>
+            <p>Download all your game progress and settings as a file</p>
+            <button onclick="exportAllData()">📥 Download Data File</button>
+            <div class="info">
+                💾 Your data will be saved as a .json file
+            </div>
+        </div>
+        
+        <!-- IMPORT SECTION -->
+        <div class="import-section">
+            <h3>Import Your Data</h3>
+            <p>Upload your previously saved data file</p>
+            <input type="file" id="importFile" accept=".json">
+            <button onclick="importFromFile()">📤 Upload & Import Data</button>
+            <div class="info">
+                ⚠️ This will replace your current data
+            </div>
+        </div>
+        
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status"></div>
+    </div>
+
+    <script src="dataTransfer.js"></script>
+</body>
+</html>
