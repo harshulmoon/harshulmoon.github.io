@@ -1,62 +1,80 @@
-<html>
-       <title>Have you seen this man?</title>
-  <link rel="icon" type="image/png" href="resources/download.png">
-   <style> 
-   body {
-       background-image: url(resources/about.gif);
-       font-family: "kosugi maru";
-       color: white;
-       font-size: 15px;
-       line-height: 1.2;
-       text-align: left;
-   }
-      .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-      p {
-         text-align: center;
-      }
-  </style>
-         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-       <script>
-              var count = 600;
-var defaults = {
-  origin: { y: 0.7 }
-};
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Have you seen this man?</title>
+    <link rel="icon" type="image/png" href="resources/download.png">
+    <style> 
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            background-image: url(resources/about.gif);
+            background-size: cover;
+            background-position: center;
+        }
 
-function fire(particleRatio, opts) {
-  confetti({
-    ...defaults,
-    ...opts,
-    particleCount: Math.floor(count * particleRatio)
-  });
-}
+        img {
+            max-width: 142%;
+            height: auto;
+            display: block;
+            margin-bottom: 30px;
+        }
 
-fire(0.25, {
-  spread: 26,
-  startVelocity: 55,
-});
-fire(0.2, {
-  spread: 60,
-});
-fire(0.35, {
-  spread: 100,
-  decay: 0.91,
-  scalar: 0.8
-});
-fire(0.1, {
-  spread: 120,
-  startVelocity: 25,
-  decay: 0.92,
-  scalar: 1.2
-});
-fire(0.1, {
-  spread: 120,
-  startVelocity: 45,
-});
-       </script>
+        h1 {
+            color: white;
+            font-size: 48px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <img src="resources/whoisharshul.png" alt="Who is Harshul?">
+    <h1>he's a pretty cool guy</h1>
+    
+    <script>
+        setTimeout(() => {
+            var count = 600;
+            var defaults = {
+                origin: { y: 0.7 }
+            };
 
-</html>
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+            });
+            fire(0.2, {
+                spread: 60,
+            });
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+        }, 500);
+    </script>
+
+</body></html>
