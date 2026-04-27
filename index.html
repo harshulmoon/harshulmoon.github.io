@@ -254,17 +254,13 @@ searchInput.addEventListener('input', () => {
         <!-- Changelog Content -->
         <div style="color: #ccc; font-family: monospace; font-size: 14px; line-height: 1.8; overflow: hidden;">
             <div style="margin: 0; white-space: pre-wrap; word-wrap: break-word;">
-<span style="color: #4CAF50;">Notice</span>
+<span style="color: #4CAF50;">✨ Latest Update - Version 3.4</span>
 
-As of the 1st of May we will be switching over to
-the new domain <i>jackwleech.github.io</i>
-on the 1st of May.
-after this date all visits to harshulgoon.github.io
-will be redirected there.
-If you have any save files that you wish to download you should do that now 
-because this will be wiped during the changeover.
-This site will no longer be maintained.
-             Thank you
+We have reached an agreement with Harshul Moon:
+This site will <b style="color: red;">continue</b> to run.
+No saved data will be deleted, and this site will continue to be updated and maintained.
+JackWleech.github.io will continue to be online.
+Thank you.
              
             </div>
         </div>
@@ -611,37 +607,40 @@ toggle.onchange = () => {
   🗣️ Chatroom
 </button>
 
+   <button id="omegleBtn" style="padding: 6px 14px; background-color: #1a1a1a; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(18, 135, 250, 0.3); transition: box-shadow 0.3s;">
+  📺 Omegle
+</button>
+ 
 </div>
 
 
+     <!---Popup Script-->
 <script>
-// Show popup every time with your button
+// Show popup on first visit or when changelog updates
+const CHANGELOG_VERSION = "3.4"; // Update this when you change the changelog
 
 window.addEventListener('load', function() {
-    const popup = document.getElementById('changelog-popup');
-    const closeBtn = document.getElementById('close-changelog');
+    const lastSeen = localStorage.getItem('lastChangelogVersion');
     
-    if (popup) {
-        popup.style.display = 'flex'; // or 'block'
+    if (lastSeen !== CHANGELOG_VERSION) {
+        document.getElementById('changelog-popup').style.display = 'block';
     }
+    
+    document.getElementById('close-changelog').onclick = function() {
+        document.getElementById('changelog-popup').style.display = 'none';
+        localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
+    };
     
     // Close on background click
-    if (popup) {
-        popup.onclick = function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
-        };
-    }
-    
-    // Close on your button click
-    if (closeBtn) {
-        closeBtn.onclick = function() {
-            popup.style.display = 'none';
-        };
-    }
+    document.getElementById('changelog-popup').onclick = function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            localStorage.setItem('lastChangelogVersion', CHANGELOG_VERSION);
+        }
+    };
 });
 </script>
+
 
 
      
