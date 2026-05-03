@@ -161,4 +161,6 @@ const gameGenres = {
     "iframes/plagueinc.html": ["simulation", "strategy"],
     "iframes/angrybirds.html": ["arcade", "strategy"],
     "iframes/metalslug.html": ["action"],
+    "iframes/granny.html": ["horror", "puzzle"],
+    "iframes/notmyneighbour.html": ["horror"],
 };
