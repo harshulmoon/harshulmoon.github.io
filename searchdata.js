@@ -161,4 +161,6 @@ const gameNames = {
     "iframes/plagueinc.html": "plague inc",
     "iframes/angrybirds.html": "angry birds",
     "iframes/metalslug.html": "metal slug 3",
+    "iframes/granny.html": "granny",
+    "iframes/notmyneighbour.html": "that's thats not my neighbour",
 };
