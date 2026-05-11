@@ -163,4 +163,6 @@ const gameNames = {
     "iframes/metalslug.html": "metal slug 3",
     "iframes/granny.html": "granny",
     "iframes/notmyneighbour.html": "that's thats not my neighbour",
+    "iframes/crueltysquad.html": "cruelty squad",
+    "iframes/adgac.html": "a difficult game about climbing",
 };
