@@ -163,4 +163,6 @@ const gameGenres = {
     "iframes/metalslug.html": ["action"],
     "iframes/granny.html": ["horror", "puzzle"],
     "iframes/notmyneighbour.html": ["horror"],
+    "iframes/adgac.html": ["platformer"],
+    "iframes/crueltysquad.html": ["action", "fps"],
 };
