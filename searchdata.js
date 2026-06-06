@@ -165,4 +165,6 @@ const gameNames = {
     "iframes/notmyneighbour.html": "that's thats not my neighbour",
     "iframes/crueltysquad.html": "cruelty squad",
     "iframes/adgac.html": "a difficult game about climbing",
+    "iframes/lobotomy.html": "lobotomy corporation",
+    "iframes/frickbears.html": "five nights at frickbears 3 fnaf 3",
 };
